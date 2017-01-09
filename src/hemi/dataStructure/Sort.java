@@ -28,7 +28,8 @@ public class Sort {
 
 	/**
 	 * Shellsort, using a sequence suggested by Gonnet.
-	 * 
+	 * 希尔的思想是避免大量的数据移动，通过先比较相距较远的元素，然后比较相距再近一点的元素
+	 * 以此类推，逐步向基本插入排序缩减
 	 * @param a
 	 *            an array of Comparable items.
 	 */
@@ -96,7 +97,7 @@ public class Sort {
 
 	/**
 	 * Mergesort algorithm.
-	 * 
+	 * 归并排序，二分法将数据分别排序后归并
 	 * @param a
 	 *            an array of Comparable items.
 	 */
@@ -167,7 +168,7 @@ public class Sort {
 
 	/**
 	 * Quicksort algorithm.
-	 * 
+	 * 快速排序
 	 * @param a
 	 *            an array of Comparable items.
 	 */
