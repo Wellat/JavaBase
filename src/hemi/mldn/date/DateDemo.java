@@ -57,5 +57,36 @@ public class DateDemo {
 		System.out.println(sdf1.format(date));
 		System.out.println(sdf2.format(date));		
 		
+		/*
+		 * 计算两个日期之差，结果为天数
+		 */
+		try {
+			System.out.println(DateTest.getDistanceDays("2017-01-01", "2017-10-11"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+}
+class DateTest{
+	public static long getDistanceDays(String str1,String str2) throws Exception{
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date one;
+		Date two;
+		long days=0,diff=0;
+		try{
+			one = df.parse(str1);
+			two = df.parse(str2);
+			long time1=one.getTime();
+			long time2=two.getTime();
+			diff=Math.abs(time1-time2);
+			days=diff/(1000*60*60*24);
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
+		return days;
 	}
 }
+
+

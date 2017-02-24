@@ -53,11 +53,12 @@ class Regex{
 	 */
 	public void UseString(){
 		/*
-		 * 匹配邮箱地址
+		 * 匹配邮箱地址"^\\w+(.\\w+)?@(\\w+.)+\\w{2,3}$"
 		 */
 		String[] email = {"aaa@","aa.b@qq.com","1123@163.com","113fe$@11.com","han. @sohu.com.cn","han.c@sohu.com.cn.cm.cm"};
 //		String reg = "\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}";//'\\d'表示'\d'				
 		String reg = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$";
+//		String reg = "^\\w+(.\\w+)?@(\\w+.)+\\w{2,3}$";//test
 		for(String mail:email){
 			//此处应用String类对正则的支持
 			System.out.println(mail+"\t------"+mail.matches(reg));

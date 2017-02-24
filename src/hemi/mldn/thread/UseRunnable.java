@@ -16,6 +16,7 @@ public class UseRunnable {
 //线程类
 class MyThread2 implements Runnable{
 	private String name;
+	
 	public MyThread2(String name){
 		this.name=name;
 	}
@@ -25,7 +26,7 @@ class MyThread2 implements Runnable{
 	 */
 	public void run(){
 		for(int i=0;i<10;i++){
-			System.out.println(name+"运行，i="+i);
+			System.out.println(name+"运行，i="+ i);
 		}
 	}
 }
