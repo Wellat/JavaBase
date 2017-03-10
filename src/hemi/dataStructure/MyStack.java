@@ -1,7 +1,11 @@
 package hemi.dataStructure;
 
 import java.util.Arrays;
-
+/**
+ * ∂—≈≈–Ú
+ * @author Vanguard
+ *
+ */
 public class MyStack {
 	public static void main(String[] args) {
 		int[] arr = { 5, 1, 3, 4, 1, 0, 12, 7 };

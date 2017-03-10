@@ -11,6 +11,7 @@ public class RegexDemo {
 		Regex myregex = new Regex();
 //		myregex.UsePattern();
 		myregex.UseString();
+
 	}
 }
 
@@ -46,7 +47,7 @@ class Regex{
 		System.out.println();
 		System.out.println("字符串替换：");
 		String newString = m2.replaceAll("_");//将数字替换成_
-		System.out.println(newString);
+		System.out.println(newString);		
 	}
 	/**
 	 * 使用String类
