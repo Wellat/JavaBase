@@ -9,10 +9,12 @@ public class FormatData {
 	public static int SumOfConsumer = 0;
 	public static int CostOfPerServer = 0;
 
-	public static List<Consumer> consumerList = new ArrayList<>();
+	public static List<Consumer> consumerList = new ArrayList<Consumer>();
 
 	public static int[][] bandTable;
 	public static int[][] costTable;
+
+	public static Node[] nodes;
 
 	public static void format(String[] graphContent) {
 		String[] data = graphContent.clone();
@@ -38,6 +40,19 @@ public class FormatData {
 				consumer.setNeedBand(Integer.valueOf(line[2]));
 				consumerList.add(consumer);
 			}
+		}
+		nodes = new Node[SumOfNetNode];
+		for (int i = 0; i < SumOfNetNode; i++) {
+			nodes[i] = new Node();
+			nodes[i].setId(i);
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			for (int j = 0; j < SumOfNetNode; j++) {
+				if(bandTable[i][j]!=0){
+					list.add(j);
+				}
+			}
+			nodes[i].setRelationNodes(list);
+			list = null;
 		}
 	}
 

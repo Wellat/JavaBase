@@ -1,19 +1,10 @@
 package hemi.battle.huawei;
 
+import java.util.ArrayList;
+
 public class Node {
-	private int id;
-	private boolean isVisited;
-
-	public Node(int id, boolean isVisited) {
-		super();
-		this.id = id;
-		this.isVisited = isVisited;
-	}
-
-	@Override
-	public String toString() {
-		return "Node [id=" + id + ", isVisited=" + isVisited + "]";
-	}
+	private int id = 0;
+	private ArrayList<Integer> relationNodes;
 
 	public int getId() {
 		return id;
@@ -23,12 +14,12 @@ public class Node {
 		this.id = id;
 	}
 
-	public boolean isVisited() {
-		return isVisited;
+	public ArrayList<Integer> getRelationNodes() {
+		return relationNodes;
 	}
 
-	public void setVisited(boolean isVisited) {
-		this.isVisited = isVisited;
+	public void setRelationNodes(ArrayList<Integer> relationNodes) {
+		this.relationNodes = relationNodes;
 	}
 
 }
