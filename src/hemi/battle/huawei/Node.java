@@ -22,4 +22,9 @@ public class Node {
 		this.relationNodes = relationNodes;
 	}
 
+	@Override
+	public String toString() {
+		return "Node [id=" + id + ", relationNodes=" + relationNodes + "]";
+	}
+
 }

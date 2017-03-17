@@ -22,11 +22,14 @@ public class Test {
 //		String resultFilePath = "D:\\Documents\\»ªÎªÈíÈü\\result\\test.txt";
 //		String[] input = {graphFilePath,resultFilePath};
 //		Main.main(input);
-		
+		int a=3,b=9;
+		int ecost[] = new int[a*b];
 		
 		Object[] arr = {1 ,5,-2,4,8,-9};
 //		Arrays.sort(arr);
 		System.out.println(getMinBandOfPath(arr));
+		
+		System.out.println(40%6*2);
 		
 	}
 	public static int getMinBandOfPath(Object[] path) {

@@ -4,6 +4,11 @@ public class Consumer {
 	private int id;
 	private int netNode;
 	private int needBand;
+	
+	@Override
+	public String toString() {
+		return "Consumer [id=" + id + ", netNode=" + netNode + ", needBand=" + needBand + "]";
+	}
 
 	public int getId() {
 		return id;
