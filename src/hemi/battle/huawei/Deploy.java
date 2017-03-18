@@ -1,14 +1,17 @@
 package hemi.battle.huawei;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hemi.battle.huawei.Official.Main;
 
 public class Deploy {
 	/** ------------- test main ------------- **/
 	public static void main(String[] args) {
-		String graphFilePath = "D:\\Documents\\华为软赛\\case_example\\case0.txt";
+		String graphFilePath = "D:\\Documents\\华为软赛\\case_example\\case1.txt";
 		String resultFilePath = "D:\\Documents\\华为软赛\\result\\test.txt";
 		String[] input = { graphFilePath, resultFilePath };
 		Main.main(input);
@@ -27,9 +30,9 @@ public class Deploy {
 
 	public static Node[] nodes;
 
-	public static int[] target;
+	// public static Map<Integer,Integer> target;
 	/* */
-	public static int[] nodeArray;
+	public static int[] serverIndex;
 
 	public static Container[] ppcontain;
 
@@ -39,20 +42,123 @@ public class Deploy {
 
 		format(graphContent);
 		ppcontain = new Container[SumOfNetNode];
-		target = new int[SumOfConsumer];
+		creatContainer();
+		serverIndex = sortByContainerCount();
 
-		for (int d = 0; d < SumOfConsumer; d++) {
-			target[d] = consumerList.get(d).getNetNode();
+		for (int i = 0; i < SumOfConsumer; i++) {
+			// for each container/possible server
+			Container container = ppcontain[serverIndex[i]];
+			for (int j = 0; j < 20; j++) {
+				
+				int par[] = container.getParent();
+				if (par[j] == -1)
+					break;
+				int des[] = container.getDestination();
+				ArrayList<Integer> path = new ArrayList<Integer>();
+				if (par[j] == des[j]) {
+					// use this link,update bandTable
+					path.add(serverIndex[i]);
+					path.add(des[j]);
+					
+				} else {
+					path.add(serverIndex[i]);
+					path.add(par[j]);
+					path.add(des[j]);
+				}
+				getMinBandOfPath(path)
+				int deltBand = bandTable[serverIndex[i]][des[j]];
+				Consumer consumer = findConsumerByNode(des[j]);
+				if (deltBand > consumer.getNeedBand()) {
+					deltBand = consumer.getNeedBand();
+				}
+				updateBandTable(path, deltBand);
+				nodes[des[j]].setFlag(0);
+				nodes[serverIndex[i]].setFlag(1);
+				consumer.setLeftBand(leftBand);
+			}
+
 		}
 
+		return null;//final return.
+	}
+
+	private static Consumer findConsumerByNode(int netNode) {
+		for (int i = 0; i < SumOfConsumer; i++) {
+			if (netNode == consumerList.get(i).getNetNode()) {
+				return consumerList.get(i);
+			}
+		}
+		return null;
+	}
+
+	private static void updateBandTable(ArrayList<Integer> path, int delt) {
+		for (int i = 0; i < path.size() - 1; i++) {
+			bandTable[path.get(i)][path.get(i + 1)] -= delt;
+		}
+	}
+
+	public static int getMinBandOfPath(ArrayList<Integer> path) {
+		int len = path.size();
+		int bands[] = new int[len - 1];
+		for (int i = 0; i < len - 1; i++) {
+			bands[i] = bandTable[path.get(i)][path.get(i+1)];
+		}
+		Arrays.sort(bands);
+		return bands[0];
+	}
+
+	private static int[] sortByContainerCount() {
+		int[] temp = new int[SumOfNetNode];
+		for (int i = 0; i < SumOfNetNode; i++) {
+			if (ppcontain[i] != null) {
+				temp[i] = ppcontain[i].getCount();
+			}
+		}
+		return myBubsort(temp);
+	}
+
+	/**
+	 * BubbleSort
+	 * 
+	 * @param a
+	 *            Array
+	 * @return origin index
+	 */
+	private static int[] myBubsort(int[] a) {
+		int i, j, temp = 0;
+		int len = a.length;
+		int[] out = new int[len];
+		for (int t = 0; t < len; t++) {
+			out[t] = t;
+		}
+		for (i = 0; i < len - 1; i++) {
+			for (j = 0; j < len - 1 - i; j++) {
+				if (a[j] < a[j + 1]) {
+					temp = a[j];
+					a[j] = a[j + 1];
+					a[j + 1] = temp;
+					// swap index too
+					temp = out[j];
+					out[j] = out[j + 1];
+					out[j + 1] = temp;
+				}
+			}
+		}
+		return out;
+	}
+
+	/**
+	 * count for the secondary node
+	 */
+	private static void creatContainer() {
 		/* relation node of direct node in nodeFirst */
-		for (int i = 0; i < target.length; i++) {
-			int destid = target[i];
+		for (int i = 0; i < SumOfConsumer; i++) {
+			int destid = consumerList.get(i).getNetNode();
 			Node destNode = nodes[destid];
 			for (int j = 0; j < destNode.getRelationNodes().size(); j++) {
 				int childid = destNode.getRelationNodes().get(j);
-				int des[]= creatArray(8);
-				int par[]=creatArray(10);
+				int des[] = creatArray(20);
+				int par[] = creatArray(20);
 				Container container = new Container();
 				if (ppcontain[childid] != null) {
 					container.setCount(ppcontain[childid].getCount() + 1);
@@ -62,7 +168,7 @@ public class Deploy {
 						if (des[t] == -1) {
 							des[t] = destid;
 							par[t] = destid;
-							container.setDestination(des);								
+							container.setDestination(des);
 							container.setParent(par);
 							break;
 						}
@@ -78,15 +184,15 @@ public class Deploy {
 			}
 		}
 		/* relation node of direct node in nodeSecond */
-		for (int i = 0; i < target.length; i++) {
-			int destid = target[i];
+		for (int i = 0; i < SumOfConsumer; i++) {
+			int destid = consumerList.get(i).getNetNode();
 			Node destNode = nodes[destid];
 			for (int j = 0; j < destNode.getRelationNodes().size(); j++) {
 				int parentid = destNode.getRelationNodes().get(j);
 				Node parentNode = nodes[parentid];
 				for (int m = 0; m < parentNode.getRelationNodes().size(); m++) {
-					int des[]= creatArray(8);
-					int par[]=creatArray(10);
+					int des[] = creatArray(20);
+					int par[] = creatArray(20);
 					int childid = parentNode.getRelationNodes().get(m);
 					Container container = new Container();
 					if (ppcontain[childid] != null) {
@@ -97,7 +203,7 @@ public class Deploy {
 							if (des[t] == -1) {
 								des[t] = destid;
 								par[t] = parentid;
-								container.setDestination(des);								
+								container.setDestination(des);
 								container.setParent(par);
 								break;
 							}
@@ -110,15 +216,9 @@ public class Deploy {
 						container.setDestination(des);
 					}
 					ppcontain[childid] = container;
-				}				
+				}
 			}
 		}
-
-		/* for each aim */
-		// int[] nodeArrayTemp = nodeArray.clone();
-		// int[] firstOutLinkIndex = myBubsort(nodeArrayTemp);
-
-		return null;
 	}
 
 	private static int[] creatArray(int t) {
@@ -167,36 +267,10 @@ public class Deploy {
 			nodes[i].setRelationNodes(list);
 			list = null;
 		}
-	}
-
-	/**
-	 * BubbleSort
-	 * 
-	 * @param a
-	 *            Array
-	 * @return origin index
-	 */
-	private static int[] myBubsort(int[] a) {
-		int i, j, temp = 0;
-		int len = a.length;
-		int[] out = new int[len];
-		for (int t = 0; t < len; t++) {
-			out[t] = t;
+		// mark the server node.
+		for (int i = 0; i < SumOfConsumer; i++) {
+			nodes[consumerList.get(i).getNetNode()].setFlag(1);
 		}
-		for (i = 0; i < len - 1; i++) {
-			for (j = 0; j < len - 1 - i; j++) {
-				if (a[j] < a[j + 1]) {
-					temp = a[j];
-					a[j] = a[j + 1];
-					a[j + 1] = temp;
-					// swap index too
-					temp = out[j];
-					out[j] = out[j + 1];
-					out[j + 1] = temp;
-				}
-			}
-		}
-		return out;
 	}
 
 	public static String[] outputDemo(String[] graphContent) {

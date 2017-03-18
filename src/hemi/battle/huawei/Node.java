@@ -3,8 +3,21 @@ package hemi.battle.huawei;
 import java.util.ArrayList;
 
 public class Node {
-	private int id = 0;
+	private int id;
+	private int flag;
 	private ArrayList<Integer> relationNodes;
+
+	public boolean isServer() {
+		return flag == 1;
+	}
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
 
 	public int getId() {
 		return id;
@@ -24,7 +37,6 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "Node [id=" + id + ", relationNodes=" + relationNodes + "]";
+		return "Node [id=" + id + ", flag=" + flag + ", relationNodes=" + relationNodes + "]";
 	}
-
 }
