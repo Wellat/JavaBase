@@ -11,16 +11,16 @@ public class HotAlgorithmDemo {
 		int a[] = { 2, 4, 6, 8, 10, 0, 0, 0, 0, 0 };
 		int b[] = { 1, 3, 5, 7, 9 };
 		// test.MergeArray(a, 5, b, 5);
-		test.MyBubsort(data);
+//		test.MyBubsort(data);
 		for (int i : data) {
-			System.out.print(i + "¡¢");
+			System.out.print(i + "ï¿½ï¿½");
 		}
 		System.out.println();
-		System.out.println("²éÕÒµÄÎ»ÖÃÔÚ£º" + test.binarySearch(data, 8));
+		System.out.println("ï¿½ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½ï¿½Ú£ï¿½" + test.binarySearch(data, 8));
 	}
 }
-//µ¥ÀýÄ£Ê½Àý×Ó
-//¶öººÊ½ÔÚÀà´´½¨µÄÍ¬Ê±¾ÍÒÑ¾­´´½¨ºÃÒ»¸ö¾²Ì¬µÄ¶ÔÏó¹©ÏµÍ³Ê¹ÓÃ£¬ÒÔºó²»ÔÙ¸Ä±ä£¬ËùÒÔÌìÉúÊÇÏß³Ì°²È«µÄ¡£
+//ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½à´´ï¿½ï¿½ï¿½ï¿½Í¬Ê±ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½Ä¶ï¿½ï¿½ï¿½ÏµÍ³Ê¹ï¿½Ã£ï¿½ï¿½Ôºï¿½ï¿½Ù¸Ä±ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì°ï¿½È«ï¿½Ä¡ï¿½
 class Test {
 	private Test() {}
 	private static final Test single = new Test();
@@ -29,7 +29,7 @@ class Test {
 	}
 }
 class MyFunc {
-	// ²»Ê¹ÓÃÁÙÊ±±äÁ¿½»»»Á½¸öÊý
+	// ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void funSwapTwo(int a, int b) {
 		a = a ^ b;
 		b = b ^ a;
@@ -37,7 +37,7 @@ class MyFunc {
 		System.out.println(a + " " + b);
 	}
 
-	// ÅÐ¶ÏÒ»¸öÊýÊÇ·ñÎªËØÊý
+	// ï¿½Ð¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½
 	boolean funIsPrime(int m) {
 		boolean flag = true;
 		if (m == 1) {
@@ -53,7 +53,7 @@ class MyFunc {
 		return flag;
 	}
 
-	// ºÏ²¢ÅÅÐò£¬½«Á½¸öÒÑ¾­ÅÅÐòµÄÊý×éºÏ²¢³ÉÒ»¸öÊý×é£¬ÆäÖÐÒ»¸öÊý×éÄÜÈÝÏÂÁ½¸öÊý×éµÄËùÓÐÔªËØ
+	// ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ò£¬½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
 	void MergeArray(int a[], int alen, int b[], int blen) {
 		int len = alen + blen - 1;
 		alen--;
@@ -74,45 +74,10 @@ class MyFunc {
 		}
 	}
 
-	// ¿ìËÙÅÅÐò
-	void sort(int array[], int low, int high) {
-		int i, j, choosen;
-		if (low > high)
-			return;
-		i = low;
-		j = high;
-		choosen = array[i];
-		while (i < j) {
-			while (i < j && array[j] <= choosen)
-				j--;
-			if (i < j)
-				array[i++] = array[j];
-			while (i < j && array[i] >= choosen)
-				i++;
-			if (i < j)
-				array[j--] = array[i];
-		}
-		array[i] = choosen;
-		sort(array, low, i - 1);
-		sort(array, i + 1, high);
-	}
 
-	// Ã°ÅÝÅÅÐò
-	void MyBubsort(int[] a) {
-		int i, j, temp;
-		int len = a.length;
-		for (i = 0; i < len - 1; i++) {
-			for (j = 0; j < len - 1 - i; j++) {
-				if (a[j] > a[j + 1]) {
-					temp = a[j];
-					a[j] = a[j + 1];
-					a[j + 1] = temp;
-				}
-			}
-		}
-	}
 
-	// ²åÈëÅÅÐò
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void insertSort(int[] a) {
 		for (int p = 1; p < a.length; p++) {
 			Integer tmp = a[p];
@@ -123,7 +88,7 @@ class MyFunc {
 		}
 	}
 
-	// ¶þ·Ö·¨²éÕÒ¡ª¡ªÊäÈëÎªÒÑÅÅÐòÊý×é
+	// ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int binarySearch(int[] a, int key) {
 		if (a.length < 1)
 			return -1;

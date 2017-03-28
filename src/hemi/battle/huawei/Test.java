@@ -1,43 +1,71 @@
 package hemi.battle.huawei;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 
-import hemi.battle.huawei.Official.Main;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Test {
-	public static void main(String[] args) {
-//		LinkedList<Integer> list = new LinkedList<Integer>();
-//		list.add(1);
-//		list.add(2);
-//		list.add(3);list.add(4);list.add(5);list.add(2);
-//		for(int i:list){
-//			System.out.print(i+" ");
-//		}
-//		System.out.println();
-//		System.out.println(list.getLast());
-//		System.out.println(list.getFirst());
-		
-//		String graphFilePath = "D:\\Documents\\华为软赛\\case_example\\case1.txt";
-//		String resultFilePath = "D:\\Documents\\华为软赛\\result\\test.txt";
-//		String[] input = {graphFilePath,resultFilePath};
-//		Main.main(input);
-		int a=3,b=9;
-		int ecost[] = new int[a*b];
-		
-		Object[] arr = {1 ,5,-2,4,8,-9};
-//		Arrays.sort(arr);
-		System.out.println(getMinBandOfPath(arr));
-		
-		System.out.println(40%6*2);
-		
-	}
-	public static int getMinBandOfPath(Object[] path) {
-		int min = 999;
-		for (int i = 0; i < path.length; i++) {
-			if((int) path[i]<min)
-				min = (int) path[i];			
-		}
-		return min;
-	}
+    public static int sum = 0;
+
+    public static void main(String[] args) {
+        boolean flag = true;
+        int temp;
+
+
+        ArrayList<Integer> value = new ArrayList<>();
+        while (flag)
+            change();
+        Scanner input = new Scanner(System.in);
+        while (flag) {
+            if(input.hasNextInt()){
+                temp = input.nextInt();
+                if (temp == 0) {
+                    calculate2(value);
+                    return;
+                } else {
+                    value.add(temp);
+                }
+            }
+        }
+        System.out.println("The input values is: " + value.toString());
+        if (value.size() > 10 || value.size() < 1)
+            return;
+        for (int i = 0; i < value.size(); i++) {
+            System.out.println(calculate1(value.get(i)));
+            sum = 0;
+        }
+    }
+    public static void change() {
+        String temp ;
+        Scanner input = new Scanner(System.in);
+        temp = input.next();
+        temp = temp.substring(2);
+        System.out.println(Integer.valueOf(temp,16));
+    }
+
+    public static int calculate1(int n) {
+        if (n == 2)
+            return 1;
+        if (n < 2)
+            return 0;
+        sum = sum + calculate1(n / 3 + n % 3);
+        return (sum + n / 3);
+    }
+
+    public static void calculate2(ArrayList<Integer> arr) {
+        int result[] = new int[arr.size()];
+        for (int i = 0; i < arr.size(); i++) {
+            int n = arr.get(i);
+            while (n > 1) {
+                if (n == 2) {
+                    result[i] = result[i] + 1;
+                    break;
+                } else {
+                    result[i] = result[i] + n / 3;
+                    n = n / 3 + n % 3;
+                }
+            }
+            System.out.println(result[i]);
+        }
+    }
 }

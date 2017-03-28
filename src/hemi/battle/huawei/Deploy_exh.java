@@ -9,21 +9,21 @@ import hemi.battle.huawei.Official.Main;
 
 public class Deploy_exh {
 	public static void main(String[] args) {
-		String graphFilePath = "D:\\Documents\\»ªÎªÈíÈü\\case_example\\case0.txt";
-		String resultFilePath = "D:\\Documents\\»ªÎªÈíÈü\\result\\test.txt";
+		String graphFilePath = "D:\\Documents\\åä¸ºè½¯èµ›\\case_example\\case0.txt";
+		String resultFilePath = "D:\\Documents\\åä¸ºè½¯èµ›\\result\\test.txt";
 		String[] input = { graphFilePath, resultFilePath };
 		Main.main(input);
 	}
 
-	/* ÁÙÊ±±£´æÂ·¾¶½ÚµãµÄÕ» */
+	/* ä¸´æ—¶ä¿å­˜è·¯å¾„èŠ‚ç‚¹çš„æ ˆ */
 	public static Stack<Node> stack;
-	/* ´æ´¢³õÑ¡Â·¾¶¼¯ºÏ */
+	/* å­˜å‚¨åˆé€‰è·¯å¾„é›†åˆ */
 	public static ArrayList<Object[]> sers = new ArrayList<Object[]>();
-	/* ×ª´¢Â·¾¶Êı */
+	/* è½¬å‚¨è·¯å¾„æ•° */
 	public static final int TRAIN = 20;
 
 	public static final int STACKSIZE = 7;
-	/* ±£´æ×îÖÕÂ·¾¶ */
+	/* ä¿å­˜æœ€ç»ˆè·¯å¾„ */
 	public static ArrayList<Object[]> result = new ArrayList<Object[]>();
 
 	public static int ecost[] = new int[100];
@@ -33,34 +33,34 @@ public class Deploy_exh {
 	public static int costIndex = 0;
 
 	/**
-	 * ÄãĞèÒªÍê³ÉµÄÈë¿Ú <¹¦ÄÜÏêÏ¸ÃèÊö>
-	 * 
+	 * ä½ éœ€è¦å®Œæˆçš„å…¥å£ <åŠŸèƒ½è¯¦ç»†æè¿°>
+	 *
 	 * @param graphContent
-	 *            ÓÃÀıĞÅÏ¢ÎÄ¼ş
-	 * @return [²ÎÊıËµÃ÷] Êä³ö½á¹ûĞÅÏ¢
-	 * @see [Àà¡¢Àà#·½·¨¡¢Àà#³ÉÔ±]
+	 *            ç”¨ä¾‹ä¿¡æ¯æ–‡ä»¶
+	 * @return [å‚æ•°è¯´æ˜] è¾“å‡ºç»“æœä¿¡æ¯
+	 * @see [ç±»ã€ç±»#æ–¹æ³•ã€ç±»#æˆå‘˜]
 	 */
 	public static String[] deployServer(String[] graphContent) {
 		/** do your work here **/
 		FormatData.format(graphContent);
- 		int[] index = sortNodeLinkCount(FormatData.costTable);// °´Á´Â·Êı½µĞòÅÅÁĞ
+		int[] index = sortNodeLinkCount(FormatData.costTable);// æŒ‰é“¾è·¯æ•°é™åºæ’åˆ—
 		int endid, needband;
-		//¶ÔÃ¿Ò»¸öÄ¿±ê½Úµã 
+		//å¯¹æ¯ä¸€ä¸ªç›®æ ‡èŠ‚ç‚¹
 		for (int d = 0; d < FormatData.consumerList.size(); d++) {// FormatData.consumerList.size()
 			stack = new Stack<Node>();
 			endid = FormatData.consumerList.get(d).getNetNode();
 			needband = FormatData.consumerList.get(d).getNeedBand();
-			// band = FormatData.consumerList.get(d).getNeedBand();// ËùĞè´ø¿í
-			//¶ÔÃ¿Ò»¸öÆğµã 
-			// ´Ë´¦Ôİ¶¨Æğµã¹Ì¶¨Îª3¸ö
+			// band = FormatData.consumerList.get(d).getNeedBand();// æ‰€éœ€å¸¦å®½
+			//å¯¹æ¯ä¸€ä¸ªèµ·ç‚¹
+			// æ­¤å¤„æš‚å®šèµ·ç‚¹å›ºå®šä¸º3ä¸ª
 			for (int i = 0; i < 6; i++) {
 				getPaths(FormatData.nodes[index[i]], null, FormatData.nodes[index[i]], FormatData.nodes[endid]);
 			}
-			// Á´Â·ÊıÖÚ¶à£¬ĞèÓÅÑ¡.
-			// È·¶¨×îÖÕÂ·¾¶£¨Öµ´úÈë£©£¬²¢¸üĞÂ´ø¿ítable
+			// é“¾è·¯æ•°ä¼—å¤šï¼Œéœ€ä¼˜é€‰.
+			// ç¡®å®šæœ€ç»ˆè·¯å¾„ï¼ˆå€¼ä»£å…¥ï¼‰ï¼Œå¹¶æ›´æ–°å¸¦å®½table
 			selectBestPath(sers, needband);
 		}
-		// ´òÓ¡½á¹û
+		// æ‰“å°ç»“æœ
 		showResult();
 		int sumCost = 0;
 		for(int i=0;i<ecost.length;i++){
@@ -72,17 +72,17 @@ public class Deploy_exh {
 	}
 
 	/**
-	 * È·¶¨Â·¾¶º¯Êı
-	 * 
+	 * ç¡®å®šè·¯å¾„å‡½æ•°
+	 *
 	 * @param pathList
-	 *            ´ıÑ¡Â·¾¶¼¯ºÏ
+	 *            å¾…é€‰è·¯å¾„é›†åˆ
 	 * @param needband
-	 *            ¿Í»§ËùĞè´ø¿í
+	 *            å®¢æˆ·æ‰€éœ€å¸¦å®½
 	 */
 	private static void selectBestPath(ArrayList<Object[]> pathList, int needband) {
 		int count = 0;
 		ArrayList<Object[]> pathtemp = new ArrayList<Object[]>();
-		// ×ª´¢Â·¾¶
+		// è½¬å‚¨è·¯å¾„
 		for (int i = 0; i < pathList.size() && count < TRAIN; i++) {
 			int min = getMinLenOfPaths(pathList);
 			pathtemp.add(pathList.get(min));
@@ -91,11 +91,11 @@ public class Deploy_exh {
 		}
 
 		int cband = 0;
-		// ·Ö±ğËãcost
+		// åˆ†åˆ«ç®—cost
 		for (int j = 0; j < pathtemp.size(); j++) {
 			Object[] path = pathtemp.get(j);
 			cband = getMinBandOfPath(path);
-			// Èô±¾ÌõÂ·¾¶´ø¿íÂú×ãĞèÇó¡ª¡ªÖ±½ÓËã×î¼Ñ£¬·ñÔò²ğ·Ö
+			// è‹¥æœ¬æ¡è·¯å¾„å¸¦å®½æ»¡è¶³éœ€æ±‚â€”â€”ç›´æ¥ç®—æœ€ä½³ï¼Œå¦åˆ™æ‹†åˆ†
 			if (cband >= needband) {
 				ecost[costIndex] = calculateCost(path, needband);
 				result.add(path);
@@ -126,8 +126,8 @@ public class Deploy_exh {
 	}
 
 	/**
-	 * ¼ÆËã»¨·Ñ
-	 * 
+	 * è®¡ç®—èŠ±è´¹
+	 *
 	 * @param obj
 	 * @param eachband
 	 * @return
@@ -152,8 +152,8 @@ public class Deploy_exh {
 	}
 
 	/**
-	 * ¼ÆËãÂ·¾¶¼¯ºÏµÄ×î¶ÌÂ·¾¶³¤¶È
-	 * 
+	 * è®¡ç®—è·¯å¾„é›†åˆçš„æœ€çŸ­è·¯å¾„é•¿åº¦
+	 *
 	 * @param pathList
 	 * @return
 	 */
@@ -169,11 +169,11 @@ public class Deploy_exh {
 	}
 
 	/**
-	 * ·µ»ØÂ·¾¶×îĞ¡ÉÏ´ø¿í
-	 * 
+	 * è¿”å›è·¯å¾„æœ€å°ä¸Šå¸¦å®½
+	 *
 	 * @param path
-	 *            Â·¾¶
-	 * @return ×îĞ¡´ø¿í
+	 *            è·¯å¾„
+	 * @return æœ€å°å¸¦å®½
 	 */
 	public static int getMinBandOfPath(Object[] path) {
 		int index[] = pathToArray(path);
@@ -187,44 +187,44 @@ public class Deploy_exh {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param cNode
-	 *            currentNodeµ±Ç°µÄÆğÊ¼½Úµã
+	 *            currentNodeå½“å‰çš„èµ·å§‹èŠ‚ç‚¹
 	 * @param pNode
-	 *            previousNodeµ±Ç°ÆğÊ¼½ÚµãµÄÉÏÒ»½Úµã
+	 *            previousNodeå½“å‰èµ·å§‹èŠ‚ç‚¹çš„ä¸Šä¸€èŠ‚ç‚¹
 	 * @param sNode
-	 *            startNode×î³õµÄÆğÊ¼½Úµã
+	 *            startNodeæœ€åˆçš„èµ·å§‹èŠ‚ç‚¹
 	 * @param eNode
-	 *            endNodeÖÕµã
+	 *            endNodeç»ˆç‚¹
 	 * @return
 	 */
 	public static boolean getPaths(Node cNode, Node pNode, Node sNode, Node eNode) {
 		Node nNode = null;
-		/* Èç¹û·ûºÏÌõ¼şÅĞ¶ÏËµÃ÷³öÏÖ»·Â·£¬²»ÄÜÔÙË³×Å¸ÃÂ·¾¶¼ÌĞøÑ°Â·£¬·µ»Øfalse */
+		/* å¦‚æœç¬¦åˆæ¡ä»¶åˆ¤æ–­è¯´æ˜å‡ºç°ç¯è·¯ï¼Œä¸èƒ½å†é¡ºç€è¯¥è·¯å¾„ç»§ç»­å¯»è·¯ï¼Œè¿”å›false */
 		if (cNode != null && pNode != null && cNode == pNode)
 			return false;
 
 		if (cNode != null) {
 			int i = 0;
-			/* ÆğÊ¼½ÚµãÈëÕ» */
+			/* èµ·å§‹èŠ‚ç‚¹å…¥æ ˆ */
 			stack.push(cNode);
-			/* Èç¹û¸ÃÆğÊ¼½Úµã¾ÍÊÇÖÕµã£¬ËµÃ÷ÕÒµ½Ò»ÌõÂ·¾¶ */
+			/* å¦‚æœè¯¥èµ·å§‹èŠ‚ç‚¹å°±æ˜¯ç»ˆç‚¹ï¼Œè¯´æ˜æ‰¾åˆ°ä¸€æ¡è·¯å¾„ */
 			if (cNode == eNode) {
-				/* ×ª´¢²¢´òÓ¡Êä³ö¸ÃÂ·¾¶£¬·µ»Øtrue */
+				/* è½¬å‚¨å¹¶æ‰“å°è¾“å‡ºè¯¥è·¯å¾„ï¼Œè¿”å›true */
 				if (stack.size() < STACKSIZE)
 					showAndSavePath();
 				return true;
 			}
-			/* Èç¹û²»ÊÇ,¼ÌĞøÑ°Â· */
+			/* å¦‚æœä¸æ˜¯,ç»§ç»­å¯»è·¯ */
 			else {
 				/*
-				 * ´ÓÓëµ±Ç°ÆğÊ¼½ÚµãcNodeÓĞÁ¬½Ó¹ØÏµµÄ½Úµã¼¯ÖĞ°´Ë³Ğò±éÀúµÃµ½Ò»¸ö½Úµã ×÷ÎªÏÂÒ»´Îµİ¹éÑ°Â·Ê±µÄÆğÊ¼½Úµã
+				 * ä»ä¸å½“å‰èµ·å§‹èŠ‚ç‚¹cNodeæœ‰è¿æ¥å…³ç³»çš„èŠ‚ç‚¹é›†ä¸­æŒ‰é¡ºåºéå†å¾—åˆ°ä¸€ä¸ªèŠ‚ç‚¹ ä½œä¸ºä¸‹ä¸€æ¬¡é€’å½’å¯»è·¯æ—¶çš„èµ·å§‹èŠ‚ç‚¹
 				 */
 				nNode = FormatData.nodes[FormatData.nodes[cNode.getId()].getRelationNodes().get(i)];
 				while (nNode != null) {
 					/*
-					 * Èç¹ûnNodeÊÇ×î³õµÄÆğÊ¼½Úµã»òÕßnNode¾ÍÊÇcNodeµÄÉÏÒ»½Úµã»òÕßnNodeÒÑ¾­ÔÚÕ»ÖĞ £¬ ËµÃ÷²úÉú»·Â·
-					 * £¬Ó¦ÖØĞÂÔÚÓëµ±Ç°ÆğÊ¼½ÚµãÓĞÁ¬½Ó¹ØÏµµÄ½Úµã¼¯ÖĞÑ°ÕÒnNode
+					 * å¦‚æœnNodeæ˜¯æœ€åˆçš„èµ·å§‹èŠ‚ç‚¹æˆ–è€…nNodeå°±æ˜¯cNodeçš„ä¸Šä¸€èŠ‚ç‚¹æˆ–è€…nNodeå·²ç»åœ¨æ ˆä¸­ ï¼Œ è¯´æ˜äº§ç”Ÿç¯è·¯
+					 * ï¼Œåº”é‡æ–°åœ¨ä¸å½“å‰èµ·å§‹èŠ‚ç‚¹æœ‰è¿æ¥å…³ç³»çš„èŠ‚ç‚¹é›†ä¸­å¯»æ‰¾nNode
 					 */
 					if (pNode != null && (nNode == sNode || nNode == pNode || isNodeInStack(nNode))) {
 						i++;
@@ -234,13 +234,13 @@ public class Deploy_exh {
 							nNode = FormatData.nodes[FormatData.nodes[cNode.getId()].getRelationNodes().get(i)];
 						continue;
 					}
-					/* ÒÔnNodeÎªĞÂµÄÆğÊ¼½Úµã£¬µ±Ç°ÆğÊ¼½ÚµãcNodeÎªÉÏÒ»½Úµã£¬µİ¹éµ÷ÓÃÑ°Â··½·¨ */
-					if (getPaths(nNode, cNode, sNode, eNode))/* µİ¹éµ÷ÓÃ */
+					/* ä»¥nNodeä¸ºæ–°çš„èµ·å§‹èŠ‚ç‚¹ï¼Œå½“å‰èµ·å§‹èŠ‚ç‚¹cNodeä¸ºä¸Šä¸€èŠ‚ç‚¹ï¼Œé€’å½’è°ƒç”¨å¯»è·¯æ–¹æ³• */
+					if (getPaths(nNode, cNode, sNode, eNode))/* é€’å½’è°ƒç”¨ */
 					{
-						/* Èç¹ûÕÒµ½Ò»ÌõÂ·¾¶£¬Ôòµ¯³öÕ»¶¥½Úµã */
+						/* å¦‚æœæ‰¾åˆ°ä¸€æ¡è·¯å¾„ï¼Œåˆ™å¼¹å‡ºæ ˆé¡¶èŠ‚ç‚¹ */
 						stack.pop();
 					}
-					/* ¼ÌĞøÔÚÓëcNodeÓĞÁ¬½Ó¹ØÏµµÄ½Úµã¼¯ÖĞ²âÊÔnNode */
+					/* ç»§ç»­åœ¨ä¸cNodeæœ‰è¿æ¥å…³ç³»çš„èŠ‚ç‚¹é›†ä¸­æµ‹è¯•nNode */
 					i++;
 					if (i >= cNode.getRelationNodes().size())
 						nNode = null;
@@ -248,7 +248,7 @@ public class Deploy_exh {
 						nNode = FormatData.nodes[FormatData.nodes[cNode.getId()].getRelationNodes().get(i)];
 				}
 				/*
-				 * µ±±éÀúÍêËùÓĞÓëcNodeÓĞÁ¬½Ó¹ØÏµµÄ½Úµãºó£¬ ËµÃ÷ÔÚÒÔcNodeÎªÆğÊ¼½Úµãµ½ÖÕµãµÄÂ·¾¶ÒÑ¾­È«²¿ÕÒµ½
+				 * å½“éå†å®Œæ‰€æœ‰ä¸cNodeæœ‰è¿æ¥å…³ç³»çš„èŠ‚ç‚¹åï¼Œ è¯´æ˜åœ¨ä»¥cNodeä¸ºèµ·å§‹èŠ‚ç‚¹åˆ°ç»ˆç‚¹çš„è·¯å¾„å·²ç»å…¨éƒ¨æ‰¾åˆ°
 				 */
 				stack.pop();
 				return false;
@@ -257,7 +257,7 @@ public class Deploy_exh {
 			return false;
 	}
 
-	/* ÅĞ¶Ï½ÚµãÊÇ·ñÔÚÕ»ÖĞ */
+	/* åˆ¤æ–­èŠ‚ç‚¹æ˜¯å¦åœ¨æ ˆä¸­ */
 	public static boolean isNodeInStack(Node node) {
 		Iterator<Node> it = stack.iterator();
 		while (it.hasNext()) {
@@ -268,7 +268,7 @@ public class Deploy_exh {
 		return false;
 	}
 
-	/* ´ËÊ±Õ»ÖĞµÄ½Úµã×é³ÉÒ»ÌõËùÇóÂ·¾¶£¬×ª´¢²¢´òÓ¡Êä³ö */
+	/* æ­¤æ—¶æ ˆä¸­çš„èŠ‚ç‚¹ç»„æˆä¸€æ¡æ‰€æ±‚è·¯å¾„ï¼Œè½¬å‚¨å¹¶æ‰“å°è¾“å‡º */
 	public static void showAndSavePath() {
 		Object[] o = stack.toArray();
 		for (int i = 0; i < o.length; i++) {
@@ -278,11 +278,11 @@ public class Deploy_exh {
 			else
 				System.out.print(nNode.getId());
 		}
-		sers.add(o); /* ×ª´¢ */
+		sers.add(o); /* è½¬å‚¨ */
 		System.out.println("\n");
 	}
 
-	/* ´òÓ¡½á¹û */
+	/* æ‰“å°ç»“æœ */
 	public static void showResult() {
 		for (int i = 0; i < result.size(); i++) {
 			Object[] path = result.get(i);
@@ -299,7 +299,7 @@ public class Deploy_exh {
 	}
 
 	/*
-	 * °´Á´Â·ÊıÅÅÁĞ½Úµã£¨¶à->ÉÙ£©
+	 * æŒ‰é“¾è·¯æ•°æ’åˆ—èŠ‚ç‚¹ï¼ˆå¤š->å°‘ï¼‰
 	 */
 	public static int[] sortNodeLinkCount(int[][] t) {
 		int len = t.length;
@@ -318,7 +318,7 @@ public class Deploy_exh {
 	}
 
 	/*
-	 * Ã°ÅİÅÅĞò£¬´ó->Ğ¡£¬·µ»ØÅÅĞòºóÊı×éµÄÔ­Î»ÖÃ
+	 * å†’æ³¡æ’åºï¼Œå¤§->å°ï¼Œè¿”å›æ’åºåæ•°ç»„çš„åŸä½ç½®
 	 */
 	private static int[] MyBubsort(int[] a) {
 		int i, j, temp = 0;

@@ -23,8 +23,8 @@ public class Consumer {
 		return leftBand;
 	}
 
-	public void setLeftBand(int leftBand) {
-		this.leftBand = leftBand;
+	public void setLeftBand(int deltBand) {
+		this.leftBand -= deltBand;
 	}
 
 	@Override
