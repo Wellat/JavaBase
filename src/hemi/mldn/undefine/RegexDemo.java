@@ -2,10 +2,10 @@ package hemi.mldn.undefine;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//	X,±ØĞë³öÏÖ1´Î----X?,³öÏÖ0´Î»òÒ»´Î----X*,0,1,¶à´Î----X+,³öÏÖÒ»´Î»ò¶à´Î----X{n,m},±ØĞë³öÏÖn~m´Î
-//	\d,Êı×Ö----\D,·ÇÊı×Ö
-//	\w,×ÖÄ¸Êı×ÖÏÂ»®Ïß----\W,·Ç×ÖÄ¸Êı×ÖÏÂ»®Ïß
-//	\s,ËùÓĞ¿Õ°××Ö·û£¨»»ĞĞ£¬¿Õ¸ñ£©----\S,·Ç¿Õ°××Ö·û
+//	X,å¿…é¡»å‡ºç°1æ¬¡----X?,å‡ºç°0æ¬¡æˆ–ä¸€æ¬¡----X*,0,1,å¤šæ¬¡----X+,å‡ºç°ä¸€æ¬¡æˆ–å¤šæ¬¡----X{n,m},å¿…é¡»å‡ºç°n~mæ¬¡
+//	\d,æ•°å­—----\D,éæ•°å­—
+//	\w,å­—æ¯æ•°å­—ä¸‹åˆ’çº¿----\W,éå­—æ¯æ•°å­—ä¸‹åˆ’çº¿
+//	\s,æ‰€æœ‰ç©ºç™½å­—ç¬¦ï¼ˆæ¢è¡Œï¼Œç©ºæ ¼ï¼‰----\S,éç©ºç™½å­—ç¬¦
 public class RegexDemo {
 	public static void main(String[] args){
 		Regex myregex = new Regex();
@@ -17,54 +17,54 @@ public class RegexDemo {
 
 class Regex{
 	/**
-	 * Ê¹ÓÃPatternÀàºÍMatcherÀà
+	 * ä½¿ç”¨Patternç±»å’ŒMatcherç±»
 	 */
 	public void UsePattern(){
 		/*
-		 * Æ¥ÅäÈÕÆÚ¸ñÊ½
+		 * åŒ¹é…æ—¥æœŸæ ¼å¼
 		 */
 		String str ="1983-07-24";
-		String pat = "\\d{4}-\\d{2}-\\d{2}";//'\\d'±íÊ¾'\d'
+		String pat = "\\d{4}-\\d{2}-\\d{2}";//'\\d'è¡¨ç¤º'\d'
 		Pattern p = Pattern.compile(pat);
 		Matcher m = p.matcher(str);
 		if(m.matches()){
-			System.out.println("ÈÕÆÚ¸ñÊ½ºÏ·¨£¡");
+			System.out.println("æ—¥æœŸæ ¼å¼åˆæ³•ï¼");
 		}else{
-			System.out.println("ÈÕÆÚ¸ñÊ½²»ºÏ·¨£¡");
+			System.out.println("æ—¥æœŸæ ¼å¼ä¸åˆæ³•ï¼");
 		}
 		/*
-		 * ×Ö·û´®²ğ·ÖÓëÌæ»»
+		 * å­—ç¬¦ä¸²æ‹†åˆ†ä¸æ›¿æ¢
 		 */
 		String str2 = "A1B22C333D4444E55555F6";
 		String pat2 = "\\d+";
 		Pattern p2 = Pattern.compile(pat2);
 		Matcher m2 = p2.matcher(str2);
 		String s[] = p2.split(str2);
-		System.out.println("×Ö·û´®²ğ·Ö£º");
+		System.out.println("å­—ç¬¦ä¸²æ‹†åˆ†ï¼š");
 		for(String ss:s){
 			System.out.print(ss+"\t");
 		}
 		System.out.println();
-		System.out.println("×Ö·û´®Ìæ»»£º");
-		String newString = m2.replaceAll("_");//½«Êı×ÖÌæ»»³É_
-		System.out.println(newString);		
+		System.out.println("å­—ç¬¦ä¸²æ›¿æ¢ï¼š");
+		String newString = m2.replaceAll("_");//å°†æ•°å­—æ›¿æ¢æˆ_
+		System.out.println(newString);
 	}
 	/**
-	 * Ê¹ÓÃStringÀà
+	 * ä½¿ç”¨Stringç±»
 	 */
 	public void UseString(){
 		/*
-		 * Æ¥ÅäÓÊÏäµØÖ·"^\\w+(.\\w+)?@(\\w+.)+\\w{2,3}$"
+		 * åŒ¹é…é‚®ç®±åœ°å€"^\\w+(.\\w+)?@(\\w+.)+\\w{2,3}$"
 		 */
 		String[] email = {"aaa@","aa.b@qq.com","1123@163.com","113fe$@11.com","han. @sohu.com.cn","han.c@sohu.com.cn.cm.cm"};
-//		String reg = "\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}";//'\\d'±íÊ¾'\d'				
+//		String reg = "\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}";//'\\d'è¡¨ç¤º'\d'
 		String reg = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$";
 //		String reg = "^\\w+(.\\w+)?@(\\w+.)+\\w{2,3}$";//test
 		for(String mail:email){
-			//´Ë´¦Ó¦ÓÃStringÀà¶ÔÕıÔòµÄÖ§³Ö
+			//æ­¤å¤„åº”ç”¨Stringç±»å¯¹æ­£åˆ™çš„æ”¯æŒ
 			System.out.println(mail+"\t------"+mail.matches(reg));
 		}
-		System.out.println("×Ö·û´®²Ù×÷");
+		System.out.println("å­—ç¬¦ä¸²æ“ä½œ");
 		String str = "A1B22C333D4444E55555F6";
 		String str2 = str.replaceAll("\\d+", "=");
 		String s[] = str.split("\\d+");
@@ -72,7 +72,7 @@ class Regex{
 			System.out.print(ss+"\t");
 		}
 		System.out.println();
-		System.out.println("Ìæ»»"+str2);
-		
+		System.out.println("æ›¿æ¢"+str2);
+
 	}
 }

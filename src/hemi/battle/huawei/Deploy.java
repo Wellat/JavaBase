@@ -70,7 +70,7 @@ public class Deploy {
 //				 System.out.println(lin);
 //			}
 //		}
-		// ����·�ߡ���ѡ�������·�����ٸ���bandTable
+		//
 		/** ===========TEST END=========== **/
 		
 		for (int i = 0; i < consumerList.size(); i++) {
@@ -82,7 +82,7 @@ public class Deploy {
 			resultPathBest.add(pathToArray(path));
 		}
 
-		for (int times = 5; times < SumOfConsumer; times++) {
+		for (int times = 6; times < SumOfConsumer; times++) {
 			// 初始化
 			int cost = 0;
 			bandTable = bandTableBackup.clone();
