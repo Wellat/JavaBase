@@ -1,21 +1,21 @@
 package hemi.subject.jobs;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import hemi.subject.jobs.Linked.ListNode;
+import java.util.Stack;
 
 public class OfferTest {
 	public static void main(String[] args) throws Exception {
 		Offer offer = new Offer();
-		/*
+
+
+        System.out.println("adfasdf".toUpperCase());
+/*
 		 * int mat[][] = { { 1, 2, 8, 9 }, { 2, 4, 9, 12 }, { 4, 7, 10, 13 }, {
 		 * 6, 8, 11, 15 } }; boolean ans = offer.find(mat, 5);
 		 * System.out.println(ans);
-		 * 
+		 *
 		 * String s = offer.replaceString2("We are young!");
 		 * System.out.println(s);
-		 */
+*/
 
 		/*
 		 * Linked link = new Linked(); link.insert("head"); link.insert(4);
@@ -28,16 +28,68 @@ public class OfferTest {
 		 */
 
 		// System.out.println(offer.fibonacci1(18));
+        ListNode node0 = new ListNode(2);
+        node0.next = new ListNode(3);
 
-		System.out.println(offer.Power(2, 3));
+        ListNode node = new ListNode(1);
+        node.next = node0;
+
+
+
+        offer.printListReversingly_Recursively(node);
+        System.out.println();
+        offer.printListReversingly_Iteratively(node);
+		/*System.out.println(offer.Power(2, 3));
 		int[] arr = {1,2,3,4,5,7,8,10,11,13,15,1,2};
-		offer.reorderOddEven(arr);
+		offer.reorderOddEven(arr);*/
 	}
 }
 
 class Offer {
-	/*
-	 * 03 ¶şÎ¬Êı×éÖĞµÄ²éÕÒ
+
+    /**
+     * 02 å•ä¾‹æ¨¡å¼
+     */
+    // é¥¿æ±‰æ¨¡å¼---è®¾ä¸ºé™æ€ï¼Œç±»åŠ è½½å³åˆå§‹åŒ–ï¼Œä¸å­˜åœ¨å¤šçº¿ç¨‹é—®é¢˜
+    class Singleton1{
+        private Singleton1(){
+        }
+
+        private Singleton1 singleton = new Singleton1();
+        public Singleton1 getInstance(){
+            return singleton;
+        }
+    }
+    // æ‡’æ±‰æ¨¡å¼---DCLåŒæ£€æŸ¥é”æœºåˆ¶
+    class Singleton2{
+        private Singleton2(){}
+        private Singleton2 singleton = null;
+        public Singleton2 getInstance(){
+            if(singleton==null){
+                synchronized (Singleton2.class){
+                    if(singleton==null){
+                        singleton=new Singleton2();
+                    }
+                }
+            }
+            return singleton;
+        }
+    }
+    // é™æ€å†…ç½®ç±»å®ç°å•ä¾‹
+    /*
+    class Singleton3{
+        private Singleton3(){}
+        private static class MyObjectHandler{//static
+            private static Singleton3 my = new Singleton3();
+        }
+        public static Singleton3 getInstance(){
+            return MyObjectHandler.my;
+        }
+    }
+    */
+
+	/**
+	 * 03 äºŒç»´æ•°ç»„ä¸­çš„æŸ¥æ‰¾
 	 */
 	public boolean find(int[][] mat, int number) {
 		if (mat.length < 1)
@@ -59,8 +111,9 @@ class Offer {
 		return found;
 	}
 
-	/*
-	 * 04 ×Ö·û´®µÄÌæ»»
+	/**
+	 * 04 æ›¿æ¢ç©ºæ ¼
+	 *
 	 */
 	public String replaceString(String str) {
 		String ans = null;
@@ -81,8 +134,56 @@ class Offer {
 		return s.toString();
 	}
 
+	/**
+	 * 05 åå‘æ‰“å°é“¾è¡¨
+	 * @param node
+     */
+	public void printListReversingly_Iteratively(ListNode node){
+		Stack<Integer> stack = new Stack<>();
+		while (node!=null){
+			stack.push(node.val);
+			node=node.next;
+		}
+		while (!stack.isEmpty()){
+			System.out.print(stack.pop()+" ");
+		}
+	}
+	public void printListReversingly_Recursively(ListNode node){
+		if(node!=null){
+			if(node.next!=null){
+				printListReversingly_Recursively(node.next);
+			}
+			System.out.print(node.val+" ");
+		}
+	}
+
+    /**
+     * 06 é‡å»ºäºŒå‰æ ‘
+     * @param pre å‰åºåºåˆ—{1,2,4,7,3,5,6,8}
+     * @param mid ä¸­åºåºåˆ—{4,7,2,1,5,3,8,6}
+     */
+    public TreeNode rebuildBinaryTree(int[] pre,int[] mid){
+        return rebuildBinaryTree(pre,0,pre.length-1,mid,0,mid.length-1);
+    }
+    private TreeNode rebuildBinaryTree(int[] pre,int preBegin,int preEnd,int[] mid,int midBegin,int midEnd){
+        if(preBegin>preEnd || midBegin>midEnd)
+            return null;
+        TreeNode root = new TreeNode(pre[preBegin]);
+        for(int i=midBegin;i<midEnd;i++){
+            if(mid[i]==pre[preBegin]){
+                root.left = rebuildBinaryTree(pre,preBegin+1,i+preBegin-midBegin,mid,midBegin,i-1);
+                root.right = rebuildBinaryTree(pre,i+preBegin-midBegin+1,preEnd,mid,i+1,midEnd);
+            }
+        }
+        return root;
+    }
+
+    /**
+     * 07 ä¸¤ä¸ªæ ˆå®ç°ä¸€ä¸ªé˜Ÿåˆ—
+     */
+
 	/*
-	 * 08 ¶ş·Ö·¨²éÕÒ
+	 * 08 æ—‹è½¬æ•°ç»„ä¸­çš„æœ€å°æ•°å­—
 	 */
 	public int binarySearch(int[] a, int key) {
 		if (a.length < 1) {
@@ -104,9 +205,32 @@ class Offer {
 		return -1;
 	}
 
-	/*
-	 * 09 Çòì³²¨ÄÇÆõÊıÁĞ
-	 */
+    /**
+     * 08+ æ—¶é—´å¤æ‚åº¦ä¸ºO(n)çš„æ’åºç®—æ³•
+     * @param ages
+     * @param length
+     */
+    void sortAge(int ages[],int length){
+        if(ages==null || length<0)
+            return;
+        int maxAge = 99;
+        int[] ageTimesArr = new int[maxAge+1];
+        for(int i=0;i<ages.length;i++){
+            ++ageTimesArr[ages[i]];
+        }
+        int index = 0;
+        for(int i=0;i<ageTimesArr.length;i++){
+            for(int j=0;j<ageTimesArr[i];j++){
+                ages[index++]=ageTimesArr[i];
+            }
+        }
+    }
+
+    /**
+     * 09 è£´æ³¢é‚£å¥‘æ•°åˆ—
+     * @param n
+     * @return
+     */
 	public long fibonacci1(int n) {
 		if (n < 0) {
 			System.out.println("Wrong Input!");
@@ -117,7 +241,6 @@ class Offer {
 			return fibonacci1(n - 1) + fibonacci1(n - 2);
 		}
 	}
-
 	public long fibonacci2(int n) {
 		if (n < 2)
 			return n;
@@ -132,9 +255,11 @@ class Offer {
 		return fn;
 	}
 
-	/*
-	 * 10 ¶ş½øÖÆÖĞ1µÄ¸öÊı
-	 */
+    /**
+     * 10 äºŒè¿›åˆ¶ä¸­1çš„ä¸ªæ•°
+     * @param num
+     * @return
+     */
 	public int numberOf1(int num) {
 		int count = 0;
 		int flag = 1;
@@ -145,8 +270,7 @@ class Offer {
 		}
 		return count;
 	}
-
-	public int numberOF1(int n) {
+	public int numberOf1_better(int n) {
 		int count = 0;
 		while (n != 0) {
 			count++;
@@ -155,10 +279,10 @@ class Offer {
 		return count;
 	}
 
-	/*
-	 * 11 ÊıÖµµÄÕûÊı´Î·½
+	/**
+	 * 11 æ•°å€¼çš„æ•´æ•°æ¬¡æ–¹
 	 */
-	// ÒÔÏÂ½â·¨Î´¶ÔÊäÈë×ö¿¼ÂÇ£¬Ëã·¨¼«²î¡£
+	// æœªå¯¹åº•å’ŒæŒ‡æ•°åšç‰¹æ®Šæƒ…å†µè€ƒè™‘
 	public double Power(double base, int exponent) {
 		double ans = 1;
 		while ((exponent--) > 0) {
@@ -166,13 +290,45 @@ class Offer {
 		}
 		return ans;
 	}
+    // é€’å½’æ³•â€”â€”è‹¥æŒ‡æ•°ä¸ºè´Ÿæ•°ï¼Œå¯¹ç»“æœå–å€’æ•°
+    public double Power_Recur(double base,int exponent){
+        if(exponent == 0)
+            return 1;
+        if(exponent == 1)
+            return base;
+        double result = Power_Recur(base,exponent>>1);
+        result *= result;
+        if(exponent %2 == 1)
+            result *= base;
+        return result;
+    }
 
-	/*
-	 * 12 ´òÓ¡´Ó1µ½nµÄ×î´ó£¨n-1£©Î»Êı£¬¿¼²ìÓÃ×Ö·û´®±íÊ¾´óÊı
+	/**
+	 * 12 æ‰“å°1åˆ°æœ€å¤§çš„nä½æ•°
 	 */
+    public void PrintToMaxOfNDigits(int n){
+        if(n<1)
+            return;
+        int[] num = new int[n+1];
+        while (!increment(num,n))
+            printNumber(num,n);
+    }
+    private boolean increment(int[] num,int n){
+        ++num[n];
+        while(num[n]==10 && n>=0){
+            num[n]=0;
+            ++num[--n];
+        }
+        if(num[0]==1)
+            return true;
+        return false;
+    }
 
+    private void printNumber(int[] num,int n){
+
+    }
 	/*
-	 * 14 µ÷ÕûÕûÊıÊı×éË³ĞòÊ¹ÆÚÊıÎ»ÓÚÅ¼ÊıÇ°Ãæ
+	 * 14
 	 */
 	public void reorderOddEven(int[] a){
 		printArray(a);
@@ -200,7 +356,7 @@ class Offer {
 
 
 /*
- * 05 ´ÓÎ²µ½Í·´òÓ¡Á´±í
+ * 05 ??Î²??????????
  */
 class Linked {
 	class ListNode {

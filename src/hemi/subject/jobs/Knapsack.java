@@ -32,7 +32,7 @@ public class Knapsack {
             v[i] = value[i - 1];
         }
 
-        //初始化values[0...c]=0————在不超过背包容量的情况下，最多能获得多少价值
+        //初始化values[0...c]=0————解决在不超过背包容量的情况下，最多能获得多少价值
         //原因：如果背包并非必须被装满，那么任何容量的背包都有一个合法解“什么都不装”，这个解的价值为0，所以初始时状态的值也就全部为0了
         int[] values = new int[c + 1];
         //初始化values[0]=0，其它全为负无穷————解决在恰好装满背包的情况下，最多能获得多少价值的问题
@@ -42,6 +42,7 @@ public class Knapsack {
         }*/
 
         for (int i = 1; i < n + 1; i++) {
+//            for (int t = w[i]; t <= c; t++) { //为完全背包问题，但是打印输出有问题
             for (int t = c; t >= w[i]; t--) {
                 if (values[t] < values[t - w[i]] + v[i]) {
                     values[t] = values[t - w[i]] + v[i];
