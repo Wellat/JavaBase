@@ -2,7 +2,7 @@ package hemi.learn.multiThread;
 
 import java.util.concurrent.TimeUnit;
 /*
- * join() 保证线程按序执行
+ * join()
  */
 public class Join {
 	public static void main(String[] args) throws Exception {

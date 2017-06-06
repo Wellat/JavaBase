@@ -4,28 +4,28 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * ÎÄ¼ş²Ù×÷
- * FileÀàÖ»ÊÇÕë¶ÔÎÄ¼ş±¾Éí½øĞĞ²Ù×÷
+ * æ–‡ä»¶æ“ä½œ
+ * Fileç±»åªæ˜¯é’ˆå¯¹æ–‡ä»¶æœ¬èº«è¿›è¡Œæ“ä½œ
  * @author Vanguard
  *
  */
 public class FileDemo {
 	public static void main(String[] args){
-		File f = new File("D:\\filedemo.txt");//¡¾×¢Òâ¡¿´Ë´¦Â·¾¶·Ö¸ô·û½¨ÒéÓÃ File.separator ´úÌæ£¬¿ÉÊÊÓÃ²»Í¬²Ù×÷ÏµÍ³
+		File f = new File("D:\\filedemo.txt");//ã€æ³¨æ„ã€‘æ­¤å¤„è·¯å¾„åˆ†éš”ç¬¦å»ºè®®ç”¨ File.separator ä»£æ›¿ï¼Œå¯é€‚ç”¨ä¸åŒæ“ä½œç³»ç»Ÿ
 		if(f.exists()){
-			f.delete();//É¾³ıÎÄ¼ş
+			f.delete();//åˆ é™¤æ–‡ä»¶
 		}else{
 			try {
-				f.createNewFile();//´´½¨ĞÂÎÄ¼ş
+				f.createNewFile();//åˆ›å»ºæ–°æ–‡ä»¶
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		File f2 = new File("D:"+File.separator+"filedemo_javaTest");
-		f2.mkdir();//´´½¨Ò»¸öÎÄ¼ş¼Ğ
-		
-		//´òÓ¡ÎÄ¼ş¼ĞÏÂµÄËùÓĞÎÄ¼ş
+		f2.mkdir();//åˆ›å»ºä¸€ä¸ªæ–‡ä»¶å¤¹
+
+		//æ‰“å°æ–‡ä»¶å¤¹ä¸‹çš„æ‰€æœ‰æ–‡ä»¶
 		File f3 = new File("D:"+File.separator+"Documents"+File.separator+"GitHub"+File.separator+"MLaction"+File.separator+"Ch09_ReTree");
 		FileDemo.print(f3);
 	}

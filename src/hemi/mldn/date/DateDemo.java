@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 /**
- * ÈÕÆÚ²Ù×÷Àà
- * Ö÷ÒªÊ¹ÓÃDate,Calendar,SimpleDateFormat
+ * ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ÒªÊ¹ï¿½ï¿½Date,Calendar,SimpleDateFormat
  * @author Vanguard
  *
  */
@@ -18,15 +18,14 @@ public class DateDemo {
 		 * Date
 		 */
 		System.out.println("*********Date***********");
-		Date date = new Date();//ÊµÀý»¯DateÀà¶ÔÏó
-		System.out.println("µ±Ç°ÈÕÆÚ£º"+date);		//Out:µ±Ç°ÈÕÆÚ£ºWed Jan 11 15:04:06 CST 2017		
+		Date date = new Date();//Êµï¿½ï¿½ï¿½ï¿½Dateï¿½ï¿½ï¿½ï¿½ï¿½
+		System.out.println("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ú£ï¿½"+date);		//Out:ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ú£ï¿½Wed Jan 11 15:04:06 CST 2017		
 		
 		/*
 		 * Calendar
 		 */
 		System.out.println("*********Calendar***********");
-		Calendar calendar = null;
-		calendar = new GregorianCalendar();
+		Calendar calendar = Calendar.getInstance();
 		System.out.println("YEAR: " + calendar.get(Calendar.YEAR));
 		System.out.println("MONTH: " + (calendar.get(Calendar.MONTH) + 1));
 		System.out.println("DAY_OF_MONTH: " + calendar.get(Calendar.DAY_OF_MONTH));
@@ -39,26 +38,26 @@ public class DateDemo {
 		 * DateFormat
 		 */
 		System.out.println("*********DateFormat***********");
-		//È¡µÃÈÕÆÚÊ±¼ä£¬ÉèÖÃÈÕÆÚµÄÏÔÊ¾·ç¸ñ
+		//È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
 		DateFormat df1 = DateFormat.getDateInstance(DateFormat.YEAR_FIELD,new Locale("zh","CN"));
-		//È¡µÃÈÕÆÚÊ±¼ä£¬ÉèÖÃÈÕÆÚµÄÏÔÊ¾¸ñÊ½£¬Ê±¼äµÄÏÔÊ¾¸ñÊ½
+		//È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ê½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ê½
 		DateFormat df2 = DateFormat.getDateTimeInstance(DateFormat.YEAR_FIELD,DateFormat.ERA_FIELD,new Locale("zh","CN"));
-		System.out.println("Date:"+df1.format(date));		//Out:Date:2017Äê1ÔÂ11ÈÕ		
-		System.out.println("DateTime:"+df2.format(date));	//Out:DateTime:2017Äê1ÔÂ11ÈÕ ÏÂÎç03Ê±04·Ö06Ãë CST		
+		System.out.println("Date:"+df1.format(date));		//Out:Date:2017ï¿½ï¿½1ï¿½ï¿½11ï¿½ï¿½		
+		System.out.println("DateTime:"+df2.format(date));	//Out:DateTime:2017ï¿½ï¿½1ï¿½ï¿½11ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½03Ê±04ï¿½ï¿½06ï¿½ï¿½ CST		
 		
 		/*
 		 * SimpleDateFormat
 		 */
 		System.out.println("*********SimpleDateFormat***********");
 		String pat1 = "yyyy-MM-dd HH:mm:ss";
-		String pat2 = "yyyyÄêMMÔÂddÈÕ HHÊ±mm·ÖssÃë";
+		String pat2 = "yyyyï¿½ï¿½MMï¿½ï¿½ddï¿½ï¿½ HHÊ±mmï¿½ï¿½ssï¿½ï¿½";
 		SimpleDateFormat sdf1 = new SimpleDateFormat(pat1);
 		SimpleDateFormat sdf2 = new SimpleDateFormat(pat2);
 		System.out.println(sdf1.format(date));
 		System.out.println(sdf2.format(date));		
 		
 		/*
-		 * ¼ÆËãÁ½¸öÈÕÆÚÖ®²î£¬½á¹ûÎªÌìÊý
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½î£¬ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 		 */
 		try {
 			System.out.println(DateTest.getDistanceDays("2017-01-01", "2017-10-11"));

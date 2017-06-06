@@ -1,0 +1,22 @@
+{
+  "state": 0,
+  "user": {
+    "roleId": 1,
+    "userAddress": "思明区",
+    "userBusiLicence": "C://",
+    "userCity": "福建厦门",
+    "userCompIntr": null,
+    "userCompany": " 唯修",
+    "userCorporation": "黄",
+    "userFanNum": 0,
+    "userId": 1,
+    "userIdcardBack": "C;//",
+    "userIdcardCode": "35072319711111111",
+    "userIdcardFront": "C;//",
+    "userMainProd": null,
+    "userOrgCode": "123456",
+    "userPwd": "hxq",
+    "userReview": 1,
+    "userTel": "15959287580"
+  }
+}

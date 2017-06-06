@@ -6,24 +6,105 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 牛客网等上的编程题
  */
 public class Main {
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
-            String str = sc.nextLine();
-            String pattern = sc.nextLine();
-
+        Pattern pattern = Pattern.compile(";\\s?(\\S*?\\s?\\S*?)\\s?(Build)?/");
+        String userAgent = "Meizu M9 \tAndroid 4.0.3 \tQQ 3.7 \tMQQBrowser/3.7/Mozilla/5.0 (Linux; U; Android 4.0.3; zh-cn; M9 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 \tNormal Mode";
+        Matcher matcher = pattern.matcher(userAgent);
+        String model = null;
+        if (matcher.find()) {
+            model = matcher.group(1).trim();
+            System.out.println("通过userAgent解析出机型：" + model);
         }
-        sc.close();
-    }
 
+
+    }
 }
 
 class Solution {
+
+
+    /**
+     * 最大子序列和
+     * @param sequence
+     * @return
+     */
+    public int maxSubSum(int[] sequence){
+        int maxSum = 0,curSum = 0;
+        for(int i=0;i<sequence.length;i++){
+            curSum += sequence[i];
+            if(curSum>maxSum){
+                maxSum=curSum;
+            }else if (curSum<0){
+                curSum=0;
+            }
+        }
+        return maxSum;
+    }
+
+    /**
+     * 求环的入口节点
+     * @param node
+     * @return
+     */
+    public ListNode getCycleBegin(ListNode node){
+        if(hasCycle(node)==false) return null;
+        int cycleLength = getCycleLength(node);
+        ListNode first = node, second = node;
+        for(int i=0;i<cycleLength;i++){
+            first = first.next;
+        }
+        while(first!=second){
+            first=first.next;
+            second=second.next;
+        }
+        return first;
+    }
+
+    /**
+     * 计算有环链表环的长度
+     * @param node
+     * @return
+     */
+    public int getCycleLength(ListNode node){
+        if(hasCycle(node)==false) return 0;
+        ListNode fast = node,slow = node;
+        int len = 0 ,flag = 0 , loop = 0;
+        while (slow != null && slow.next!=null){
+            fast = fast.next;
+            slow = slow.next.next;
+            len += flag;
+            if(fast == slow){
+                flag = 1;
+                ++loop;
+            }
+            if(loop==2) break;
+        }
+        return len;
+    }
+    /**
+     * 判段链表是否有环
+     * @param node
+     * @return
+     */
+    public boolean hasCycle(ListNode node){
+        ListNode fast = node,slow = node;
+        while (slow != null && slow.next!=null){
+            fast = fast.next;
+            slow = slow.next.next;
+            if(fast == slow){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 字符串匹配-？单字符，*字符串
      * @param str 被字符串
@@ -389,32 +470,6 @@ class Solution {
         System.out.println(new DecimalFormat("0.00").format(ans) + "%");
     }
 
-    /**
-     * 栈的压入、弹出序列
-     *
-     * @param pushA
-     * @param popA
-     * @return
-     */
-    /*
-    输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。
-    假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，
-    序列4，5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。
-     */
-    public boolean IsPopOrder(int[] pushA, int[] popA) {
-        if (pushA.length == 0 || popA.length == 0)
-            return false;
-        Stack<Integer> stackin = new Stack<>();
-        int popIndex = 0;
-        for (int i = 0; i < pushA.length; i++) {
-            stackin.push(pushA[i]);
-            while (!stackin.isEmpty() && stackin.peek() == popA[popIndex]) {
-                stackin.pop();
-                popIndex++;
-            }
-        }
-        return stackin.isEmpty();
-    }
 
     public ArrayList<Integer> GetLeastNumbers_Solution(int[] input, int k) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -626,36 +681,7 @@ BST的后序序列的合法序列是，对于一个序列S，最后一个元素�
     }
 
 
-    /**
-     * 链表中倒数第k个节点
-     *
-     * @param head
-     * @param k
-     * @return
-     */
-    /*
-    两个指针，先让第一个指针和第二个指针都指向头结点，然后再让第一个指正走(k-1)步，
-    到达第k个节点。然后两个指针同时往后移动，当第一个结点到达末尾的时候，
-    第二个结点所在位置就是倒数第k个节点了。
-     */
-    public ListNode FindKthToTail(ListNode head, int k) {
-        if (head == null || k < 0)
-            return null;
-        ListNode pre = head;
-        ListNode cur = head;
-        for (int i = 0; i < k; i++) {
-            if (pre != null) {
-                pre = pre.next;
-            } else {
-                return null;
-            }
-        }
-        while (pre.next != null) {
-            pre = pre.next;
-            cur = cur.next;
-        }
-        return cur;
-    }
+
 }
 
 class ListNode {

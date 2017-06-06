@@ -9,10 +9,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * ×Ö½ÚÁ÷
- * Ê¹ÓÃ×Ö½ÚÁ÷¸üºÃ,ScannerÀà¶ÁÎÄ¼şµÄ·½Ê½Ò²²»´í
+ * å­—èŠ‚æµ
+ * ä½¿ç”¨å­—èŠ‚æµæ›´å¥½,Scannerç±»è¯»æ–‡ä»¶çš„æ–¹å¼ä¹Ÿä¸é”™
  * @author Vanguard
- * ÒòÎªËùÓĞµÄÎÄ¼şÔÚÓ²ÅÌ»òÔÚ´«ÊäÊ±¶¼ÊÇÒÔ×Ö½ÚµÄ·½Ê½½øĞĞµÄ£¬°üÀ¨Í¼Æ¬µÈ¶¼ÊÇ°´×Ö½ÚµÄ·½Ê½´æ´¢µÄ£¬¶ø×Ö·ûÊÇÖ»ÓĞÔÚÄÚ´æÖĞ²Å»áĞÎ³É£¬ËùÒÔÔÚ¿ª·¢ÖĞ£¬×Ö½ÚÁ÷Ê¹ÓÃ½ÏÎª¹ã·º
+ * å› ä¸ºæ‰€æœ‰çš„æ–‡ä»¶åœ¨ç¡¬ç›˜æˆ–åœ¨ä¼ è¾“æ—¶éƒ½æ˜¯ä»¥å­—èŠ‚çš„æ–¹å¼è¿›è¡Œçš„ï¼ŒåŒ…æ‹¬å›¾ç‰‡ç­‰éƒ½æ˜¯æŒ‰å­—èŠ‚çš„æ–¹å¼å­˜å‚¨çš„ï¼Œè€Œå­—ç¬¦æ˜¯åªæœ‰åœ¨å†…å­˜ä¸­æ‰ä¼šå½¢æˆï¼Œæ‰€ä»¥åœ¨å¼€å‘ä¸­ï¼Œå­—èŠ‚æµä½¿ç”¨è¾ƒä¸ºå¹¿æ³›
  */
 public class ByteStream {
 	public static void main(String[] args){
@@ -22,16 +22,16 @@ public class ByteStream {
 //		ByteStream.FileInput(file);
 		ByteStream.Copy(file, file2);
 	}
-	
+
 	/**
-	 * ÎÄ¼ş¸´ÖÆ²Ù×÷
+	 * æ–‡ä»¶å¤åˆ¶æ“ä½œ
 	 * @param source
 	 * @param target
-	 * ²ÉÓÃ±ß¶Á±ßĞ´µÄ·½Ê½
+	 * é‡‡ç”¨è¾¹è¯»è¾¹å†™çš„æ–¹å¼
 	 */
 	public static void Copy(File source,File target){
 		if(!source.exists()){
-			System.out.println("Ô´ÎÄ¼ş²»´æÔÚ£¡");
+			System.out.println("æºæ–‡ä»¶ä¸å­˜åœ¨ï¼");
 			System.exit(1);
 		}
 		InputStream input = null;
@@ -53,9 +53,9 @@ public class ByteStream {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("¸´ÖÆÍê³É£¡");
+		System.out.println("å¤åˆ¶å®Œæˆï¼");
 	}
-	
+
 	public static void FileInput(File f){
 		InputStream input = null;
 		try {
@@ -65,25 +65,25 @@ public class ByteStream {
 		}
 		byte b[] = new byte[(int) f.length()];
 		try {
-			for(int i=0;i<b.length;i++){			
-				b[i]=(byte) input.read();			
+			for(int i=0;i<b.length;i++){
+				b[i]=(byte) input.read();
 			}
 			input.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("ÄÚÈİÎª£º"+ new String(b));
-		
+		System.out.println("å†…å®¹ä¸ºï¼š"+ new String(b));
+
 	}
 	public static void FileOutput(File f){
-		OutputStream out = null;	//×¼±¸ºÃÒ»¸öÊä³öÁ÷¶ÔÏó
+		OutputStream out = null;	//å‡†å¤‡å¥½ä¸€ä¸ªè¾“å‡ºæµå¯¹è±¡
 		try {
-			out = new FileOutputStream(f,true);//´Ë´¦true±íÊ¾ÎÄ¼şÄ©Î²×·¼ÓÄÚÈİ
+			out = new FileOutputStream(f,true);//æ­¤å¤„trueè¡¨ç¤ºæ–‡ä»¶æœ«å°¾è¿½åŠ å†…å®¹
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		String str = "\nYour text.ÊäÈëÎÄ±¾¡£";
-		byte b[] = str.getBytes();//Ö»ÄÜÊä³öbyteÊı×é£¬ËùÒÔ½«×Ö·û´®±äÎªbyteÊı×é
+		String str = "\nYour text.è¾“å…¥æ–‡æœ¬ã€‚";
+		byte b[] = str.getBytes();//åªèƒ½è¾“å‡ºbyteæ•°ç»„ï¼Œæ‰€ä»¥å°†å­—ç¬¦ä¸²å˜ä¸ºbyteæ•°ç»„
 		try {
 			out.write(b);
 			out.close();

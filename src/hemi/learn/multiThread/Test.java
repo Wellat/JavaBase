@@ -6,7 +6,6 @@ import java.lang.management.ThreadMXBean;
 
 public class Test {
 	public static void main(String[] args) throws Exception{
-		// 获取正在运行的线程信息
 		ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
 		ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(false, false);
 		for (ThreadInfo threadInfo : threadInfos) {

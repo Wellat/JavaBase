@@ -3,8 +3,6 @@ package hemi.subject.jobs.thread;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by Vanguard on 2017/4/14.
@@ -31,6 +29,7 @@ class Consumer implements Runnable {
     public void run() {
         while (true) {
             synchronized (buffer) {
+                System.out.println(Thread.currentThread().getName()+" get lock-----consumer");
                 while (buffer.isEmpty()) {
                     try {
                         buffer.wait();
@@ -39,8 +38,14 @@ class Consumer implements Runnable {
                     }
                 }
                 Task task = buffer.remove(0);
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 buffer.notifyAll();
                 System.out.println("完成 " + task.toString());
+                System.out.println(Thread.currentThread().getName()+" out lock-----consumer");
             }
         }
     }
@@ -57,6 +62,7 @@ class Producer implements Runnable {
     public void run() {
         while (true) {
             synchronized (buffer) {
+                System.out.println(Thread.currentThread().getName()+" get lock-----producer");
                 while (buffer.size() >= Constants.MAX_BUFFER_SIZE) {
                     try {
                         buffer.wait();
@@ -65,9 +71,15 @@ class Producer implements Runnable {
                     }
                 }
                 Task task = new Task();
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 buffer.add(task);
                 buffer.notifyAll();
                 System.out.println("建立 " + task.toString());
+                System.out.println(Thread.currentThread().getName()+" out lock-----consumer");
             }
         }
     }
