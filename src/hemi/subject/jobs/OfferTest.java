@@ -6,7 +6,9 @@ public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
         int ar[] = {1,2,3,2,2,2,5,4,2};
-        System.out.println(of.moreThanHalfNum2(ar));
+        int bt[]= {1,-2,3,10,-4,7,2,-5};
+        int[] o = of.getLeastNumbers(ar,3);
+        System.out.println(of.maxSequenceSum(bt));
 
         BinaryNode n1 = new BinaryNode(6);
         BinaryNode n2 = new BinaryNode(4);
@@ -44,6 +46,63 @@ class ComplexListNode {
 
 class Offer {
 
+    /**
+     * 32 从1到n整数中1出现的次数
+     * @param n
+     * @return
+     */
+    public int numberOf1Between1AndN(int n){
+
+        return 0;
+    }
+
+    /**
+     * 31 连续子数组的最大和
+     */
+    public int maxSequenceSum(int[] input){
+        int thisSum =0,maxSum=0;
+        if(input.length<1) return 0;
+
+        for(int i=0;i<input.length;i++){
+            thisSum += input[i];
+            if(thisSum>maxSum) maxSum=thisSum;
+            if(thisSum<0) thisSum = 0;
+        }
+        return maxSum;
+    }
+
+
+
+    /**
+     * 30 最小的K个数
+     */
+    //法1利用快速排序核，复杂度为O(n)
+    public int[] getLeastNumbers(int[] input,int k){
+        if(input.length<1 || input.length<k) {
+            System.out.println("error input...");
+            return null;
+        }
+        int[] output = new int[k];
+        int index ;
+        int low=0,high=input.length-1;
+        while (low<high){
+            index = partition(input,low,high);
+            if(index>k-1){
+                low=index+1;
+            }else if(index<k-1){
+                high=index-1;
+            } else {
+                break;
+            }
+        }
+        for(int i=0;i<k;i++){
+            output[i]=input[i];
+        }
+        return output;
+    }
+    //法2利用大顶堆
+
+
 
     /**
      * 29 数组中出现次数超过一半的数字
@@ -53,8 +112,8 @@ class Offer {
         return usequicksort(arr,0,arr.length-1);
     }
 
-    private int usequicksort(int[] arr,int begin,int end){
-        int i=begin,j=end;
+    private int partition(int[] arr,int low ,int high){
+        int i=low,j=high;
         int choosen = arr[j];
         while (i<j){
             while (i<j && arr[i]<choosen)
@@ -67,6 +126,10 @@ class Offer {
                 arr[i++]=arr[j];
         }
         arr[j]=choosen;
+        return j;
+    }
+    private int usequicksort(int[] arr,int begin,int end){
+        int j= partition(arr,begin,end);
         if(j>arr.length/2){
             return usequicksort(arr,begin,j-1);
         }else if(j<arr.length/2){
