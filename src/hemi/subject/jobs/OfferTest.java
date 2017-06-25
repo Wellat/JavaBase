@@ -5,10 +5,11 @@ import java.util.*;
 public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
-        int ar[] = {1,2,3,2,2,2,5,4,2};
-        int bt[]= {1,-2,3,10,-4,7,2,-5};
-        int[] o = of.getLeastNumbers(ar,3);
-        System.out.println(of.maxSequenceSum(bt));
+        int ar[] = {1, 2, 3, 2, 2, 2, 5, 4, 2};
+        int bt[] = {1, -2, 3, 10, -4, 7, 2, -5};
+        int so[] = {3, 32, 321, 0, 12};
+        of.printMinNumber(so);
+        System.out.println(of.getUglyNumber(1500));
 
         BinaryNode n1 = new BinaryNode(6);
         BinaryNode n2 = new BinaryNode(4);
@@ -47,11 +48,66 @@ class ComplexListNode {
 class Offer {
 
     /**
+     * 34 求按从小到大的顺序的第index个丑数
+     *
+     * @param index
+     * @return
+     */
+    int getUglyNumber(int index) {
+        if (index < 1) return 0;
+        int[] result = new int[index];
+        result[0] = 1;
+        int ind2 = 0, ind3 = 0, ind5 = 0;
+        for (int i = 1; i < index; i++) {
+            result[i] = getMin(result[ind2] * 2, result[ind3] * 3, result[ind5] * 5);
+            while (result[ind2] * 2 <= result[i]) ind2++;
+            while (result[ind3] * 3 <= result[i]) ind3++;
+            while (result[ind5] * 5 <= result[i]) ind5++;
+        }
+        return result[index - 1];
+    }
+
+    //判断一个数是否为丑数
+    private boolean isUgly(int num) {
+        while (num % 2 == 0) num /= 2;
+        while (num % 3 == 0) num /= 3;
+        while (num % 5 == 0) num /= 5;
+        return (num == 1) ? true : false;
+    }
+
+    private int getMin(int a, int b, int c) {
+        int temp = a < b ? a : b;
+        return temp < c ? temp : c;
+    }
+
+    /**
+     * 33 把数组排成最小的数
+     * 如{3,32,321}-->321323
+     *
+     * @param input
+     */
+    //未考虑大数问题
+    public void printMinNumber(int[] input) {
+        int len = input.length;
+        if (len < 1) return;
+        int temp = input[0];
+        for (int i = 1; i < len; i++) {
+            temp = sortAB(temp, input[i]);
+        }
+        System.out.println(temp);
+    }
+
+    private int sortAB(int a, int b) {
+        return Integer.valueOf(a + "" + b) > Integer.valueOf(b + "" + a) ? Integer.valueOf(b + "" + a) : Integer.valueOf(a + "" + b);
+    }
+
+    /**
      * 32 从1到n整数中1出现的次数
+     *
      * @param n
      * @return
      */
-    public int numberOf1Between1AndN(int n){
+    public int numberOf1Between1AndN(int n) {
 
         return 0;
     }
@@ -59,96 +115,95 @@ class Offer {
     /**
      * 31 连续子数组的最大和
      */
-    public int maxSequenceSum(int[] input){
-        int thisSum =0,maxSum=0;
-        if(input.length<1) return 0;
+    public int maxSequenceSum(int[] input) {
+        int thisSum = 0, maxSum = 0;
+        if (input.length < 1) return 0;
 
-        for(int i=0;i<input.length;i++){
+        for (int i = 0; i < input.length; i++) {
             thisSum += input[i];
-            if(thisSum>maxSum) maxSum=thisSum;
-            if(thisSum<0) thisSum = 0;
+            if (thisSum > maxSum) maxSum = thisSum;
+            if (thisSum < 0) thisSum = 0;
         }
         return maxSum;
     }
-
 
 
     /**
      * 30 最小的K个数
      */
     //法1利用快速排序核，复杂度为O(n)
-    public int[] getLeastNumbers(int[] input,int k){
-        if(input.length<1 || input.length<k) {
+    public int[] getLeastNumbers(int[] input, int k) {
+        if (input.length < 1 || input.length < k) {
             System.out.println("error input...");
             return null;
         }
         int[] output = new int[k];
-        int index ;
-        int low=0,high=input.length-1;
-        while (low<high){
-            index = partition(input,low,high);
-            if(index>k-1){
-                low=index+1;
-            }else if(index<k-1){
-                high=index-1;
+        int index;
+        int low = 0, high = input.length - 1;
+        while (low < high) {
+            index = partition(input, low, high);
+            if (index > k - 1) {
+                low = index + 1;
+            } else if (index < k - 1) {
+                high = index - 1;
             } else {
                 break;
             }
         }
-        for(int i=0;i<k;i++){
-            output[i]=input[i];
+        for (int i = 0; i < k; i++) {
+            output[i] = input[i];
         }
         return output;
     }
     //法2利用大顶堆
 
 
-
     /**
      * 29 数组中出现次数超过一半的数字
      */
-    public int moreThanHalfNum(int[] arr){
-        if(arr.length==0) return 0;
-        return usequicksort(arr,0,arr.length-1);
+    public int moreThanHalfNum(int[] arr) {
+        if (arr.length == 0) return 0;
+        return usequicksort(arr, 0, arr.length - 1);
     }
 
-    private int partition(int[] arr,int low ,int high){
-        int i=low,j=high;
+    private int partition(int[] arr, int low, int high) {
+        int i = low, j = high;
         int choosen = arr[j];
-        while (i<j){
-            while (i<j && arr[i]<choosen)
+        while (i < j) {
+            while (i < j && arr[i] < choosen)
                 i++;
-            if(i<j)
-                arr[j--]=arr[i];
-            while(i<j && arr[j]>choosen)
+            if (i < j)
+                arr[j--] = arr[i];
+            while (i < j && arr[j] > choosen)
                 j--;
-            if(i<j)
-                arr[i++]=arr[j];
+            if (i < j)
+                arr[i++] = arr[j];
         }
-        arr[j]=choosen;
+        arr[j] = choosen;
         return j;
     }
-    private int usequicksort(int[] arr,int begin,int end){
-        int j= partition(arr,begin,end);
-        if(j>arr.length/2){
-            return usequicksort(arr,begin,j-1);
-        }else if(j<arr.length/2){
-            return usequicksort(arr,j+1,end);
-        }else {
+
+    private int usequicksort(int[] arr, int begin, int end) {
+        int j = partition(arr, begin, end);
+        if (j > arr.length / 2) {
+            return usequicksort(arr, begin, j - 1);
+        } else if (j < arr.length / 2) {
+            return usequicksort(arr, j + 1, end);
+        } else {
             return arr[j];
         }
     }
 
-    public int moreThanHalfNum2(int[] arr){
-        if(arr.length == 0)
+    public int moreThanHalfNum2(int[] arr) {
+        if (arr.length == 0)
             return -1;
         int result = arr[0];
         int times = 1;
-        for(int i = 1;i<arr.length;i++){
-            if(times == 0){
+        for (int i = 1; i < arr.length; i++) {
+            if (times == 0) {
                 result = arr[i];
                 times = 1;
-            }else if(arr[i] == result)
+            } else if (arr[i] == result)
                 times++;
             else
                 times--;
@@ -172,14 +227,13 @@ class Offer {
         permutation(chars, 0, str.length());
 
         Stack<Character> stack = new Stack<>();
-        for(int i=1;i<=chars.length;i++){
-            combine(chars,0,i,stack);
+        for (int i = 1; i <= chars.length; i++) {
+            combine(chars, 0, i, stack);
         }
     }
 
     /**
      * 给一个字符串，比如ABC， 把所有的排列，即：ABC, ACB, BAC, BCA, CAB, CBC 都找出来。
-     *
      */
     private void permutation(char str[], int index, int size) {
         if (index == size) {
