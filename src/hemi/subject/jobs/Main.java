@@ -14,21 +14,33 @@ import java.util.regex.Pattern;
  */
 public class Main {
     public static void main(String[] args){
-        Pattern pattern = Pattern.compile(";\\s?(\\S*?\\s?\\S*?)\\s?(Build)?/");
-        String userAgent = "Meizu M9 \tAndroid 4.0.3 \tQQ 3.7 \tMQQBrowser/3.7/Mozilla/5.0 (Linux; U; Android 4.0.3; zh-cn; M9 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 \tNormal Mode";
-        Matcher matcher = pattern.matcher(userAgent);
-        String model = null;
-        if (matcher.find()) {
-            model = matcher.group(1).trim();
-            System.out.println("通过userAgent解析出机型：" + model);
+        Solution solution = new Solution();
+        Scanner sc = new Scanner(System.in);
+        int l = sc.nextInt();
+        int r = sc.nextInt();
+        HashMap<String,Integer> map = new HashMap<>();
+        for(int i=l;i<=r;i++){
+            for(int j=1;j<=Math.sqrt(i);j++){
+                if(j*j==i){
+                    map.put(j+"",map.get(j+"")==null?1:map.get(""+j)+1);
+                    break;
+                }
+                if(i%j == 0){
+                    String index = (j+"").charAt(0)+"";
+                    String indexj = (i/j+"").charAt(0)+"";
+                    map.put(index,map.get(index)==null?1:map.get(index)+1);
+                    map.put(indexj,map.get(indexj)==null?1:map.get(indexj)+1);
+                }
+            }
         }
-
+        for(int i=1;i<=9;i++){
+            System.out.println(map.get(i+"")==null?0:map.get(i+""));
+        }
 
     }
 }
 
 class Solution {
-
 
     /**
      * 最大子序列和

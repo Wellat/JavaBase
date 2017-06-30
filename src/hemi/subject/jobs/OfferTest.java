@@ -1,24 +1,12 @@
 package hemi.subject.jobs;
 
-import hemi.mldn.collection.BinaryTree;
 
 import java.util.*;
 
 public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
-        int ar[] = {1, 2, 2, 2, 2, 2,3,  4, 5};
-        int bt[] = {1, -2, 3, 10, -4, 7, 2, -5};
-        int so[] = {3, 32, 321, 0, 12};
-        of.printMinNumber(so);
-        System.out.println(of.numberOfK(ar,2));
-
-        BinaryNode n1 = new BinaryNode(6);
-        BinaryNode n2 = new BinaryNode(4);
-        BinaryNode n3 = new BinaryNode(8);
-        n1.left = n2;
-        n1.right = n3;
-        LinkedList linked = of.convert(n1);
+        
 
 /*        ComplexListNode cn1 = new ComplexListNode();
         cn1.value=1;
@@ -61,6 +49,29 @@ class Offer {
         int dright = treeDepth(tree.right);
         return (dLeft>dright)?(dLeft+1):(dright+1);
     }
+    /*
+    判断一课二叉树是不是平衡二叉树（左右子树深度差超过1）
+     */
+    public boolean isBalanced(BinaryNode root){
+        return isBalanced(root,0);
+    }
+    private boolean isBalanced(BinaryNode root,int depth){
+        if(root==null){
+            depth=0;
+            return true;
+        }
+        int left = 0, right=0;
+        if(isBalanced(root.left,left) && isBalanced(root.right,right)){
+            int diff = left - right;
+            if(diff<=-1 && diff>=1){
+                depth=1+(left>right?left:right);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /**
      * 38 数字在排序数组中出现的次数
      * 二分法分别获取重复数字的开始和结束位置
