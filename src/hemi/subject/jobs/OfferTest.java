@@ -1,15 +1,17 @@
 package hemi.subject.jobs;
 
+import hemi.mldn.collection.BinaryTree;
+
 import java.util.*;
 
 public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
-        int ar[] = {1, 2, 3, 2, 2, 2, 5, 4, 2};
+        int ar[] = {1, 2, 2, 2, 2, 2,3,  4, 5};
         int bt[] = {1, -2, 3, 10, -4, 7, 2, -5};
         int so[] = {3, 32, 321, 0, 12};
         of.printMinNumber(so);
-        System.out.println(of.getUglyNumber(1500));
+        System.out.println(of.numberOfK(ar,2));
 
         BinaryNode n1 = new BinaryNode(6);
         BinaryNode n2 = new BinaryNode(4);
@@ -47,13 +49,109 @@ class ComplexListNode {
 
 class Offer {
 
+
+    /**
+     * 39 二叉树的深度
+     * @param tree
+     * @return
+     */
+    public int treeDepth(TreeNode tree){
+        if(tree==null) return 0;
+        int dLeft = treeDepth(tree.left);
+        int dright = treeDepth(tree.right);
+        return (dLeft>dright)?(dLeft+1):(dright+1);
+    }
+    /**
+     * 38 数字在排序数组中出现的次数
+     * 二分法分别获取重复数字的开始和结束位置
+     * @param input
+     * @param k
+     * @return
+     */
+    public int numberOfK(int[] input,int k){
+        int index ,low=0,high=input.length-1;
+        while(low<=high){
+            index =(high+low)/2;
+            if(input[index]>k){
+                high=index-1;
+            }else if(input[index]<k){
+                low=index+1;
+            }else{
+                return getLastK(input,index,high,k) - getFirstK(input,low,index,k) + 1;
+            }
+        }
+        return 0;
+    }
+    private int getFirstK(int[] input,int low,int high,int k){
+        int index;
+        while(low<high){
+            index =(high+low)/2;
+            if(input[index]>k){
+                high=index-1;
+            }else if(input[index]<k){
+                low=index+1;
+            }else{
+                return getFirstK(input,low,index,k);
+            }
+        }
+        return high;
+    }
+    private int getLastK(int[] input,int low,int high,int k){
+        int index;
+        while(low<high){
+            index =(high+low+1)/2;
+            if(input[index]>k){
+                high=index-1;
+            }else if(input[index]<k){
+                low=index+1;
+            }else{
+                return getLastK(input,index,high,k);
+            }
+        }
+        return low;
+    }
+
+    /**
+     * 37 两个单向链表的第一个公共节点
+     * ❤❤
+     */
+    /*
+    首先遍历两个链表得到他们的长度，就能知道哪个链表比较长，以及长的链表比短的
+    链表多几个节点。在第二次遍历的时候，让较长的链表先走若干步，接着再同时在两个
+    链表上遍历，找到的第一个相同节点就是它们的第一个公共节点。
+     */
+
+
+    /**
+     * 36 数组中的逆序对数
+     * ❤❤❤❤
+     */
+
+    /**
+     * 35 第一个只出现一次的字符
+     * ❤
+     * @param str
+     * @return
+     */
+    public Object firstNotRepeatChar(String str){
+        char[] chars = str.toCharArray();
+        LinkedHashMap<String,Integer> map = new LinkedHashMap<>();
+        for(char c:chars){
+            map.put(c+"",map.get(c+"")==null?1:map.get(c+"")+1);
+        }
+        for(Map.Entry entry:map.entrySet()){
+            if(entry.getValue().equals(1)) return entry.getKey();
+        }
+        return null;
+    }
+
     /**
      * 34 求按从小到大的顺序的第index个丑数
-     *
+     * ❤❤❤
      * @param index
      * @return
      */
-    int getUglyNumber(int index) {
+    public int getUglyNumber(int index) {
         if (index < 1) return 0;
         int[] result = new int[index];
         result[0] = 1;
@@ -114,6 +212,7 @@ class Offer {
 
     /**
      * 31 连续子数组的最大和
+     * ❤
      */
     public int maxSequenceSum(int[] input) {
         int thisSum = 0, maxSum = 0;
