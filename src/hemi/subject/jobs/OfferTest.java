@@ -6,24 +6,12 @@ import java.util.*;
 public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
-        
+        int[] inputs ={2 ,2,3,3,5,6,6};
 
-/*        ComplexListNode cn1 = new ComplexListNode();
-        cn1.value=1;
-        ComplexListNode cn2 = new ComplexListNode();
-        cn2.value=2;
-        ComplexListNode cn3 = new ComplexListNode();
-        cn3.value=3;
-        ComplexListNode cn4 = new ComplexListNode();
-        cn4.value=4;
-        cn1.next=cn2;
-        cn2.next=cn3;
-        cn3.next=cn4;
-        cn3.sibling=cn1;
-        cn4.sibling=cn2;
-        of.clone(cn1);*/
-//        of.permutation("abc");
-        System.out.println();
+        long num = 2147483647;
+        num += 2;
+
+        System.out.println(of.findNumsAppearOnce(inputs));
     }
 
 
@@ -38,6 +26,20 @@ class ComplexListNode {
 class Offer {
 
 
+    /**
+     * 40 数组中只出现一次的数字
+     * 如{2,2,3,3,5,6,6}，其他数字均只出现两次
+     * @param input
+     * @return
+     */
+    public int findNumsAppearOnce(int[] input){
+        int ans = 0;
+        for(int i=0;i<input.length;i++){
+            //两个相同数字相异或，结果为0
+            ans ^= input[i];
+        }
+        return ans;
+    }
     /**
      * 39 二叉树的深度
      * @param tree
