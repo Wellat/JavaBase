@@ -6,11 +6,8 @@ import java.util.*;
 public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
-        int[] inputs ={2 ,2,3,3,5,6,6};
-
-        long num = 2147483647;
-        num += 2;
-
+        int[] inputs = {1, 2, 4, 7, 11, 15};
+        of.findSumOfS(inputs, 15);
         System.out.println(of.findNumsAppearOnce(inputs));
     }
 
@@ -27,46 +24,83 @@ class Offer {
 
 
     /**
+     * 41 ①和为s的两个数字、②和为s的连续整数序列
+     *
+     * @return
+     */
+    /*
+    输入一个递增排序的数组和一个数字s，在数组中查找两个数，使得他们的和
+    正好为s，输出一对即可。
+     */
+    public void findSumOfS(int input[], int s) {
+        int len = input.length;
+        if (len < 1 || s < 0) return;
+        int head = 0, tail = len - 1;
+        while (head < tail) {
+            int sum = input[head]+input[tail];
+            if(sum>s){
+                tail--;
+            }else if(sum<s){
+                head++;
+            }else{
+                break;
+            }
+        }
+        System.out.println(input[head]+" + "+input[tail]+" = "+s);
+    }
+    /*
+    输入一个正数s,打印输出所有和为s的连续正数序列（至少含有两个数）
+     */
+
+
+
+
+    /**
      * 40 数组中只出现一次的数字
      * 如{2,2,3,3,5,6,6}，其他数字均只出现两次
+     *
      * @param input
      * @return
      */
-    public int findNumsAppearOnce(int[] input){
+    public int findNumsAppearOnce(int[] input) {
         int ans = 0;
-        for(int i=0;i<input.length;i++){
+        for (int i = 0; i < input.length; i++) {
             //两个相同数字相异或，结果为0
             ans ^= input[i];
         }
         return ans;
     }
+
     /**
      * 39 二叉树的深度
+     *
      * @param tree
      * @return
      */
-    public int treeDepth(TreeNode tree){
-        if(tree==null) return 0;
+    public int treeDepth(TreeNode tree) {
+        if (tree == null) return 0;
         int dLeft = treeDepth(tree.left);
         int dright = treeDepth(tree.right);
-        return (dLeft>dright)?(dLeft+1):(dright+1);
+        return (dLeft > dright) ? (dLeft + 1) : (dright + 1);
     }
+
     /*
     判断一课二叉树是不是平衡二叉树（左右子树深度差超过1）
      */
-    public boolean isBalanced(BinaryNode root){
-        return isBalanced(root,0);
+    public boolean isBalanced(BinaryNode root) {
+        return isBalanced(root, 0);
     }
-    private boolean isBalanced(BinaryNode root,int depth){
-        if(root==null){
-            depth=0;
+
+    private boolean isBalanced(BinaryNode root, int depth) {
+        if (root == null) {
+            depth = 0;
             return true;
         }
-        int left = 0, right=0;
-        if(isBalanced(root.left,left) && isBalanced(root.right,right)){
+        int left = 0, right = 0;
+        if (isBalanced(root.left, left) && isBalanced(root.right, right)) {
             int diff = left - right;
-            if(diff<=-1 && diff>=1){
-                depth=1+(left>right?left:right);
+            if (diff <= -1 && diff >= 1) {
+                depth = 1 + (left > right ? left : right);
                 return true;
             }
         }
@@ -77,48 +111,51 @@ class Offer {
     /**
      * 38 数字在排序数组中出现的次数
      * 二分法分别获取重复数字的开始和结束位置
+     *
      * @param input
      * @param k
      * @return
      */
-    public int numberOfK(int[] input,int k){
-        int index ,low=0,high=input.length-1;
-        while(low<=high){
-            index =(high+low)/2;
-            if(input[index]>k){
-                high=index-1;
-            }else if(input[index]<k){
-                low=index+1;
-            }else{
-                return getLastK(input,index,high,k) - getFirstK(input,low,index,k) + 1;
+    public int numberOfK(int[] input, int k) {
+        int index, low = 0, high = input.length - 1;
+        while (low <= high) {
+            index = (high + low) / 2;
+            if (input[index] > k) {
+                high = index - 1;
+            } else if (input[index] < k) {
+                low = index + 1;
+            } else {
+                return getLastK(input, index, high, k) - getFirstK(input, low, index, k) + 1;
             }
         }
         return 0;
     }
-    private int getFirstK(int[] input,int low,int high,int k){
+
+    private int getFirstK(int[] input, int low, int high, int k) {
         int index;
-        while(low<high){
-            index =(high+low)/2;
-            if(input[index]>k){
-                high=index-1;
-            }else if(input[index]<k){
-                low=index+1;
-            }else{
-                return getFirstK(input,low,index,k);
+        while (low < high) {
+            index = (high + low) / 2;
+            if (input[index] > k) {
+                high = index - 1;
+            } else if (input[index] < k) {
+                low = index + 1;
+            } else {
+                return getFirstK(input, low, index, k);
             }
         }
         return high;
     }
-    private int getLastK(int[] input,int low,int high,int k){
+
+    private int getLastK(int[] input, int low, int high, int k) {
         int index;
-        while(low<high){
-            index =(high+low+1)/2;
-            if(input[index]>k){
-                high=index-1;
-            }else if(input[index]<k){
-                low=index+1;
-            }else{
-                return getLastK(input,index,high,k);
+        while (low < high) {
+            index = (high + low + 1) / 2;
+            if (input[index] > k) {
+                high = index - 1;
+            } else if (input[index] < k) {
+                low = index + 1;
+            } else {
+                return getLastK(input, index, high, k);
             }
         }
         return low;
@@ -143,17 +180,18 @@ class Offer {
     /**
      * 35 第一个只出现一次的字符
      * ❤
+     *
      * @param str
      * @return
      */
-    public Object firstNotRepeatChar(String str){
+    public Object firstNotRepeatChar(String str) {
         char[] chars = str.toCharArray();
-        LinkedHashMap<String,Integer> map = new LinkedHashMap<>();
-        for(char c:chars){
-            map.put(c+"",map.get(c+"")==null?1:map.get(c+"")+1);
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+        for (char c : chars) {
+            map.put(c + "", map.get(c + "") == null ? 1 : map.get(c + "") + 1);
         }
-        for(Map.Entry entry:map.entrySet()){
-            if(entry.getValue().equals(1)) return entry.getKey();
+        for (Map.Entry entry : map.entrySet()) {
+            if (entry.getValue().equals(1)) return entry.getKey();
         }
         return null;
     }
@@ -161,6 +199,7 @@ class Offer {
     /**
      * 34 求按从小到大的顺序的第index个丑数
      * ❤❤❤
+     *
      * @param index
      * @return
      */
