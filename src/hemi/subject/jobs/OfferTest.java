@@ -7,8 +7,9 @@ public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
         int[] inputs = {1, 2, 4, 7, 11, 15};
-        of.findSumOfS(inputs, 15);
-        System.out.println(of.findNumsAppearOnce(inputs));
+        String str = "I am a student.";
+        int ans = of.lastNum(6,3);
+        System.out.println(ans);
     }
 
 
@@ -20,7 +21,119 @@ class ComplexListNode {
     ComplexListNode sibling;
 }
 
+class CicleLink {
+    class Node {
+        public Integer value;
+        public Node next = null;
+    }
+
+    private int size;
+    private Node first;
+    private Node last;
+
+    public Integer get(int index) {
+        if (outIndex(index)) {
+            System.out.println("index out of size.");
+            return null;
+        }
+        Node node = first;
+        for (int i = 0; i < index; i++) {
+            node = node.next;
+        }
+        return node.value;
+    }
+
+    private boolean outIndex(int index) {
+        return (index >= size) ? false : true;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public void remove(int index) {
+        if (outIndex(index)) {
+            System.out.println("index out of size.");
+            return;
+        }
+        Node node = first;
+        for (int i = 0; i < index - 1; i++) {
+            node = node.next;
+        }
+//        node.next
+    }
+
+    public void insert(int in) {
+        Node node = new Node();
+        node.value = in;
+        if (first == null) {
+            first = node;
+            last = node;
+        } else {
+            last.next = node;
+            last = node;
+            last.next = first;
+        }
+        size++;
+    }
+}
+
 class Offer {
+
+    /**
+     * 45 圆圈中最后剩下的数字
+     */
+    /*
+    0到n-1这n个数字排成一个圈，从数字0开始每次删除第m个数字，
+    求这个圆圈里剩下的最后一个数字。
+     */
+    public int lastNum(int n, int m) {
+        if (n < 1 || m < 1) return -1;
+        int last = 0;
+        for (int i = 2; i <= n; i++) {
+            last = (last + m) % i;
+        }
+        return last;
+    }
+
+    /**
+     * 44 扑克牌的顺子
+     */
+
+    /**
+     * 43 n个骰子的点数
+     * 点数之和为s，输出s的所有可能值出现的概率
+     *
+     */
+
+
+    /**
+     * 42.1 翻转单词顺序
+     *
+     * @param input
+     */
+    public void reversalWords(String input) {
+        if (input == null) return;
+        String[] strs = input.split(" ");
+        StringBuffer sb = new StringBuffer();
+        for (int i = strs.length - 1; i >= 0; i--) {
+            sb.append(strs[i] + " ");
+        }
+        System.out.println(sb.toString());
+    }
+
+    /**
+     * 42.2 左旋转字符串
+     * 如输入'abcdefg'和数字2，输出'cdefgab'
+     */
+    public void leftRotateString(String input, int k) {
+        if (input.length() < k) return;
+        for (int i = 0; i < k; i++) {
+            input += input.charAt(0);
+            input = input.substring(1);
+        }
+        System.out.println(input);
+    }
 
 
     /**
@@ -37,22 +150,45 @@ class Offer {
         if (len < 1 || s < 0) return;
         int head = 0, tail = len - 1;
         while (head < tail) {
-            int sum = input[head]+input[tail];
-            if(sum>s){
+            int sum = input[head] + input[tail];
+            if (sum > s) {
                 tail--;
-            }else if(sum<s){
+            } else if (sum < s) {
                 head++;
-            }else{
+            } else {
                 break;
             }
         }
-        System.out.println(input[head]+" + "+input[tail]+" = "+s);
+        System.out.println(input[head] + " + " + input[tail] + " = " + s);
     }
+
     /*
     输入一个正数s,打印输出所有和为s的连续正数序列（至少含有两个数）
      */
+    public void findSequenceOfSumS(int s) {
+        int head = 1, tail = s, cur = 0;
+        int sum = 0;
+        while (cur <= (tail + 1) / 2) {
+            if (sum > s) {
+                sum -= head;
+                head++;
+            } else if (sum == s) {
+                printSequence(head, cur);
+                ++cur;
+                sum += cur;
+            } else {
+                ++cur;
+                sum += cur;
+            }
+        }
+    }
 
-
+    private void printSequence(int a, int b) {
+        for (int i = a; i <= b; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
 
 
     /**
@@ -971,9 +1107,10 @@ class Offer {
      * 07 两个栈实现一个队列
      */
 
-	/*
+
+    /**
      * 08 旋转数组中的最小数字
-	 */
+     */
     public int binarySearch(int[] a, int key) {
         if (a.length < 1) {
             return -1;
@@ -1135,17 +1272,20 @@ class Offer {
 
 }
 
-
 /*
  * 05 链表结构
  */
 class Linked {
+
     class ListNode {
         public Object obj;
         public ListNode next = null;
 
         public ListNode(Object obj) {
             this.obj = obj;
+        }
+
+        public ListNode() {
         }
     }
 

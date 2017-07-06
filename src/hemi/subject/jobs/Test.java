@@ -1,6 +1,5 @@
 package hemi.subject.jobs;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -9,7 +8,21 @@ import java.util.regex.Pattern;
 public class Test {
     private static final int MIN = Integer.MIN_VALUE;
 
-    //@org.junit.Test
+    @org.junit.Test
+    public void testRex(){
+        String str ="yexq@wangsu.com";
+        String pat = "^([a-zA-Z0-9_-])+(@chinanetcenter.com|@wangsu.com)$";
+        Pattern p = Pattern.compile(pat);
+        Matcher m = p.matcher(str);
+
+        if(m.matches()){
+            System.out.println("格式合法！");
+        }else{
+            System.out.println("格式不合法！");
+        }
+    }
+
+//    @org.junit.Test
     public void test() {
 /*        int sum = 0;
         int[] vi = {88242, 313, 1991, 4207, 2483, 1763, 224, 16, 582, 22943, 28632, 47682, 378, 90, 88, 43, 117, 19, 8};
