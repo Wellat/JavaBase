@@ -2,14 +2,16 @@ package hemi.subject.jobs;
 
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OfferTest {
     public static void main(String[] args) throws Exception {
         Offer of = new Offer();
         int[] inputs = {1, 2, 4, 7, 11, 15};
         String str = "I am a student.";
-        int ans = of.lastNum(6,3);
-        System.out.println(ans);
+        int ans = of.lastNum(6, 3);
+        System.out.println(of.string2Num("545"));
     }
 
 
@@ -79,6 +81,63 @@ class CicleLink {
 }
 
 class Offer {
+
+
+    /**
+     * 49 把字符串转换成整数
+     */
+    public Integer string2Num(String str){
+        if(str == null || str.equals("")){
+            System.out.println("null");
+            return null;
+        }
+        int begin_flag = 0 ;//0，1
+        int zf_flag = 0 ;//0为正数，1为负数
+
+        // 判断正负
+        char first = str.charAt(0);
+        if(first>='0' && first<='9'){
+
+        }else if(first == '+'){
+            begin_flag=1;
+        }else if(first == '-'){
+            begin_flag=1;
+            zf_flag = 1;
+        }else{
+            System.out.println("bad begin.");
+            return null;
+        }
+        // 正则判断非法字符输入
+        Pattern pattern = Pattern.compile("(\\D+)");
+        Matcher matcher = pattern.matcher(str.substring(begin_flag));
+        if(matcher.find()){
+            System.out.println("bad input.");
+            return null;
+        }
+
+        //装换
+        int out=0;
+        for(int i=begin_flag;i<str.length();i++){
+            out = out*10 + (str.charAt(i)-'0');
+        }
+        return zf_flag==1?(-1)*out:out;
+    }
+
+
+    /**
+     * 47 不用加减乘除做加法
+     */
+    public int add(int a, int b) {
+        int sum, carry;
+        do {
+            sum = a ^ b;//异或
+            carry = (a & b) << 1;//获取进位
+            a = sum;
+            b = carry;
+        } while (b != 0);
+        return a;
+    }
+
 
     /**
      * 45 圆圈中最后剩下的数字
