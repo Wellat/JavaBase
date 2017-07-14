@@ -1,16 +1,28 @@
 package hemi.subject.jobs;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
     private static final int MIN = Integer.MIN_VALUE;
 
+
     @org.junit.Test
-    public void testRex(){
+    public void testRex() throws Exception {
         String str ="yexq@wangsu.com";
+
+        str.indexOf("su");
+
+
         String pat = "^([a-zA-Z0-9_-])+(@chinanetcenter.com|@wangsu.com)$";
         Pattern p = Pattern.compile(pat);
         Matcher m = p.matcher(str);

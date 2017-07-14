@@ -42,6 +42,44 @@ public class Main {
 
 class Solution {
 
+
+    /**
+     * 平安果数量
+     *
+     * 待完成
+     */
+    public int appleNum(int row,int col,int[][] input){
+        --row;
+        --col;
+        int sum =input[row][col];
+        while (row>0 && col >0){
+            if(input[row][col-1]>input[row-1][col]){
+                sum += input[row][col-1];
+                col--;
+            }else{
+                sum += input[row-1][col];
+                row--;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 爬楼梯
+     *
+     */
+    public int louti(int k){
+        if(k<0) return 0;
+        int[] temp = new int[k+1];
+        temp[1]=1;
+        temp[2]=2;
+        for(int i=3;i<k+1;i++){
+            temp[i]=temp[i-1]+temp[i-2];
+        }
+        return temp[k];
+    }
+
+
     /**
      * 最大子序列和
      * @param sequence

@@ -11,7 +11,8 @@ public class OfferTest {
         int[] inputs = {1, 2, 4, 7, 11, 15};
         String str = "I am a student.";
         int ans = of.lastNum(6, 3);
-        System.out.println(of.string2Num("545"));
+        of.permutation("abc");
+//        System.out.println(of.permutation("abc"));
     }
 
 
@@ -86,41 +87,41 @@ class Offer {
     /**
      * 49 把字符串转换成整数
      */
-    public Integer string2Num(String str){
-        if(str == null || str.equals("")){
+    public Integer string2Num(String str) {
+        if (str == null || str.equals("")) {
             System.out.println("null");
             return null;
         }
-        int begin_flag = 0 ;//0，1
-        int zf_flag = 0 ;//0为正数，1为负数
+        int begin_flag = 0;//0，1
+        int zf_flag = 0;//0为正数，1为负数
 
         // 判断正负
         char first = str.charAt(0);
-        if(first>='0' && first<='9'){
+        if (first >= '0' && first <= '9') {
 
-        }else if(first == '+'){
-            begin_flag=1;
-        }else if(first == '-'){
-            begin_flag=1;
+        } else if (first == '+') {
+            begin_flag = 1;
+        } else if (first == '-') {
+            begin_flag = 1;
             zf_flag = 1;
-        }else{
+        } else {
             System.out.println("bad begin.");
             return null;
         }
         // 正则判断非法字符输入
         Pattern pattern = Pattern.compile("(\\D+)");
         Matcher matcher = pattern.matcher(str.substring(begin_flag));
-        if(matcher.find()){
+        if (matcher.find()) {
             System.out.println("bad input.");
             return null;
         }
 
         //装换
-        int out=0;
-        for(int i=begin_flag;i<str.length();i++){
-            out = out*10 + (str.charAt(i)-'0');
+        int out = 0;
+        for (int i = begin_flag; i < str.length(); i++) {
+            out = out * 10 + (str.charAt(i) - '0');
         }
-        return zf_flag==1?(-1)*out:out;
+        return zf_flag == 1 ? (-1) * out : out;
     }
 
 
@@ -371,10 +372,39 @@ class Offer {
      * 36 数组中的逆序对数
      * ❤❤❤❤
      */
+    //普通方法
+    public int getInversePairs(int[] input){
+        if(input.length<1) return 0;
+        int count =0;
+        for(int i=0;i<input.length;i++){
+            for(int j=i;j<input.length;j++){
+                if(input[i]>input[j]){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    //归并排序法
+    public void inversePairs(int[] input){
+        int[] out = new int[input.length];
+        mergeSort(input,out,0,input.length-1);
+    }
+    private void mergeSort(int[] input,int[] out,int begin,int end){
+        if(begin<end){
+            int mid = (begin + end)/2;
+            mergeSort(input,out,begin,mid);
+            mergeSort(input,out,mid+1,end);
+            merge2(input,out,begin,mid+1,end);
+        }
+    }
+
+    private void merge2(int[] input, int[] out, int begin, int mid, int end) {
+        //TODO
+    }
 
     /**
      * 35 第一个只出现一次的字符
-     * ❤
      *
      * @param str
      * @return
@@ -453,7 +483,7 @@ class Offer {
      * @return
      */
     public int numberOf1Between1AndN(int n) {
-
+        //
         return 0;
     }
 
@@ -476,6 +506,7 @@ class Offer {
 
     /**
      * 30 最小的K个数
+     *
      */
     //法1利用快速排序核，复杂度为O(n)
     public int[] getLeastNumbers(int[] input, int k) {
@@ -506,12 +537,14 @@ class Offer {
 
     /**
      * 29 数组中出现次数超过一半的数字
+     *
      */
     public int moreThanHalfNum(int[] arr) {
         if (arr.length == 0) return 0;
         return usequicksort(arr, 0, arr.length - 1);
     }
 
+    // 快速排序函数
     private int partition(int[] arr, int low, int high) {
         int i = low, j = high;
         int choosen = arr[j];
@@ -529,6 +562,7 @@ class Offer {
         return j;
     }
 
+    // 利用快速排序法
     private int usequicksort(int[] arr, int begin, int end) {
         int j = partition(arr, begin, end);
         if (j > arr.length / 2) {
@@ -540,6 +574,7 @@ class Offer {
         }
     }
 
+    // 更好的方法
     public int moreThanHalfNum2(int[] arr) {
         if (arr.length == 0)
             return -1;
@@ -560,7 +595,7 @@ class Offer {
     /**
      * 28 打印字符串的排列
      * 打印输入字符串的所有字符排列
-     * --hard
+     * ❤❤❤❤❤
      *
      * @param str
      */
@@ -570,7 +605,7 @@ class Offer {
         for (int i = 0; i < str.length(); i++) {
             chars[i] = str.charAt(i);
         }
-        permutation(chars, 0, str.length());
+        permutation(chars, 0, str.length()-1);
 
         Stack<Character> stack = new Stack<>();
         for (int i = 1; i <= chars.length; i++) {
@@ -578,22 +613,21 @@ class Offer {
         }
     }
 
+
     /**
      * 给一个字符串，比如ABC， 把所有的排列，即：ABC, ACB, BAC, BCA, CAB, CBC 都找出来。
      */
-    private void permutation(char str[], int index, int size) {
-        if (index == size) {
-            for (int i = 0; i < size; i++) {
+    private void permutation(char str[], int start, int end) {
+        if (start == end) {
+            for (int i = 0; i <= end; i++) {
                 System.out.print(str[i]);
             }
             System.out.println();
         } else {
-            for (int i = index; i < size; i++) {
-//                if (i != index && str[i] == str[index])
-//                    continue;
-                swap(str, i, index);
-                permutation(str, index + 1, size);
-                swap(str, i, index);
+            for (int i = start; i <= end; i++) {
+                swap(str, i, start);
+                permutation(str, start + 1, end);
+                swap(str, i, start);
             }
         }
     }
@@ -641,6 +675,8 @@ class Offer {
 
     /**
      * 26 复杂链表的复制
+     * ❤❤❤
+     *
      * 节点中，每个节点除了有一个next指向下一个节点，还有一个sibling指向链表中任意节点或者null
      */
     public ComplexListNode clone(ComplexListNode head) {
@@ -659,31 +695,33 @@ class Offer {
         while (pHead != null) {
             if (pHead.sibling != null) {
                 pHead.next.sibling = pHead.sibling.next;
-                pHead = pHead.next;
+//                pHead = pHead.next;
             }
             pHead = pHead.next;
         }
         //将长链表奇偶分离
         pHead = head;
-        ComplexListNode ho = null;
-        ComplexListNode hc = null;
+        ComplexListNode cloneNode = null;
+        ComplexListNode cloneHead = null;
+
         if (pHead != null) {
-            ho = head.next;
-            hc = head.next;
-            pHead.next = hc.next;
+            cloneHead = head.next;
+            cloneNode = cloneHead;
+            pHead.next = cloneHead.next;
             pHead = pHead.next;
         }
         while (pHead != null) {
-            ho.next = pHead.next;
-            ho = ho.next;
-            pHead.next = ho.next;
+            cloneNode.next = pHead.next;
+            cloneNode = cloneNode.next;
+            pHead.next = cloneNode.next;
             pHead = pHead.next;
         }
-        return hc;
+        return cloneHead;
     }
 
     /**
      * 25 二叉树中和为某一值的路径
+     * ❤❤❤
      *
      * @param node
      * @param expectedSum
@@ -721,6 +759,9 @@ class Offer {
 
     /**
      * 24 二叉搜索树的后序遍历
+     * ❤❤❤
+     * <p>
+     * 输入一个整数数组，判断其是否为...后续遍历
      *
      * @param sequence
      * @param len
@@ -740,7 +781,7 @@ class Offer {
 
         int j = i;
         for (; j < end; j++) {
-            if (sequence[i] < root) return false;
+            if (sequence[j] < root) return false;
         }
 
         boolean left = true;
@@ -918,7 +959,8 @@ class Offer {
     }
 
     /**
-     * 16 反转链表——区分05反向打印链表
+     * 16 反转链表————区分05反向打印链表
+     * ❤❤
      *
      * @param root
      * @return
@@ -1006,6 +1048,8 @@ class Offer {
      * @param target
      */
     public void deleteNode(ListNode root, ListNode target) {
+        if (root == null || target == null) return;
+
         //删除节点为头节点
         if (root == target) {
             root = null;
@@ -1013,11 +1057,13 @@ class Offer {
         }
         //删除节点为尾节点
         if (target.next == null) {
-            while (root.next != target) {
-                root = root.next;
+            ListNode node = root;
+            while (node.next != target) {
+                node = node.next;
             }
-            root.next = null;
+            node.next = null;
         }
+
         //删除节点在中部
         target.val = target.next.val;
         target.next = target.next.next;
