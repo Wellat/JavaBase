@@ -1,14 +1,7 @@
 package hemi.subject.jobs;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.*;
 import java.util.*;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,20 +11,12 @@ public class Test {
 
     @org.junit.Test
     public void testRex() throws Exception {
-        String str ="yexq@wangsu.com";
-
-        str.indexOf("su");
-
-
-        String pat = "^([a-zA-Z0-9_-])+(@chinanetcenter.com|@wangsu.com)$";
-        Pattern p = Pattern.compile(pat);
-        Matcher m = p.matcher(str);
-
-        if(m.matches()){
-            System.out.println("格式合法！");
-        }else{
-            System.out.println("格式不合法！");
-        }
+        HashMap<String,Integer> map = new HashMap<>();
+        map.put("dd",44);
+        map.put("aa",11);
+        HashMap<String,Integer> mapTest = map;
+        map.put("aa",33);
+        System.out.println();
     }
 
 //    @org.junit.Test

@@ -1,7 +1,6 @@
 package hemi.dataStructure;
 
 public class Sort {
-
 	/**
 	 * A class that contains several sorting routines, implemented as static
 	 * methods. Arrays are rearranged with smallest item first, using compares.
@@ -11,7 +10,7 @@ public class Sort {
 
 	/**
 	 * Simple insertion sort.
-	 * ÊÊÓÃÓÚÉÙÁ¿ÊäÈë£¬Èç¹ûĞèÒª´¦Àí´óÁ¿Êı¾İ£¬²åÈëÅÅĞòÊÇÒ»¸öÔã¸âµÄÑ¡Ôñ£¬Ì«·ÑÊ±
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ì«ï¿½ï¿½Ê±
 	 * @param a
 	 *            an array of Comparable items.
 	 */
@@ -28,8 +27,8 @@ public class Sort {
 
 	/**
 	 * Shellsort, using a sequence suggested by Gonnet.
-	 * Ï£¶ûµÄË¼ÏëÊÇ±ÜÃâ´óÁ¿µÄÊı¾İÒÆ¶¯£¬Í¨¹ıÏÈ±È½ÏÏà¾à½ÏÔ¶µÄÔªËØ£¬È»ºó±È½ÏÏà¾àÔÙ½üÒ»µãµÄÔªËØ
-	 * ÒÔ´ËÀàÍÆ£¬Öğ²½Ïò»ù±¾²åÈëÅÅĞòËõ¼õ
+	 * Ï£ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½È±È½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Ôªï¿½Ø£ï¿½È»ï¿½ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½Ò»ï¿½ï¿½ï¿½Ôªï¿½ï¿½
+	 * ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param a
 	 *            an array of Comparable items.
 	 */
@@ -97,7 +96,7 @@ public class Sort {
 
 	/**
 	 * Mergesort algorithm.
-	 * ¹é²¢ÅÅĞò£¬¶ş·Ö·¨½«Êı¾İ·Ö±ğÅÅĞòºó¹é²¢
+	 * ï¿½é²¢ï¿½ï¿½ï¿½ò£¬¶ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ·Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é²¢
 	 * @param a
 	 *            an array of Comparable items.
 	 */
@@ -168,7 +167,7 @@ public class Sort {
 
 	/**
 	 * Quicksort algorithm.
-	 * ¿ìËÙÅÅĞò
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param a
 	 *            an array of Comparable items.
 	 */

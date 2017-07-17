@@ -65,6 +65,93 @@ class Solution {
     }
 
     /**
+     * 二叉树的遍历
+     */
+    /*
+    递归
+     */
+    // 先序遍历
+    public void preOrder(BinaryNode node){
+        if(node == null) return;
+        System.out.println(node.element);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+    // 中序遍历
+    public void inOrder(BinaryNode node){
+        if(node == null) return;
+        inOrder(node.left);
+        System.out.println(node.element);
+        inOrder(node.right);
+    }
+    // 后序遍历
+    public void postOrder(BinaryNode node){
+        if(node == null) return;
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.element);
+    }
+
+    /*
+    非递归
+     */
+    // 先序遍历
+    public void preOrder2(BinaryNode node){
+        Stack<BinaryNode> stack = new Stack<>();
+        while (node!=null || !stack.isEmpty()){
+            while (node!=null){
+                System.out.println(node.element);
+                stack.push(node);
+                node = node.left;
+            }
+            if(!stack.isEmpty()){
+                node = stack.pop();
+                node = node.right;
+            }
+        }
+    }
+    // 中序遍历
+    public void inOrder2(BinaryNode node){
+        Stack<BinaryNode> stack = new Stack<>();
+        while (node!=null || !stack.isEmpty()){
+            while (node!=null){
+                stack.push(node);
+                node = node.left;
+            }
+            if(!stack.isEmpty()){
+                node = stack.pop();
+                System.out.println(node.element);
+                node = node.right;
+            }
+        }
+    }
+    // 后序遍历
+    public void postOrder2(BinaryNode p){
+        Stack<BinaryNode> stack = new Stack<BinaryNode>();//TODO
+        BinaryNode node = p, prev = p;
+        while (node != null || stack.size() > 0) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            if (stack.size() > 0) {
+                BinaryNode temp = stack.peek().right;
+                if (temp == null || temp == prev) {
+                    node = stack.pop();
+                    System.out.println(node.element);
+                    prev = node;
+                    node = null;
+                } else {
+                    node = temp;
+                }
+            }
+
+        }
+    }
+
+
+
+    /**
      * 爬楼梯
      *
      */

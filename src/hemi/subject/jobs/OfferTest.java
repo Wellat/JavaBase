@@ -10,9 +10,15 @@ public class OfferTest {
         Offer of = new Offer();
         int[] inputs = {1, 2, 4, 7, 11, 15};
         String str = "I am a student.";
-        int ans = of.lastNum(6, 3);
-        of.permutation("abc");
+
 //        System.out.println(of.permutation("abc"));
+        int[] gb = {7,5,6,4,1};
+        of.inversePairs(gb);
+        for(int g:gb){
+            System.out.print(g+" ");
+        }
+        System.out.println();
+        System.out.println(of.times);
     }
 
 
@@ -313,7 +319,7 @@ class Offer {
      * @return
      */
     public int numberOfK(int[] input, int k) {
-        int index, low = 0, high = input.length - 1;
+        int index, low = 0, high = input.length - 1;//TODO
         while (low <= high) {
             index = (high + low) / 2;
             if (input[index] > k) {
@@ -385,22 +391,41 @@ class Offer {
         }
         return count;
     }
-    //归并排序法
+
+    public static int times = 0;
+    //利用归并排序法
     public void inversePairs(int[] input){
-        int[] out = new int[input.length];
-        mergeSort(input,out,0,input.length-1);
+        int[] temp = new int[input.length];
+        mergeSort(input,temp,0,input.length-1);
     }
-    private void mergeSort(int[] input,int[] out,int begin,int end){
+    private void mergeSort(int[] input,int[] temp,int begin,int end){
         if(begin<end){
             int mid = (begin + end)/2;
-            mergeSort(input,out,begin,mid);
-            mergeSort(input,out,mid+1,end);
-            merge2(input,out,begin,mid+1,end);
+            mergeSort(input,temp,begin,mid);
+            mergeSort(input,temp,mid+1,end);
+            merge2(input,temp,begin,mid+1,end);
         }
     }
+    private void merge2(int[] input, int[] temp, int begin, int mid, int end) {
+        int leftEnd = mid -1;
+        int tempIndex = end;
+        int numElements = end - begin + 1;
+        while (leftEnd>=begin && end>=mid){
+            if(input[leftEnd]>input[end]){
+                temp[tempIndex--]=input[leftEnd--];
+                times += end - mid + 1;
+            }else {
+                temp[tempIndex--]=input[end--];
+            }
+        }
+        while (leftEnd>=begin)
+            temp[tempIndex--]=input[leftEnd--];
+        while (end>=mid)
+            temp[tempIndex--]=input[end--];
 
-    private void merge2(int[] input, int[] out, int begin, int mid, int end) {
-        //TODO
+        for(int i=0;i<numElements;i++,begin++){
+            input[begin]=temp[begin];
+        }
     }
 
     /**
@@ -1117,6 +1142,7 @@ class Offer {
 
     /**
      * 03 二维数组中的查找
+     * 数组左下角最小，右上角最大
      */
     public boolean find(int[][] mat, int number) {
         if (mat.length < 1)
