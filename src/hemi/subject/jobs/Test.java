@@ -1,22 +1,85 @@
 package hemi.subject.jobs;
 
+import hemi.battle.huawei.Node;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Test {
     private static final int MIN = Integer.MIN_VALUE;
 
+    @org.junit.Test
+    public void testree(){
+        BinaryNode n1 = new BinaryNode(7);
+        BinaryNode n2 = new BinaryNode(5);
+        BinaryNode n3 = new BinaryNode(6);
+        BinaryNode n4 = new BinaryNode(9);
+        BinaryNode n5 = new BinaryNode(8);
+        BinaryNode n6 = new BinaryNode(2);
+        n1.left=n2;
+        n1.right=n4;
+        n2.right=n3;
+        n2.left = n6;
+        n4.left=n5;
+        postOrder(n1);
+        System.out.println();
+        iterativePostorder3(n1);
+    }
+    public void postOrder(BinaryNode p){
+        if(p==null) return;
+        if(p!=null){
+            postOrder(p.left);
+            postOrder(p.right);
+            System.out.print(p.element+" ");
+        }
+    }
+    protected static void iterativePostorder3(BinaryNode p) {
+        Stack<BinaryNode> stack = new Stack<>();
+        BinaryNode node = p, prev = p;
+        while (node != null || stack.size() > 0) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            if (stack.size() > 0) {
+                BinaryNode temp = stack.peek().right;
+                if (temp == null || temp == prev) {
+                    node = stack.pop();
+                    System.out.print(node.element+" ");
+                    prev = node;
+                    node = null;
+                } else {
+                    node = temp;
+                }
+            }
 
+        }
+    }
     @org.junit.Test
     public void testRex() throws Exception {
-        HashMap<String,Integer> map = new HashMap<>();
-        map.put("dd",44);
-        map.put("aa",11);
-        HashMap<String,Integer> mapTest = map;
-        map.put("aa",33);
-        System.out.println();
+        String str ="yexq@wangsu.com";
+
+        str.indexOf("su");
+
+
+        String pat = "^([a-zA-Z0-9_-])+(@chinanetcenter.com|@wangsu.com)$";
+        Pattern p = Pattern.compile(pat);
+        Matcher m = p.matcher(str);
+
+        if(m.matches()){
+            System.out.println("格式合法！");
+        }else{
+            System.out.println("格式不合法！");
+        }
     }
 
 //    @org.junit.Test
