@@ -148,12 +148,13 @@ class Offer {
 
     /**
      * 45 圆圈中最后剩下的数字
+     * ❤❤❤
      */
     /*
     0到n-1这n个数字排成一个圈，从数字0开始每次删除第m个数字，
     求这个圆圈里剩下的最后一个数字。
      */
-    public int lastNum(int n, int m) {
+    public int lastNum(int n, int m) {//TODO
         if (n < 1 || m < 1) return -1;
         int last = 0;
         for (int i = 2; i <= n; i++) {
@@ -275,7 +276,7 @@ class Offer {
 
     /**
      * 39 二叉树的深度
-     *
+     * ❤❤
      * @param tree
      * @return
      */
@@ -301,7 +302,7 @@ class Offer {
         int left = 0, right = 0;
         if (isBalanced(root.left, left) && isBalanced(root.right, right)) {
             int diff = left - right;
-            if (diff <= -1 && diff >= 1) {
+            if (diff < -1 && diff > 1) {
                 depth = 1 + (left > right ? left : right);
                 return true;
             }
@@ -319,7 +320,7 @@ class Offer {
      * @return
      */
     public int numberOfK(int[] input, int k) {
-        int index, low = 0, high = input.length - 1;//TODO
+        int index, low = 0, high = input.length - 1;
         while (low <= high) {
             index = (high + low) / 2;
             if (input[index] > k) {

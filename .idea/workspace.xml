@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6681c222-3fc7-45c8-89e9-3972e12c9f1a" name="默认的" comment="OfferTest_45">
+    <list default="true" id="6681c222-3fc7-45c8-89e9-3972e12c9f1a" name="默认的" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/dataStructure/Sort.java" afterPath="$PROJECT_DIR$/src/hemi/dataStructure/Sort.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/Main.java" afterPath="$PROJECT_DIR$/src/hemi/subject/jobs/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java" afterPath="$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/Test.java" afterPath="$PROJECT_DIR$/src/hemi/subject/jobs/Test.java" />
     </list>
     <ignored path="JavaBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,24 +36,10 @@
       <file leaf-file-name="OfferTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="8.616438">
-              <caret line="321" column="58" selection-start-line="321" selection-start-column="58" selection-end-line="321" selection-end-column="58" />
+            <state vertical-scroll-proportion="0.40268457">
+              <caret line="150" column="10" selection-start-line="150" selection-start-column="10" selection-end-line="150" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1193#1194#0" expanded="true" />
-                <element signature="e#1246#1247#0" expanded="true" />
-                <element signature="e#1271#1272#0" expanded="true" />
-                <element signature="e#1298#1299#0" expanded="true" />
-                <element signature="e#6467#6468#0" expanded="true" />
-                <element signature="e#6509#6510#0" expanded="true" />
-                <element signature="e#27330#27331#0" expanded="true" />
-                <element signature="e#27370#27371#0" expanded="true" />
-                <element signature="e#34645#34646#0" expanded="true" />
-                <element signature="e#34683#34684#0" expanded="true" />
-                <element signature="e#35190#35191#0" expanded="true" />
-                <element signature="e#35217#35218#0" expanded="true" />
-                <element signature="e#36147#36148#0" expanded="true" />
-                <element signature="e#36185#36186#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,10 +49,10 @@
         <entry file="file://$PROJECT_DIR$/src/hemi/subject/jobs/Test.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+              <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1500173073755" expanded="true" signature="2658:2689" placeholder="select * fro... test" />
+                <marker date="1500559244436" expanded="true" signature="2349:2355" placeholder="{...}" />
+                <marker date="1500559244436" expanded="true" signature="4525:4556" placeholder="select * fro... test" />
               </folding>
             </state>
           </provider>
@@ -81,9 +64,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="121" column="35" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
               <folding>
-                <element signature="e#3375#3387#0" expanded="true" />
-                <element signature="e#22633#22634#0" expanded="true" />
-                <element signature="e#22663#22664#0" expanded="true" />
+                <element signature="imports" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -166,9 +147,9 @@
         <option value="$PROJECT_DIR$/src/hemi/subject/jobs/thread/ConsumerProducer01.java" />
         <option value="$PROJECT_DIR$/src/hemi/learn/multiThread/Core1.java" />
         <option value="$PROJECT_DIR$/src/hemi/subject/jobs/candelete.json" />
-        <option value="$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java" />
         <option value="$PROJECT_DIR$/src/hemi/subject/jobs/Test.java" />
         <option value="$PROJECT_DIR$/src/hemi/subject/jobs/Main.java" />
+        <option value="$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java" />
       </list>
     </option>
   </component>
@@ -192,9 +173,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="910" />
-    <option name="width" value="1019" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="添加" />
@@ -205,9 +187,6 @@
     <OptionsSetting value="true" id="编辑" />
     <ConfirmationsSetting value="0" id="添加" />
     <ConfirmationsSetting value="0" id="移除" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -394,7 +373,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JavaWeb/seckill" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="project.structure.last.edited" value="Problems" />
@@ -441,8 +420,7 @@
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
           <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/encodings.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/Main.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/JavaBase.iml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/Test.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -451,6 +429,16 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacade.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacadeImpl.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacadeProxy.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacadeProxyCglib.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/Count.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/CountImpl.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/CountProxy.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/TestCglib.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/TestCount.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/TestDynProxy.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="已删除" />
@@ -1309,7 +1297,8 @@
       <workItem from="1499222188883" duration="4183000" />
       <workItem from="1499323248593" duration="7443000" />
       <workItem from="1499408961157" duration="5174000" />
-      <workItem from="1499431722185" duration="17184000" />
+      <workItem from="1499431722185" duration="17818000" />
+      <workItem from="1500559232745" duration="2207000" />
     </task>
     <task id="LOCAL-00001" summary="31">
       <created>1498140006676</created>
@@ -1341,7 +1330,13 @@
       <option name="project" value="LOCAL" />
       <updated>1499333749957</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="OfferTest">
+      <created>1500293503279</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1500293503279</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1377,7 +1372,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="533280000" />
+    <option name="totallyTimeSpent" value="536121000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1389,21 +1384,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="910" y="0" width="1019" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4157549" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3358862" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="控制板" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36716416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="设计师" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24942264" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1421,13 +1413,16 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39933443" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4157549" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3327787" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3358862" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1452,7 +1447,8 @@
     <MESSAGE value="OfferTest_38" />
     <MESSAGE value="OfferTest_40" />
     <MESSAGE value="OfferTest_45" />
-    <option name="LAST_COMMIT_MESSAGE" value="OfferTest_45" />
+    <MESSAGE value="OfferTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="OfferTest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1483,7 +1479,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/hemi/subject/jobs/Test.java</url>
-          <line>80</line>
+          <line>143</line>
           <properties />
           <option name="timeStamp" value="110" />
         </line-breakpoint>
@@ -1543,19 +1539,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java</url>
-          <line>354</line>
+          <line>355</line>
           <properties />
           <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java</url>
-          <line>339</line>
+          <line>340</line>
           <properties />
           <option name="timeStamp" value="214" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java</url>
-          <line>324</line>
+          <line>325</line>
           <properties />
           <option name="timeStamp" value="215" />
         </line-breakpoint>
@@ -1579,7 +1575,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/hemi/subject/jobs/Test.java</url>
-          <line>18</line>
+          <line>81</line>
           <properties />
           <option name="timeStamp" value="233" />
         </line-breakpoint>
@@ -1834,7 +1830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.432526">
           <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1857,10 +1852,10 @@
     <entry file="file://$PROJECT_DIR$/src/hemi/subject/jobs/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+          <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1500173073755" expanded="true" signature="2658:2689" placeholder="select * fro... test" />
+            <marker date="1500559244436" expanded="true" signature="2349:2355" placeholder="{...}" />
+            <marker date="1500559244436" expanded="true" signature="4525:4556" placeholder="select * fro... test" />
           </folding>
         </state>
       </provider>
@@ -1870,33 +1865,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="121" column="35" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
           <folding>
-            <element signature="e#3375#3387#0" expanded="true" />
-            <element signature="e#22633#22634#0" expanded="true" />
-            <element signature="e#22663#22664#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.616438">
-          <caret line="321" column="58" selection-start-line="321" selection-start-column="58" selection-end-line="321" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.40268457">
+          <caret line="150" column="10" selection-start-line="150" selection-start-column="10" selection-end-line="150" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1193#1194#0" expanded="true" />
-            <element signature="e#1246#1247#0" expanded="true" />
-            <element signature="e#1271#1272#0" expanded="true" />
-            <element signature="e#1298#1299#0" expanded="true" />
-            <element signature="e#6467#6468#0" expanded="true" />
-            <element signature="e#6509#6510#0" expanded="true" />
-            <element signature="e#27330#27331#0" expanded="true" />
-            <element signature="e#27370#27371#0" expanded="true" />
-            <element signature="e#34645#34646#0" expanded="true" />
-            <element signature="e#34683#34684#0" expanded="true" />
-            <element signature="e#35190#35191#0" expanded="true" />
-            <element signature="e#35217#35218#0" expanded="true" />
-            <element signature="e#36147#36148#0" expanded="true" />
-            <element signature="e#36185#36186#0" expanded="true" />
           </folding>
         </state>
       </provider>
