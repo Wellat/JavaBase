@@ -1,4 +1,4 @@
-package hemi.subject.jobs.test.proxy;
+package hemi.learn.designmodel.agent;
 
 /**
  * @author yexq
@@ -9,6 +9,9 @@ public class TestDynProxy {
     public static void main(String[] args){
         BookFacadeProxy proxy = new BookFacadeProxy();
         BookFacade bookFacade = (BookFacade)proxy.bind(new BookFacadeImpl());
+
         bookFacade.addBook();
+        bookFacade.editBook();
+
     }
 }

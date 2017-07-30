@@ -1,4 +1,4 @@
-package hemi.subject.jobs.test.proxy;
+package hemi.learn.designmodel.agent;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -22,10 +22,10 @@ public class BookFacadeProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Object result = null;
-        System.out.println("事务开始...");
+        Object result ;
+        System.out.println("事务chuli开始...");
         result = method.invoke(target,args);
-        System.out.println("事务结束...");
+        System.out.println("事务处理结束...");
         return result;
     }
 }

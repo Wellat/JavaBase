@@ -1,4 +1,4 @@
-package hemi.subject.jobs.test.proxy;
+package hemi.learn.designmodel.agent;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;

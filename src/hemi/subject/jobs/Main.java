@@ -14,29 +14,89 @@ import java.util.regex.Pattern;
  */
 public class Main {
     public static void main(String[] args){
-        Solution solution = new Solution();
         Scanner sc = new Scanner(System.in);
-        int l = sc.nextInt();
-        int r = sc.nextInt();
-        HashMap<String,Integer> map = new HashMap<>();
-        for(int i=l;i<=r;i++){
-            for(int j=1;j<=Math.sqrt(i);j++){
-                if(j*j==i){
-                    map.put(j+"",map.get(j+"")==null?1:map.get(""+j)+1);
-                    break;
-                }
-                if(i%j == 0){
-                    String index = (j+"").charAt(0)+"";
-                    String indexj = (i/j+"").charAt(0)+"";
-                    map.put(index,map.get(index)==null?1:map.get(index)+1);
-                    map.put(indexj,map.get(indexj)==null?1:map.get(indexj)+1);
+        int n = Integer.valueOf(sc.nextLine());
+        DecimalFormat df = new DecimalFormat("#0.00000");
+        double max = 0;
+        List<Integer[]> rlist = new ArrayList<>();
+        List<Integer[]> glist = new ArrayList<>();
+        List<Integer[]> blist = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            Integer[] dot = new Integer[3];
+            String[] str = sc.nextLine().split(" ");
+            if("R".equals(str[0])){
+                dot[0]=Integer.valueOf(str[1]);
+                dot[1]=Integer.valueOf(str[2]);
+                dot[2]=Integer.valueOf(str[3]);
+                rlist.add(dot);
+            }else if("G".equals(str[0])){
+                dot[0]=Integer.valueOf(str[1]);
+                dot[1]=Integer.valueOf(str[2]);
+                dot[2]=Integer.valueOf(str[3]);
+                glist.add(dot);
+            }else if("B".equals(str[0])){
+                dot[0]=Integer.valueOf(str[1]);
+                dot[1]=Integer.valueOf(str[2]);
+                dot[2]=Integer.valueOf(str[3]);
+                blist.add(dot);
+            }
+        }
+        int rsize = rlist.size();
+        int gsize = glist.size();
+        int bsize = blist.size();
+
+        double temp = 0;
+        if(rsize>0 && gsize>0 && bsize>0){
+            for(int r=0;r<rsize;r++){
+                for(int g=0;g<gsize;g++){
+                    for(int b=0;b<bsize;b++){
+                        temp = area(length(rlist.get(r),glist.get(g)),length(rlist.get(r),blist.get(b)),length(blist.get(b),glist.get(g)));
+                        if(temp>max) max = temp;
+                    }
                 }
             }
         }
-        for(int i=1;i<=9;i++){
-            System.out.println(map.get(i+"")==null?0:map.get(i+""));
+
+        if(rsize>=3){
+            max = get(rlist,max);
+        }
+        if(gsize>=3){
+            max = get(glist,max);
+        }
+        if(bsize>=3){
+            max = get(blist,max);
         }
 
+        System.out.println(df.format(max));
+
+    }
+    //
+    private static double get(List<Integer[]> rlist,double max){
+        int rsize = rlist.size();
+        double temp = 0;
+        for(int i=0;i<rsize-2;i++){
+            for(int j=i+1;j<rsize-1;j++){
+                for(int k=j+1;k<rsize;k++){
+                    temp = area(length(rlist.get(i),rlist.get(j)),length(rlist.get(i),rlist.get(k)),length(rlist.get(j),rlist.get(k)));
+                    if(temp>max) max = temp;
+                }
+            }
+        }
+        return max;
+    }
+
+    //求边长
+    private static double length(Integer[] a,Integer[] b){
+        int sum = 0;
+        for(int i=0;i<a.length;i++){
+            sum += Math.pow(a[i]-b[i],2);
+        }
+        return Math.sqrt(sum);
+    }
+    //求面积
+    private static double area(double a,double b,double c){
+        double p = (a+b+c)/2;
+        return Math.sqrt(p*(p-a)*(p-b)*(p-c));
     }
 }
 

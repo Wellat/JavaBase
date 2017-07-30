@@ -1,4 +1,4 @@
-package hemi.subject.jobs.test.proxy;
+package hemi.learn.designmodel.agent;
 
 /**
  * 静态代理测试

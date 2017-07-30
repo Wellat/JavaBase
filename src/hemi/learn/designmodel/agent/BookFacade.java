@@ -1,4 +1,4 @@
-package hemi.subject.jobs.test.proxy;
+package hemi.learn.designmodel.agent;
 
 /**
  * @author yexq
@@ -7,4 +7,6 @@ package hemi.subject.jobs.test.proxy;
  */
 public interface BookFacade {
     void addBook();
+
+    void editBook();
 }

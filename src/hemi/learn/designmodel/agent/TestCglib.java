@@ -1,4 +1,4 @@
-package hemi.subject.jobs.test.proxy;
+package hemi.learn.designmodel.agent;
 
 /**
  * @author yexq
@@ -9,6 +9,8 @@ public class TestCglib {
     public static void main(String[] arg){
         BookFacadeProxyCglib cglib = new BookFacadeProxyCglib();
         BookFacadeImpl bookFacade = (BookFacadeImpl) cglib.getInstance(new BookFacadeImpl());
+
         bookFacade.addBook();
+        bookFacade.editBook();
     }
 }

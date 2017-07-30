@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -66,20 +67,21 @@ public class Test {
     }
     @org.junit.Test
     public void testRex() throws Exception {
-        String str ="yexq@wangsu.com";
 
-        str.indexOf("su");
+    }
 
-
-        String pat = "^([a-zA-Z0-9_-])+(@chinanetcenter.com|@wangsu.com)$";
-        Pattern p = Pattern.compile(pat);
-        Matcher m = p.matcher(str);
-
-        if(m.matches()){
-            System.out.println("格式合法！");
-        }else{
-            System.out.println("格式不合法！");
+    //求边长
+    private double length(Integer[] a,Integer[] b){
+        int sum = 0;
+        for(int i=0;i<a.length;i++){
+            sum += Math.pow(a[i]-b[i],2);
         }
+        return Math.sqrt(sum);
+    }
+    //求面积
+    private double area(double a,double b,double c){
+        double p = (a+b+c)/2;
+        return Math.sqrt(p*(p-a)*(p-b)*(p-c));
     }
 
 //    @org.junit.Test

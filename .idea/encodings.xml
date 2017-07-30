@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/hemi/learn/designmodel/agent/CountImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/hemi/subject/jobs/HuaweiTest.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/hemi/subject/jobs/OfferTest.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/CountImpl.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
