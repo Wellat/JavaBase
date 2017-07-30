@@ -13,6 +13,6 @@ public class BookFacadeImpl implements BookFacade {
 
     @Override
     public void editBook() {
-        System.out.println("编辑图书方法...");
+        System.out.println("编辑图书方法..");
     }
 }

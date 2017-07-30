@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6681c222-3fc7-45c8-89e9-3972e12c9f1a" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+    <list default="true" id="6681c222-3fc7-45c8-89e9-3972e12c9f1a" name="默认的" comment="+DesignModel">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/AbsFactoryTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/MailSender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/Provider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/SendMailFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/SendSmsFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/Sender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/SmsSender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/factory/FactoryTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/factory/MailSender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/factory/SendFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/factory/Sender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/factory/SmsSender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/singleton/Singleton.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/singleton/SingletonWithInnerClass.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JavaBase.iml" afterPath="$PROJECT_DIR$/JavaBase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/Main.java" afterPath="$PROJECT_DIR$/src/hemi/subject/jobs/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/Test.java" afterPath="$PROJECT_DIR$/src/hemi/subject/jobs/Test.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacade.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacade.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacadeImpl.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacadeProxy.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeProxy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/BookFacadeProxyCglib.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeProxyCglib.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/Count.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/Count.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/CountImpl.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/CountImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/CountProxy.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/CountProxy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/TestCglib.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/TestCglib.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/TestCount.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/TestCount.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/hemi/subject/jobs/test/proxy/TestDynProxy.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/TestDynProxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java" afterPath="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java" />
     </list>
     <ignored path="JavaBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,9 +60,22 @@
       <file leaf-file-name="Singleton.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hemi/learn/designmodel/singleton/Singleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8561644">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.20547946">
+              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookFacadeImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <element signature="e#274#275#0" expanded="true" />
+                <element signature="e#320#321#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,7 +107,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/hemi/battle/huawei/Test.java" />
         <option value="$PROJECT_DIR$/src/hemi/hotAlgorithm/HotAlgorithmDemo.java" />
         <option value="$PROJECT_DIR$/src/hemi/battle/huawei/Deploy_exh.java" />
         <option value="$PROJECT_DIR$/src/hemi/mldn/undefine/RegexDemo.java" />
@@ -144,6 +157,7 @@
         <option value="$PROJECT_DIR$/src/hemi/learn/designmodel/abstractfactory/AbsFactoryTest.java" />
         <option value="$PROJECT_DIR$/src/hemi/learn/designmodel/singleton/SingletonWithInnerClass.java" />
         <option value="$PROJECT_DIR$/src/hemi/learn/designmodel/singleton/Singleton.java" />
+        <option value="$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java" />
       </list>
     </option>
   </component>
@@ -361,6 +375,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hemi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="learn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="designmodel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -390,6 +434,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1065" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/Documents/GitHub/Java/JavaBase/src/hemi/mldn/undefine/RegexDemo.java" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -1342,7 +1387,7 @@
       <workItem from="1499323248593" duration="7443000" />
       <workItem from="1499408961157" duration="5174000" />
       <workItem from="1499431722185" duration="17818000" />
-      <workItem from="1500559232745" duration="21031000" />
+      <workItem from="1500559232745" duration="21478000" />
     </task>
     <task id="LOCAL-00001" summary="31">
       <created>1498140006676</created>
@@ -1392,7 +1437,13 @@
       <option name="project" value="LOCAL" />
       <updated>1500561604535</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="+DesignModel">
+      <created>1501391051596</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1501391051596</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1428,7 +1479,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="554945000" />
+    <option name="totallyTimeSpent" value="555392000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1504,7 +1555,8 @@
     <MESSAGE value="OfferTest_40" />
     <MESSAGE value="OfferTest_45" />
     <MESSAGE value="OfferTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="OfferTest" />
+    <MESSAGE value="+DesignModel" />
+    <option name="LAST_COMMIT_MESSAGE" value="+DesignModel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1877,17 +1929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
-          <folding>
-            <element signature="e#274#275#0" expanded="false" />
-            <element signature="e#321#322#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hemi/learn/designmodel/agent/TestDynProxy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2084,10 +2125,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/hemi/learn/designmodel/agent/BookFacadeImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#274#275#0" expanded="true" />
+            <element signature="e#320#321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/hemi/learn/designmodel/singleton/Singleton.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8561644">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.20547946">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
           <folding />
         </state>
       </provider>
