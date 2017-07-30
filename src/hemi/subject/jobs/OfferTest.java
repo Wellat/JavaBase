@@ -122,7 +122,7 @@ class Offer {
             return null;
         }
 
-        //装换
+        //转换
         int out = 0;
         for (int i = begin_flag; i < str.length(); i++) {
             out = out * 10 + (str.charAt(i) - '0');
@@ -162,6 +162,8 @@ class Offer {
         }
         return last;
     }
+    //环形链表也是一种解法
+
 
     /**
      * 44 扑克牌的顺子

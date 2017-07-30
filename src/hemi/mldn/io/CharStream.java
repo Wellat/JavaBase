@@ -9,8 +9,8 @@ import java.io.Reader;
 import java.io.Writer;
 
 /**
- * ×Ö·ûÁ÷
- * Ê¹ÓÃ×Ö½ÚÁ÷¸üºÃ
+ * ï¿½Ö·ï¿½ï¿½ï¿½
+ * Ê¹ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author Vanguard
  *
  */
@@ -21,7 +21,6 @@ public class CharStream {
 		try {
 			CharStream.ReaderDemo(file);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -30,14 +29,14 @@ public class CharStream {
 	public static void WriterDemo(File file) {
 		Writer out = null;
 		try {
-			out = new FileWriter(file, true);// true±íÊ¾×·¼ÓÄÚÈÝ
+			out = new FileWriter(file, true);// trueï¿½ï¿½Ê¾×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		String str = "writer in by charStream!\n";
 		try {
 			out.write(str);
-			out.flush();//Ç¿ÖÆÐÔÇå¿Õ»º³åÇøÖÐµÄÄÚÈÝ
+			out.flush();//Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
