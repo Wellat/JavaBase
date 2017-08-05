@@ -100,8 +100,64 @@ public class Main {
     }
 }
 
+
 class Solution {
 
+
+    /**
+     * 赶去公司
+     */
+    public void main2(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.valueOf(sc.nextLine());
+        int[] x = new int[n];
+        int[] y = new int[n];
+        for(int i=0;i<n;i++){
+            x[i]=sc.nextInt();
+        }
+        for(int i=0;i<n;i++){
+            y[i]=sc.nextInt();
+        }
+        int t_x = sc.nextInt();
+        int t_y = sc.nextInt();
+        int walkTime = sc.nextInt();
+        int taxiTime = sc.nextInt();
+
+        int sum = (Math.abs(t_x)+Math.abs(t_y))*walkTime;
+        int temp = 0;
+        for(int i=0;i<n;i++){
+            temp = (Math.abs(x[i])+Math.abs(y[i]))*walkTime
+                    + (Math.abs(t_x-x[i])+Math.abs(t_y-y[i]))*taxiTime;
+            if(sum>temp) sum=temp;
+        }
+        System.out.println(sum);
+    }
+
+
+    /**
+     * 双核问题
+     */
+    public void main1(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        int sum = 0;
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt()/1024;
+            sum += arr[i];
+        }
+        int c = sum/2;
+        int[] value = new int[c+1];
+
+        for(int i=0;i<arr.length;i++){
+            for(int j=c;j>=arr[i];j--){
+                if(value[j]<value[j-arr[i]]+arr[i]){
+                    value[j] = value[j-arr[i]]+arr[i];
+                }
+            }
+        }
+        System.out.println(1024*(sum-value[c]));
+    }
 
     /**
      * 平安果数量
