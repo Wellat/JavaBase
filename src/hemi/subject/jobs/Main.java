@@ -14,62 +14,53 @@ import java.util.regex.Pattern;
  */
 public class Main {
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int n = Integer.valueOf(sc.nextLine());
-        DecimalFormat df = new DecimalFormat("#0.00000");
-        double max = 0;
-        List<Integer[]> rlist = new ArrayList<>();
-        List<Integer[]> glist = new ArrayList<>();
-        List<Integer[]> blist = new ArrayList<>();
-        for(int i=0;i<n;i++){
-            Integer[] dot = new Integer[3];
-            String[] str = sc.nextLine().split(" ");
-            if("R".equals(str[0])){
-                dot[0]=Integer.valueOf(str[1]);
-                dot[1]=Integer.valueOf(str[2]);
-                dot[2]=Integer.valueOf(str[3]);
-                rlist.add(dot);
-            }else if("G".equals(str[0])){
-                dot[0]=Integer.valueOf(str[1]);
-                dot[1]=Integer.valueOf(str[2]);
-                dot[2]=Integer.valueOf(str[3]);
-                glist.add(dot);
-            }else if("B".equals(str[0])){
-                dot[0]=Integer.valueOf(str[1]);
-                dot[1]=Integer.valueOf(str[2]);
-                dot[2]=Integer.valueOf(str[3]);
-                blist.add(dot);
-            }
+        Scanner in = new Scanner(System.in);
+        int pieces = Integer.parseInt(in.nextLine().trim());
+        Integer[] parts = new Integer[pieces];
+        for (int i = 0; i < pieces; i++) {
+            parts[i] = Integer.parseInt(in.nextLine().trim());
         }
-        int rsize = rlist.size();
-        int gsize = glist.size();
-        int bsize = blist.size();
-
-        double temp = 0;
-        if(rsize>0 && gsize>0 && bsize>0){
-            for(int r=0;r<rsize;r++){
-                for(int g=0;g<gsize;g++){
-                    for(int b=0;b<bsize;b++){
-                        temp = area(length(rlist.get(r),glist.get(g)),length(rlist.get(r),blist.get(b)),length(blist.get(b),glist.get(g)));
-                        if(temp>max) max = temp;
-                    }
-                }
-            }
-        }
-
-        if(rsize>=3){
-            max = get(rlist,max);
-        }
-        if(gsize>=3){
-            max = get(glist,max);
-        }
-        if(bsize>=3){
-            max = get(blist,max);
-        }
-
-        System.out.println(df.format(max));
-
+        System.out.println(cut(parts));
     }
+
+    static int cut(Integer[] parts){
+        if(parts.length<1) return 0;
+
+        Arrays.sort(parts);
+        int arr1 = 0;
+        int arr2 = 0;
+        ArrayList<Integer> deque1 = new ArrayList<>();
+        ArrayList<Integer> deque2 = new ArrayList<>();
+        int result = 0;
+        for(int i=parts.length-1;i>=0;i--){
+            if(parts[i]<1) return 0;
+            if(arr1<arr2){
+                arr1 += parts[i];
+                deque1.add(parts[i]);
+            }else {
+                arr2 += parts[i];
+                deque2.add(parts[i]);
+            }
+        }
+        if(deque1.size()>1){
+            result += cut(toArray(deque1));
+        }
+        if(deque2.size()>1){
+            result += cut(toArray(deque2));
+        }
+        result += arr1 +arr2;
+        return result;
+    }
+
+    static Integer[] toArray(List<Integer> list){
+        int size = list.size();
+        Integer[] result = new Integer[size];
+        for(int i=0;i<size;i++){
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
     //
     private static double get(List<Integer[]> rlist,double max){
         int rsize = rlist.size();
