@@ -6,61 +6,36 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * 牛客网等上的编程题
  */
 public class Main {
+    public static ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if(null!=listNode){
+            printList(listNode,list);
+        }
+
+        return list;
+    }
+    private static void printList(ListNode listNode,ArrayList<Integer> list) {
+        if(listNode.next != null){
+            printList(listNode.next,list);
+        }
+
+        list.add(listNode.val);
+    }
     public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
-        int pieces = Integer.parseInt(in.nextLine().trim());
-        Integer[] parts = new Integer[pieces];
-        for (int i = 0; i < pieces; i++) {
-            parts[i] = Integer.parseInt(in.nextLine().trim());
-        }
-        System.out.println(cut(parts));
+        ListNode node1 = new ListNode(23);
+        ListNode node2 = new ListNode(0);
+        ListNode node3 = new ListNode(9);
+        node1.next=node2;
+        node2.next=node3;
+
+        Main.printListFromTailToHead(node1);
     }
-
-    static int cut(Integer[] parts){
-        if(parts.length<1) return 0;
-
-        Arrays.sort(parts);
-        int arr1 = 0;
-        int arr2 = 0;
-        ArrayList<Integer> deque1 = new ArrayList<>();
-        ArrayList<Integer> deque2 = new ArrayList<>();
-        int result = 0;
-        for(int i=parts.length-1;i>=0;i--){
-            if(parts[i]<1) return 0;
-            if(arr1<arr2){
-                arr1 += parts[i];
-                deque1.add(parts[i]);
-            }else {
-                arr2 += parts[i];
-                deque2.add(parts[i]);
-            }
-        }
-        if(deque1.size()>1){
-            result += cut(toArray(deque1));
-        }
-        if(deque2.size()>1){
-            result += cut(toArray(deque2));
-        }
-        result += arr1 +arr2;
-        return result;
-    }
-
-    static Integer[] toArray(List<Integer> list){
-        int size = list.size();
-        Integer[] result = new Integer[size];
-        for(int i=0;i<size;i++){
-            result[i] = list.get(i);
-        }
-        return result;
-    }
-
     //
     private static double get(List<Integer[]> rlist,double max){
         int rsize = rlist.size();
@@ -94,11 +69,37 @@ public class Main {
 
 class Solution {
 
+    public void main3(){
+        Scanner sc = new Scanner(System.in);
+        String[] str = sc.nextLine().split("");
+        String[] strcopy = Arrays.copyOf(str,str.length);
+        int i=0,j=str.length-1,count=0;
+        while(i<j){
+            while (i<j && "G".equals(str[i])) i++;
+            while (i<j && "B".equals(str[j])) j--;
+            swap(str,i,j);
+            count +=(j-i);
+        }
+        i=0;j=str.length-1;
+        int count2=0;
+        while(i<j){
+            while (i<j && "B".equals(strcopy[i])) i++;
+            while (i<j && "G".equals(strcopy[j])) j--;
+            swap(strcopy,i,j);
+            count2 +=(j-i);
+        }
+        System.out.println(count>count2?count2:count);
+    }
+    public void swap(String[] str,int i,int j){
+        String t =str[i];
+        str[i] = str[j];
+        str[j] = t;
+    }
 
     /**
      * 赶去公司
      */
-    public void main2(String[] args){
+    public void main2(){
         Scanner sc = new Scanner(System.in);
         int n = Integer.valueOf(sc.nextLine());
         int[] x = new int[n];
@@ -128,7 +129,7 @@ class Solution {
     /**
      * 双核问题
      */
-    public void main1(String[] args){
+    public void main1(){
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[] arr = new int[n];
@@ -944,7 +945,12 @@ class TreeNode {
 
     public TreeNode(int val) {
         this.val = val;
-
+        String[] str ;
+        Set<String> set = new HashSet<String>();
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext()){
+            String i = iterator.next();
+        }
     }
 
 }
