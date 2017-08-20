@@ -23,7 +23,7 @@ public class StressTest {
     private static int client_num = 200;
 
     public static void main(String[] args) {
-        ExecutorService exec = Executors.newFixedThreadPool(9);
+        ExecutorService exec = Executors.newCachedThreadPool();
         // 只能thread_num个线程同时访问
         final Semaphore semp = new Semaphore(thread_num);
         // 模拟client_num个客户端访问
