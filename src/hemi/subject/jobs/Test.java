@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Test {
+public class Test{
     private static final int MIN = Integer.MIN_VALUE;
 
     @org.junit.Test

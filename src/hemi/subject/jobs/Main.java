@@ -12,30 +12,276 @@ import java.util.*;
  * 牛客网等上的编程题
  */
 public class Main {
-    public static ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        if(null!=listNode){
-            printList(listNode,list);
+
+    static String str0 = "0123456789";
+    static String str1 = "0123456789";
+
+    public static void main(String[] arg){
+        ArrayDeque<Integer> deque = new ArrayDeque<Integer>();
+        deque.addFirst(2);
+        deque.removeLast();
+
+        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+        queue.add(2);
+        queue.add(1);
+        queue.add(6);
+        queue.add(4);
+        queue.add(0);
+        queue.remove();
+        queue.remove();
+        queue.remove();
+        queue.remove();
+        queue.remove();
+
+        LinkedList<Integer> list = new LinkedList<>();
+        for(Integer integer:list) {
+
         }
 
-        return list;
+
+        int tail = 4;
+        int head = 5;
+        int len=8;
+        System.out.println((tail - head) & (len - 1));
+
+
+        String str2 = str1.substring(5);
+        String str3 = new String(str2);
+        String str4 = new String(str3.toCharArray());
+        str0 = null;
+        String str = "0123456789";
+        System.out.println(str2.equals(str3));
+        System.out.println(str2 == str3);
+        System.out.println(str.substring(2,6));
     }
-    private static void printList(ListNode listNode,ArrayList<Integer> list) {
-        if(listNode.next != null){
-            printList(listNode.next,list);
+
+
+    /**
+     * 小易喜欢的序列
+     *
+     * 复杂度过大
+     * @param args
+     */
+    public void arr(String[] args){
+        Scanner sc = new Scanner(System.in);
+        if(sc.hasNext()){
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            long count = 0,finish =0;
+            int[] data = new int[n];
+            for(int i=0;i<n;i++){
+                data[i] = 1;
+            }
+            for(int i=1;finish == 0;i++){
+                int index = 0;
+                int flag = 0 ;
+                data[index]=i;
+
+                //进位
+
+                while(data[index]>k){
+                    i=0;
+                    flag = 1;
+                    data[index]=1;
+                    if(index+1>=data.length){
+                        finish = 1;
+                        break;
+                    }
+                    data[++index]++;
+                }
+                int j = 0;
+                if(flag==0){
+                    //判定
+                    for(;j<data.length-1;j++){
+                        int a = data[j];
+                        int b = data[j+1];
+                        if(a>b && a%b == 0){
+                            break;
+                        }
+                    }
+                    if(j==data.length-1){
+                        count++;
+                    }
+                }
+            }
+            System.out.println(count%1000000007);
+        }
+    }
+
+    /**
+     * 堆砖块
+     *
+     * 如果能堆砌出两座高度相同的塔，输出最高能拼凑的高度，如果不能则输出-1.
+     *
+     * dp[i][j]表示前i个砖块中分两堆，较矮一堆的高度
+     *
+     */
+    public void bricks(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] bricks = new int[n];
+        int sum =0;
+        for(int i=0;i<n;i++){
+            bricks[i]=sc.nextInt();
+            sum += bricks[i];
+        }
+        int[] dp = new int[sum+1];
+        for(int i=0;i<=sum;i++){
+            dp[i]=Integer.MIN_VALUE;
+        }
+        dp[0] =0 ;
+        for(int i=1;i<=n;i++){
+            int b = bricks[i-1];
+            int[] temp = new int[sum+1];
+            for(int j=0;j<=sum;j++){
+                //不放
+                temp[j] = dp[j];
+                //放矮塔，放后矮塔依然矮
+                if(j+b<=sum){
+                    temp[j] = Math.max(temp[j],dp[j+b]+b);
+                }
+                //放矮塔，放后矮塔高
+                if(b>=j){
+                    temp[j] = Math.max(temp[j],dp[b-j]+b-j);
+                }else{
+                    //放高塔，高塔更高
+                    temp[j] = Math.max(temp[j],dp[j-b]);
+                }
+            }
+            dp = temp;
+        }
+        System.out.println(dp[0]>0?dp[0]:-1);
+    }
+    /**
+     * 分饼干
+     *
+     * 饼干数k=9XXXX98X
+     * 分给n个小朋友
+     *
+     * dp[i][j]表示前i个字符串中模n余j的个数
+     * 则 dp[i][(10*j+c)%n] += dp[i-1][j]
+     *
+     * 以上发现第i行的值只会访问到第i-1行的值，所以实际只需要两个数组即可，可以优化空间成类似堆砖块
+     */
+    public void cookie(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String k = sc.nextLine();
+        int n = sc.nextInt();
+
+        long[][] dp = new long[k.length()+1][n];
+        dp[0][0] = 1;
+        for(int i=1;i<=k.length();i++){
+            char c = k.charAt(i-1);
+            for(int j=0;j<n;j++){
+                for(int z=0;z<10;z++){
+                    if(c == 'X' || c ==('0'+z)){
+                        dp[i][(10*j+z)%n] += dp[i-1][j];
+                    }
+                }
+            }
+        }
+        System.out.println(dp[k.length()][0]);
+    }
+
+
+
+    /**
+     * 数串
+     *
+     *  设有n个正整数，将他们连接成一排，组成一个最大的多位整数。
+        如:n=3时，3个整数13,312,343,连成的最大整数为34331213。
+        如:n=4时,4个整数7,13,4,246连接成的最大整数为7424613。
+     * @param
+     */
+    public void shuchuang(){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<String> input = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            input.add(sc.next());
+        }
+        StringBuffer result = new StringBuffer();
+
+        Collections.sort(input, new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        int len1 = o1.length();
+                        int len2 = o2.length();
+
+                        for (int i = 0; i < len1 && i < len2; i++) {
+                            if (o1.charAt(i) < (o2.charAt(i))) {
+                                return -1;
+                            } else if (o1.charAt(i) > o2.charAt(i)) {
+                                return 1;
+                            }
+                        }
+
+                        if (len1 > len2) {
+                            return compare(o1.substring(len2), o2);
+                        } else if (len1 < len2) {
+                            return compare(o1, o2.substring(len1));
+                        }
+                        return 0;
+                    }
+                }
+        );
+        for(int i=input.size()-1;i>=0;i--){
+            result.append(input.get(i));
         }
 
-        list.add(listNode.val);
-    }
-    public static void main(String[] args){
-        ListNode node1 = new ListNode(23);
-        ListNode node2 = new ListNode(0);
-        ListNode node3 = new ListNode(9);
-        node1.next=node2;
-        node2.next=node3;
 
-        Main.printListFromTailToHead(node1);
+        System.out.println(result.toString());
     }
+
+
+    public static void main3(String[] args){
+        Scanner in = new Scanner(System.in);
+        int pieces = Integer.parseInt(in.nextLine().trim());
+        Integer[] parts = new Integer[pieces];
+        for (int i = 0; i < pieces; i++) {
+            parts[i] = Integer.parseInt(in.nextLine().trim());
+        }
+        System.out.println(cut(parts));
+    }
+
+    static int cut(Integer[] parts){
+        if(parts.length<1) return 0;
+
+        Arrays.sort(parts);
+        int arr1 = 0;
+        int arr2 = 0;
+        ArrayList<Integer> deque1 = new ArrayList<>();
+        ArrayList<Integer> deque2 = new ArrayList<>();
+        int result = 0;
+        for(int i=parts.length-1;i>=0;i--){
+            if(parts[i]<1) return 0;
+            if(arr1<arr2){
+                arr1 += parts[i];
+                deque1.add(parts[i]);
+            }else {
+                arr2 += parts[i];
+                deque2.add(parts[i]);
+            }
+        }
+        if(deque1.size()>1){
+            result += cut(toArray(deque1));
+        }
+        if(deque2.size()>1){
+            result += cut(toArray(deque2));
+        }
+        result += arr1 +arr2;
+        return result;
+    }
+
+    static Integer[] toArray(List<Integer> list){
+        int size = list.size();
+        Integer[] result = new Integer[size];
+        for(int i=0;i<size;i++){
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
     //
     private static double get(List<Integer[]> rlist,double max){
         int rsize = rlist.size();
@@ -66,90 +312,8 @@ public class Main {
     }
 }
 
-
 class Solution {
 
-    public void main3(){
-        Scanner sc = new Scanner(System.in);
-        String[] str = sc.nextLine().split("");
-        String[] strcopy = Arrays.copyOf(str,str.length);
-        int i=0,j=str.length-1,count=0;
-        while(i<j){
-            while (i<j && "G".equals(str[i])) i++;
-            while (i<j && "B".equals(str[j])) j--;
-            swap(str,i,j);
-            count +=(j-i);
-        }
-        i=0;j=str.length-1;
-        int count2=0;
-        while(i<j){
-            while (i<j && "B".equals(strcopy[i])) i++;
-            while (i<j && "G".equals(strcopy[j])) j--;
-            swap(strcopy,i,j);
-            count2 +=(j-i);
-        }
-        System.out.println(count>count2?count2:count);
-    }
-    public void swap(String[] str,int i,int j){
-        String t =str[i];
-        str[i] = str[j];
-        str[j] = t;
-    }
-
-    /**
-     * 赶去公司
-     */
-    public void main2(){
-        Scanner sc = new Scanner(System.in);
-        int n = Integer.valueOf(sc.nextLine());
-        int[] x = new int[n];
-        int[] y = new int[n];
-        for(int i=0;i<n;i++){
-            x[i]=sc.nextInt();
-        }
-        for(int i=0;i<n;i++){
-            y[i]=sc.nextInt();
-        }
-        int t_x = sc.nextInt();
-        int t_y = sc.nextInt();
-        int walkTime = sc.nextInt();
-        int taxiTime = sc.nextInt();
-
-        int sum = (Math.abs(t_x)+Math.abs(t_y))*walkTime;
-        int temp = 0;
-        for(int i=0;i<n;i++){
-            temp = (Math.abs(x[i])+Math.abs(y[i]))*walkTime
-                    + (Math.abs(t_x-x[i])+Math.abs(t_y-y[i]))*taxiTime;
-            if(sum>temp) sum=temp;
-        }
-        System.out.println(sum);
-    }
-
-
-    /**
-     * 双核问题
-     */
-    public void main1(){
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        int sum = 0;
-        for(int i=0;i<n;i++){
-            arr[i]=sc.nextInt()/1024;
-            sum += arr[i];
-        }
-        int c = sum/2;
-        int[] value = new int[c+1];
-
-        for(int i=0;i<arr.length;i++){
-            for(int j=c;j>=arr[i];j--){
-                if(value[j]<value[j-arr[i]]+arr[i]){
-                    value[j] = value[j-arr[i]]+arr[i];
-                }
-            }
-        }
-        System.out.println(1024*(sum-value[c]));
-    }
 
     /**
      * 平安果数量
@@ -785,7 +949,7 @@ class Solution {
     }
 
     /**
-     * 二维数组中的查找——各行各列分别递增排列
+     * 二维数组中的查找————各行各列分别递增排列
      *
      * @param target
      * @param array
@@ -945,12 +1109,6 @@ class TreeNode {
 
     public TreeNode(int val) {
         this.val = val;
-        String[] str ;
-        Set<String> set = new HashSet<String>();
-        Iterator<String> iterator = set.iterator();
-        while (iterator.hasNext()){
-            String i = iterator.next();
-        }
     }
 
 }
