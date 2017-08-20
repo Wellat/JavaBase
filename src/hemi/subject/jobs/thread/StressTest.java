@@ -20,7 +20,7 @@ import java.util.concurrent.Semaphore;
  */
 public class StressTest {
     private static int thread_num = 5;
-    private static int client_num = 20;
+    private static int client_num = 200;
 
     public static void main(String[] args) {
         ExecutorService exec = Executors.newFixedThreadPool(9);
