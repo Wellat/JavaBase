@@ -13,46 +13,12 @@ import java.util.*;
  */
 public class Main {
 
-    static String str0 = "0123456789";
-    static String str1 = "0123456789";
-
     public static void main(String[] arg){
-        ArrayDeque<Integer> deque = new ArrayDeque<Integer>();
-        deque.addFirst(2);
-        deque.removeLast();
-
-        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
-        queue.add(2);
-        queue.add(1);
-        queue.add(6);
-        queue.add(4);
-        queue.add(0);
-        queue.remove();
-        queue.remove();
-        queue.remove();
-        queue.remove();
-        queue.remove();
-
-        LinkedList<Integer> list = new LinkedList<>();
-        for(Integer integer:list) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
 
         }
-
-
-        int tail = 4;
-        int head = 5;
-        int len=8;
-        System.out.println((tail - head) & (len - 1));
-
-
-        String str2 = str1.substring(5);
-        String str3 = new String(str2);
-        String str4 = new String(str3.toCharArray());
-        str0 = null;
-        String str = "0123456789";
-        System.out.println(str2.equals(str3));
-        System.out.println(str2 == str3);
-        System.out.println(str.substring(2,6));
+        sc.close();
     }
 
 

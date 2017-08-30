@@ -1,5 +1,7 @@
 package hemi.learn.designmodel.abstractfactory;
 
+import hemi.learn.designmodel.factory.*;
+
 /**
  * 这个模式的好处就是，如果你现在想增加一个功能：发及时信息，
  * 则只需做一个实现类，实现Sender接口，同时做一个工厂类，
@@ -8,4 +10,9 @@ package hemi.learn.designmodel.abstractfactory;
  * Created by Hemi on 2017/7/29.
  */
 public class AbsFactoryTest {
+    public static void main(String[] args){
+        Provider provider = new SendMailFactory();
+        Sender sender = provider.produce();
+        sender.send();
+    }
 }

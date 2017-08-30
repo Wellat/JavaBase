@@ -1,14 +1,12 @@
 package hemi.subject.jobs.thread;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -19,26 +17,27 @@ import java.util.concurrent.Semaphore;
  * @info
  */
 public class StressTest {
-    private static int thread_num = 5;
-    private static int client_num = 200;
-
+    private static int thread_num = 20;
+    private static int client_num = 5000;
+    private static long userPhone = 13531215245l;
     public static void main(String[] args) {
         ExecutorService exec = Executors.newCachedThreadPool();
         // 只能thread_num个线程同时访问
         final Semaphore semp = new Semaphore(thread_num);
+
         // 模拟client_num个客户端访问
         System.out.println("beginTime:"+System.currentTimeMillis());
         for (int index = 0; index < client_num; index++) {
-            final int NO = index;
+//            final int NO = index;
             Runnable run = new Runnable() {
                 public void run() {
                     try {
-                        System.out.println("run里面thread="+Thread.currentThread().getName());
+//                        System.out.println("run里面thread="+Thread.currentThread().getName());
                         // 获取许可
                         semp.acquire();
-//                        sendGet("http://www.yexiaoquan.com/search/","aa");
-                        System.out.println("方法中！！: " + NO);
-                        Thread.sleep((long) (100 * 10000));
+                        sendGet("http://localhost:8080/seckill/1003/exposer","");
+//                        System.out.println("方法中！！: " + NO);
+//                        Thread.sleep((long) (100 * 10000));
                         semp.release();
                     } catch (Exception e) {
                         e.printStackTrace();
