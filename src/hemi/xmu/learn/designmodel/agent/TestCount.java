@@ -6,10 +6,8 @@ package hemi.xmu.learn.designmodel.agent;
  */
 public class TestCount {
     public static void main(String[] args){
-        CountImpl countImpl = new CountImpl();
-        CountProxy countProxy = new CountProxy(countImpl);
-        countProxy.updateCount();
-        countProxy.queryCount();
-
+        Count proxy = new CountProxy(new CountImpl());
+        proxy.queryCount();
+        proxy.updateCount();
     }
 }

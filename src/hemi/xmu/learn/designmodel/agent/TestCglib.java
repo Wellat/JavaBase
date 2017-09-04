@@ -8,7 +8,7 @@ package hemi.xmu.learn.designmodel.agent;
 public class TestCglib {
     public static void main(String[] arg){
         BookFacadeProxyCglib cglib = new BookFacadeProxyCglib();
-        BookFacadeImpl bookFacade = (BookFacadeImpl) cglib.getInstance(new BookFacadeImpl());
+        BookFacade bookFacade = (BookFacadeImpl) cglib.getInstance(new BookFacadeImpl());
 
         bookFacade.addBook();
         bookFacade.editBook();

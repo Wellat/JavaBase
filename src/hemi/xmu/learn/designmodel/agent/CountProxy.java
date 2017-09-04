@@ -4,7 +4,7 @@ package hemi.xmu.learn.designmodel.agent;
  * Created by yexq on 2017/7/16.
  */
 public class CountProxy implements Count {
-    private CountImpl countImpl;
+    private Count countImpl;
 
     public CountProxy(CountImpl countImpl){
         this.countImpl = countImpl;
