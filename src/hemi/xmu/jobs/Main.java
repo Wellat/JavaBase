@@ -1,27 +1,361 @@
 package hemi.xmu.jobs;
+import java.util.ArrayList;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.*;
 
+public class Main {
+    public static void main(String[] args) {
+        Factory factory = new Factory();
+        factory.tengcent();
+    }
+}
+
+class Point {
+    int x;
+    int y;
+    Point() {
+        x = 0;
+        y = 0;
+    }
+    Point(int a, int b) {
+        x = a;
+        y = b;
+    }
+}
 
 /**
  * 牛客网等上的编程题
  */
-public class Main {
+class Factory {
 
-    public static void main(String[] arg){
+    static int num = 0;
+
+    /**
+     * 面值为2^k的硬币各两枚，k任意
+     * 问有几种方式可以凑成面值为n
+     */
+    public void tengcent() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()){
-
+            num = 0;
+            int sum = sc.nextInt();
+            int index = (int) Math.floor(Math.log(sum) / Math.log(2));
+            int p = index * 2 + 1;
+            getNum(sum, p);
+            System.out.println(num);
         }
         sc.close();
     }
+    public static void getNum(int sum, int p) {
+        if (p == -1 || sum < 0) {
+            return;
+        }
+        if (sum > 0) {
+            //都不加
+            getNum(sum, p - 2);
+            //加一个
+            int index = p / 2;
+            sum = sum - (int) Math.pow(2, index);
+            if (sum == 0) {
+                num++;
+                return;
+            }
+            if (sum > 0) {
+                getNum(sum, p - 2);
+            } else {
+                return;
+            }
+            //加两个
+            sum = sum - (int) Math.pow(2, index);
+            if (sum == 0) {
+                num++;
+                return;
+            }
+            if (sum > 0) {
+                getNum(sum, p - 2);
+            }
+        }
+    }
 
 
+
+    public static long set(int a,int b){
+        String tempa = String.valueOf(a);
+        String tempb = String.valueOf(b);
+        return Long.valueOf(tempa+tempb);
+    }
+    public void meituan1(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            int n = sc.nextInt();
+            int[] data = new int[n];
+            for(int i=0;i<n;i++){
+                data[i] = sc.nextInt();
+            }
+            int count = 0;
+            for(int i=0;i<n;i++){
+                int a = data[i];
+                for(int j=i+1;j<n;j++){
+                    int b = data[j];
+
+                    if(set(a,b)%7==0){
+                        count++;
+                    }
+                    if(set(b,a)%7==0){
+                        count++;
+                    }
+                }
+            }
+            System.out.println(count);
+        }
+    }
+    /**
+     * 公交车
+     */
+    public void hikvision1() {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            String[] input = sc.nextLine().split(",");
+            int n = Integer.valueOf(input[0]);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date begin = null;
+            Date now = null;
+            try {
+                begin = sdf.parse(input[1]);
+                now = sdf.parse(input[2]);
+            } catch (ParseException e) {
+                System.out.println("incorrect data");
+                continue;
+            }
+            long detTime = now.getTime() - begin.getTime();
+            long det = detTime/(1000*60);
+
+            long cycleTime = 15 * n;
+            long cycle = det/cycleTime +1;//cycle圈
+            long db = (det%cycleTime)/15+1;
+            long d = (det%cycleTime)%15;
+            long de = 0;
+
+
+            if(d==0){
+                de = db;
+            }else if(d<10){
+                de = db+1;
+            }else{
+                db++;
+                if(db>n) db=1;
+                de = db;
+            }
+            if(de>n){
+                de = 1;
+            }
+
+            System.out.println(cycle+";"+db+"-"+de);
+        }
+    }
+
+    /**
+     * 链表快排
+     * @param head
+     * @return
+     */
+    public ListNode sortList(ListNode head){
+        return quickSort(head,null);
+    }
+    private ListNode quickSort(ListNode head,ListNode end){
+        if(head!=end){
+            ListNode cur=partion(head,end);
+            quickSort(head,cur);
+            quickSort(cur.next,end);
+        }
+        return head;
+    }
+    private ListNode partion(ListNode head,ListNode end){
+        int key=head.val;
+        ListNode p=head;
+        ListNode q=head.next;
+        while(q!=end){
+            if(q.val<key){
+                p=p.next;
+                swap(p,q);
+            }
+            q=q.next;
+        }
+        swap(head,p);
+        return p;
+    }
+    private void swap(ListNode p,ListNode q){
+        int temp=p.val;
+        p.val=q.val;
+        q.val=temp;
+    }
+
+    /**
+     * 判断一个数是否为质数
+     * @param num
+     * @return
+     */
+    public static boolean isPrime(int num){
+        if(num ==1) return false;
+        for(int i=2;i<=Math.sqrt(num);i++){
+            if(num%i==0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public void colorok(){
+        Map<Integer, List<Integer>> colors = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int c = sc.nextInt();
+        for (int i = 1; i <= n; i++) {
+            int num = sc.nextInt();
+            for (int j = 1; j <= num; j++) {
+                int color = sc.nextInt();
+                if (colors.containsKey(color)) {
+                    List<Integer> list = colors.get(color);
+                    list.add(i);
+                    colors.put(color, list);
+                    if (i == n) {
+                        list.add(0);
+                        colors.put(color, list);
+                    }
+                } else {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(i);
+                    colors.put(color, list);
+                    if (i == n) {
+                        list.add(0);
+                        colors.put(color, list);
+                    }
+                }
+            }
+        }
+        sc.close();
+        int wrong = 0;
+        for (Integer i : colors.keySet()) {
+            List<Integer> list = colors.get(i);
+            Collections.sort(list);
+            for (int j = 1; j < list.size(); j++) {
+                if (list.get(j) - list.get(j - 1) < m) {
+                    wrong++;
+                    break;
+                }
+            }
+
+        }
+        System.out.println(wrong);
+    }
+
+    /**
+     * 用户喜好
+     */
+    public void favot(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            int n = sc.nextInt();
+            int[] user = new int[n+1];
+            for(int i=1;i<n+1;i++){
+                user[i]=sc.nextInt();
+            }
+            int q = sc.nextInt();
+            int[] result = new int[q];
+            for(int i=0;i<q;i++){
+                int l = sc.nextInt();
+                int r = sc.nextInt();
+                int k = sc.nextInt();
+                int count = 0;
+                for(int j =l;j<=r;j++){
+                    if(user[j]==k){
+                        ++count;
+                    }
+                }
+                result[i]=count;
+            }
+            for(int i=0;i<q;i++){
+                System.out.println(result[i]);
+            }
+        }
+    }
+
+
+    /**
+     * 字符串碎片
+     */
+
+
+    /**
+     * 相反数
+     */
+    public void oppositeNumber(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            String input = sc.nextLine();
+            int oppo = 0;
+            for(int i=input.length()-1;i>=0;i--){
+                oppo = oppo * 10 + input.charAt(i) - '0';
+            }
+            System.out.println(oppo+Integer.valueOf(input));
+        }
+    }
+
+    /**
+     * 魔法币
+     */
+    public void magicMoney(){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Stack<Integer> stack = new Stack<>();
+        while(n>0){
+            if(n%2==0){
+                stack.push(2);
+                n = (n-2)/2;
+            }else{
+                stack.push(1);
+                n = (n-1)/2;
+            }
+        }
+        while (!stack.isEmpty()){
+            System.out.print(stack.pop());
+        }
+        System.out.println();
+    }
+    /**
+     * 重排数列
+     */
+    public void reorderArr(){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (--t >= 0) {
+            int n = sc.nextInt();
+            int[] a = new int[n];
+            int cout4 = 0;
+            int countJ = 0;
+            for (int j = 0; j < n; j++) {
+                a[j] = sc.nextInt();
+            }
+            for (int j = 0; j < n; j++) {
+                if (a[j] % 4 == 0) {
+                    cout4++;
+                }
+                if (a[j] % 2 != 0) {
+                    countJ++;
+                }
+            }
+            if (cout4 >= countJ) {
+                System.out.println("Yes");
+            } else
+                System.out.println("No");
+        }
+    }
     /**
      * 小易喜欢的序列
      *

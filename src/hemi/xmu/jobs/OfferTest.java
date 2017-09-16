@@ -672,6 +672,7 @@ class Offer {
         }
     }
 
+
     private static void swap(char arr[], int a, int b) {
         char temp = arr[a];
         arr[a] = arr[b];
