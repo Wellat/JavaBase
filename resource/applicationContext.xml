@@ -11,7 +11,7 @@
         <property name="url" value="http://www.yiibai.com" />
     </bean>
 
-    <bean id="hijackBeforeMethodBean" class="hemi.xmu.learn.spring.aop.HijackBeforeMethod" />
+    <bean id="hijackBeforeMethodBean" class="hemi.xmu.learn.spring.aop.HijackAroundMethod" />
 
     <bean id="customerServiceProxy"
           class="org.springframework.aop.framework.ProxyFactoryBean">

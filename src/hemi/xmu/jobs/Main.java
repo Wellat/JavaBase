@@ -1,26 +1,31 @@
 package hemi.xmu.jobs;
-import java.util.ArrayList;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
-        Factory factory = new Factory();
-        factory.tengcent();
+
+        int[] a = {5,3,4,5};
+        Factory.BackTrack.subsets(a);
+
     }
+
+
+    static class InnerClass{}
 }
 
-class Point {
+class Point extends Main.InnerClass{
     int x;
     int y;
+
     Point() {
         x = 0;
         y = 0;
     }
+
     Point(int a, int b) {
         x = a;
         y = b;
@@ -32,6 +37,455 @@ class Point {
  */
 class Factory {
 
+
+    static class BackTrack{
+        /**
+         * 回溯法集合
+         * https://leetcode.com/problems/subsets/discuss/
+         * @param nums
+         * @return
+         */
+        //所有子集
+        public static List<List<Integer>> subsets(int[] nums) {
+            List<List<Integer>> list = new ArrayList<>();
+            Arrays.sort(nums);
+            backtrack(list, new ArrayList<>(), nums, 0);
+            return list;
+        }
+        private static void backtrack(List<List<Integer>> list , List<Integer> tempList, int [] nums, int start){
+            list.add(new ArrayList<>(tempList));
+            for(int i = start; i < nums.length; i++){
+                if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
+                tempList.add(nums[i]);
+                backtrack(list, tempList, nums, i + 1);
+                tempList.remove(tempList.size() - 1);
+            }
+        }
+
+        /**
+         * 所有排列
+         * @param nums
+         * @return
+         */
+        //所有排列----1 无重复值
+        public List<List<Integer>> permute(int[] nums) {
+            List<List<Integer>> list = new ArrayList<>();
+            backtrack(list, new ArrayList<>(), nums);
+            return list;
+        }
+        public void backtrack(List<List<Integer>> list,List<Integer> tempList,int[] nums){
+            if(tempList.size() == nums.length){
+                list.add(new ArrayList<>(tempList));
+            }else{
+                for(int i = 0; i < nums.length; i++){
+                    if(tempList.contains(nums[i])) continue;
+                    tempList.add(nums[i]);
+                    backtrack(list, tempList, nums);
+                    tempList.remove(tempList.size() - 1);
+                }
+            }
+        }
+        //所有排列----2 有重复值
+        public List<List<Integer>> permute2(int[] nums) {
+            List<List<Integer>> list = new ArrayList<>();
+            Arrays.sort(nums);
+            backtrack(list, new ArrayList<>(), nums, new boolean[nums.length]);
+            return list;
+        }
+        private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, boolean [] used){
+            if(tempList.size() == nums.length){
+                list.add(new ArrayList<>(tempList));
+            } else{
+                for(int i = 0; i < nums.length; i++){
+                    if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue;
+                    used[i] = true;
+                    tempList.add(nums[i]);
+                    backtrack(list, tempList, nums, used);
+                    used[i] = false;
+                    tempList.remove(tempList.size() - 1);
+                }
+            }
+        }
+
+        /**
+         * Combination Sum
+         * @param nums
+         * @param target
+         * @return
+         */
+        // 数组内元素组合，和为target的所有结果，元素可多次使用
+        public List<List<Integer>> combinationSum(int[] nums, int target) {
+            List<List<Integer>> list = new ArrayList<>();
+            Arrays.sort(nums);
+            backtrack(list, new ArrayList<>(), nums, target, 0);
+            return list;
+        }
+        private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
+            if(remain < 0) return;
+            else if(remain == 0) list.add(new ArrayList<>(tempList));
+            else{
+                for(int i = start; i < nums.length; i++){
+                    tempList.add(nums[i]);
+                    backtrack(list, tempList, nums, remain - nums[i], i); // not i + 1 because we can reuse same elements
+                    tempList.remove(tempList.size() - 1);
+                }
+            }
+        }
+        // (can't reuse same element)
+        public List<List<Integer>> combinationSum2(int[] nums, int target) {
+            List<List<Integer>> list = new ArrayList<>();
+            Arrays.sort(nums);
+            backtrack2(list, new ArrayList<>(), nums, target, 0);
+            return list;
+
+        }
+        private void backtrack2(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
+            if(remain < 0) return;
+            else if(remain == 0) list.add(new ArrayList<>(tempList));
+            else{
+                for(int i = start; i < nums.length; i++){
+                    if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
+                    tempList.add(nums[i]);
+                    backtrack2(list, tempList, nums, remain - nums[i], i + 1);
+                    tempList.remove(tempList.size() - 1);
+                }
+            }
+        }
+        /**
+         * 回文子集合
+         */
+        public List<List<String>> partition(String s) {
+            List<List<String>> list = new ArrayList<>();
+            backtrack(list, new ArrayList<>(), s, 0);
+            return list;
+        }
+        public void backtrack(List<List<String>> list, List<String> tempList, String s, int start){
+            if(start == s.length())
+                list.add(new ArrayList<>(tempList));
+            else{
+                for(int i = start; i < s.length(); i++){
+                    if(isPalindrome(s, start, i)){
+                        tempList.add(s.substring(start, i + 1));
+                        backtrack(list, tempList, s, i + 1);
+                        tempList.remove(tempList.size() - 1);
+                    }
+                }
+            }
+        }
+        public boolean isPalindrome(String s, int low, int high){
+            while(low < high)
+                if(s.charAt(low++) != s.charAt(high--)) return false;
+            return true;
+        }
+    }
+
+
+    /**
+     * 查找未出现的最小正整数
+     * @param a
+     * @return
+     */
+    static int findMinMis(int[] a) {
+        int left = 0;
+        int right = a.length - 1;
+        while (left <= right) {
+            int t = a[left] - 1;
+            if (t == left) {
+                left++;
+            } else if (t < 0 || t > right || a[left] == a[t]) {
+                a[left] = a[right--];
+            } else {
+                a[left] = a[t];
+                a[t] = t + 1;
+            }
+        }
+        return left + 1;
+    }
+    static int findMinMis2(int[] a) {
+        Arrays.sort(a);
+        int min = 1;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > 0) {
+                if (min == a[i]) {
+                    min++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return min;
+    }
+
+    /**
+     * Given a string s, partition s such that every substring of the partition is a palindrome.
+     * Return all possible palindrome partitioning of s.
+     * @param s
+     * @return
+     */
+    ArrayList<ArrayList<String>> resultList;
+    ArrayList<String> current;
+    public ArrayList<ArrayList<String>> partition(String s) {
+        resultList = new ArrayList<ArrayList<String>>();
+        current = new ArrayList<String>();
+        findPalindrome(s, 0);
+        return resultList;
+    }
+    private void findPalindrome(String str, int left) {
+        if (current.size() > 0 && left >= str.length()) {
+            ArrayList<String> temp = (ArrayList<String>) current.clone();
+            resultList.add(temp);
+        }
+        for (int right = left; right < str.length(); right++) {
+            if (isPalindrome(str, left, right)) {
+                if (left == right) {
+                    current.add(String.valueOf(str.charAt(left)));
+                } else {
+                    current.add(str.substring(left, right + 1));
+                }
+                findPalindrome(str, right + 1);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+
+    /**
+     * 判断是否为回文
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome(String s,int left,int right) {
+        while(left<right){
+            if( s.charAt(left) != s.charAt(right) ){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+
+    /**
+     * Word Break II
+     * @param s catsanddog
+     * @param dict cat,cats,and,sand,dog
+     * @return cat sand dog,cats and dog
+     */
+    public ArrayList<String> wordBreak(String s, Set<String> dict) {
+        return dfs(s, dict, new HashMap<String, ArrayList<String>>());
+    }
+    public ArrayList<String> dfs(String s, Set<String> dict, HashMap<String, ArrayList<String>> map) {
+        if (map.containsKey(s)) {
+            return map.get(s);
+        }
+        ArrayList<String> list = new ArrayList<String>();
+
+        if (s.length() == 0) {
+            list.add("");
+            return list;
+        }
+
+        for (String d : dict) {
+            if (s.startsWith(d)) {
+                for (String str : dfs(s.substring(d.length()), dict, map)) {
+                    list.add(d + (str == "" ? "" : " ") + str);
+                }
+            }
+        }
+        map.put(s, list);
+        return list;
+    }
+
+    /**
+     * word-ladder
+     * @param start
+     * @param end
+     * @param dict
+     * @return
+     */
+    //主要思想：广度优先搜索。先构造一个字符串队列，并将start加入队列。1.对队列头字符串做单个字符替换
+    //每次替换后，2.判断是否和end匹配，如果匹配，返回答案；3.没有匹配，则在字典里面查询是否有“邻居字符串”,
+    //如果有，则将该字符串加入队列，同时将该字符串从字典里删除。重复1的过程，知道和end匹配。如果最后队列
+    //为空还未匹配到，则返回0.
+    public int ladderLength(String start, String end, HashSet<String> dict) {
+        ArrayDeque<String> queue = new ArrayDeque<String>();
+        ArrayDeque<Integer> sum = new ArrayDeque<Integer>();
+        HashSet<String> visited = new HashSet<String>();
+
+        queue.add(start);
+        sum.add(1);
+        visited.add(start);
+
+        while(!queue.isEmpty()){
+            String str = queue.remove();
+            int n = sum.remove();
+            if(str.equals(end)){
+                return n;
+            }
+            for(int i=0;i<str.length();i++){
+                char[] cstr = str.toCharArray();
+                for(char c='a';c<='z';c++){
+                    cstr[i] = c;
+                    String temp = new String(cstr);
+                    if(dict.contains(temp) && !visited.contains(temp)){
+                        queue.add(temp);
+                        sum.add(n+1);
+                        visited.add(temp);
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    /**
+     * 密码破译
+     */
+    public static void crackPsw(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+
+        }
+        sc.close();
+
+        String a = "adss";
+        int L,i,j,k;
+        L= a.length();
+        for (i=1;i<=L;i++) {
+            for (j=0;j<=L-i;j++) {
+                for (k=j;k<j+i;k++) {
+                    System.out.print(a.charAt(k));
+                }
+                System.out.println();
+            }
+        }
+    }
+    public static void crackPsw(String psw,int window){
+        //window =1,2
+        String out = "";
+        char temp = '0';
+        for (int i = 0; i < psw.length(); i++) {
+            for (int j = i; j < i + window; j++) {
+                temp =(char)(psw.charAt(j)-'1'+'a');
+                out += temp;
+            }
+        }
+        System.out.println(out);
+    }
+
+    /**
+     * 失落的IP
+     * 如输入2119913227
+     * 输出21.199.13.227,211.99.13.227等所有可能
+     */
+    public static void perseIp(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            List<String> result = new ArrayList<String>();
+            perseIp(sc.nextLine(), result,"", 0);
+            for (String s :result) {
+                System.out.println(s);
+            }
+        }
+    }
+    private static void perseIp(String s, List<String> list, String out,int n) {
+        if (n == 4) {
+            if (s.isEmpty()){
+                list.add(out);
+            }
+            return;
+        }
+        for (int k = 1; k < 4; ++k) {
+            if (s.length() < k) break;
+            int val = Integer.valueOf(s.substring(0, k));
+            if (val > 255 || k != String.valueOf(val).length() || val == 0) continue;
+            perseIp(s.substring(k), list, out + val + (n == 3 ? "" : "."), n + 1);
+        }
+    }
+
+
+
+    public void regex(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            String read = sc.nextLine();
+            String[] stds = read.split("\\.");
+            StringBuffer out = new StringBuffer();
+            for(String str:stds){
+                for (int i = 0; i < str.length()-1; i++) {
+                    if(isUpperCase(str.charAt(i)) && !isUpperCase(str.charAt(i+1))){
+                        out.append("_");
+                        out.append(str.charAt(i));
+                    }else if(!isUpperCase(str.charAt(i)) && isUpperCase(str.charAt(i+1))){
+                        out.append(str.charAt(i));
+                        out.append("_");
+                    }else{
+                        out.append(str.charAt(i));
+                    }
+                }
+                out.append(str.charAt(str.length()-1));
+                out.append("_");
+            }
+            System.out.println(out.toString().toUpperCase());
+        }
+    }
+    private boolean isUpperCase(char c){
+        if(c>='A' && c<='Z'){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+    /**
+     * unix
+     */
+    public void unix(){
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            String str = sc.next();
+            String[] os = str.split("/");
+            Stack<String> stack = new Stack<String>();
+            for(String s:os){
+                if(s == null || s.equals("") || s.equals(".")){
+                    continue;
+                }
+                if(!stack.isEmpty() && s.equals("..") && !stack.peek().equals("..")){
+                    stack.pop();
+                }else{
+                    stack.push(s);
+                }
+            }
+
+            String result = "";
+            while (!stack.isEmpty()){
+                result = "/"+ stack.pop() + result;
+            }
+            System.out.println(result.equals("")?"/":result);
+        }
+    }
+
+    /**
+      * 状态转移方程：
+      * f(i) 表示s[0,i]是否可以分词
+      * f(i) = f(j) && f(j+1,i); 0 <= j < i;
+      *
+      */
+    public boolean wordBreak2(String s, Set<String> dict) {
+        int len = s.length();
+        boolean[] arrays = new boolean[len + 1];
+        arrays[0] = true;
+        for (int i = 1; i <= len; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (arrays[j] && dict.contains(s.substring(j, i))) {
+                    arrays[i] = true;
+                    break;
+                }
+            }
+        }
+        return arrays[len];
+    }
+
     static int num = 0;
 
     /**
@@ -40,7 +494,7 @@ class Factory {
      */
     public void tengcent() {
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             num = 0;
             int sum = sc.nextInt();
             int index = (int) Math.floor(Math.log(sum) / Math.log(2));
@@ -50,6 +504,7 @@ class Factory {
         }
         sc.close();
     }
+
     public static void getNum(int sum, int p) {
         if (p == -1 || sum < 0) {
             return;
@@ -82,30 +537,30 @@ class Factory {
     }
 
 
-
-    public static long set(int a,int b){
+    public static long set(int a, int b) {
         String tempa = String.valueOf(a);
         String tempb = String.valueOf(b);
-        return Long.valueOf(tempa+tempb);
+        return Long.valueOf(tempa + tempb);
     }
-    public void meituan1(){
+
+    public void meituan1() {
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             int n = sc.nextInt();
             int[] data = new int[n];
-            for(int i=0;i<n;i++){
+            for (int i = 0; i < n; i++) {
                 data[i] = sc.nextInt();
             }
             int count = 0;
-            for(int i=0;i<n;i++){
+            for (int i = 0; i < n; i++) {
                 int a = data[i];
-                for(int j=i+1;j<n;j++){
+                for (int j = i + 1; j < n; j++) {
                     int b = data[j];
 
-                    if(set(a,b)%7==0){
+                    if (set(a, b) % 7 == 0) {
                         count++;
                     }
-                    if(set(b,a)%7==0){
+                    if (set(b, a) % 7 == 0) {
                         count++;
                     }
                 }
@@ -113,12 +568,13 @@ class Factory {
             System.out.println(count);
         }
     }
+
     /**
      * 公交车
      */
     public void hikvision1() {
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             String[] input = sc.nextLine().split(",");
             int n = Integer.valueOf(input[0]);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -132,77 +588,82 @@ class Factory {
                 continue;
             }
             long detTime = now.getTime() - begin.getTime();
-            long det = detTime/(1000*60);
+            long det = detTime / (1000 * 60);
 
             long cycleTime = 15 * n;
-            long cycle = det/cycleTime +1;//cycle圈
-            long db = (det%cycleTime)/15+1;
-            long d = (det%cycleTime)%15;
+            long cycle = det / cycleTime + 1;//cycle圈
+            long db = (det % cycleTime) / 15 + 1;
+            long d = (det % cycleTime) % 15;
             long de = 0;
 
 
-            if(d==0){
+            if (d == 0) {
                 de = db;
-            }else if(d<10){
-                de = db+1;
-            }else{
+            } else if (d < 10) {
+                de = db + 1;
+            } else {
                 db++;
-                if(db>n) db=1;
+                if (db > n) db = 1;
                 de = db;
             }
-            if(de>n){
+            if (de > n) {
                 de = 1;
             }
 
-            System.out.println(cycle+";"+db+"-"+de);
+            System.out.println(cycle + ";" + db + "-" + de);
         }
     }
 
     /**
      * 链表快排
+     *
      * @param head
      * @return
      */
-    public ListNode sortList(ListNode head){
-        return quickSort(head,null);
+    public ListNode sortList(ListNode head) {
+        return quickSort(head, null);
     }
-    private ListNode quickSort(ListNode head,ListNode end){
-        if(head!=end){
-            ListNode cur=partion(head,end);
-            quickSort(head,cur);
-            quickSort(cur.next,end);
+
+    private ListNode quickSort(ListNode head, ListNode end) {
+        if (head != end) {
+            ListNode cur = partion(head, end);
+            quickSort(head, cur);
+            quickSort(cur.next, end);
         }
         return head;
     }
-    private ListNode partion(ListNode head,ListNode end){
-        int key=head.val;
-        ListNode p=head;
-        ListNode q=head.next;
-        while(q!=end){
-            if(q.val<key){
-                p=p.next;
-                swap(p,q);
+
+    private ListNode partion(ListNode head, ListNode end) {
+        int key = head.val;
+        ListNode p = head;
+        ListNode q = head.next;
+        while (q != end) {
+            if (q.val < key) {
+                p = p.next;
+                swap(p, q);
             }
-            q=q.next;
+            q = q.next;
         }
-        swap(head,p);
+        swap(head, p);
         return p;
     }
-    private void swap(ListNode p,ListNode q){
-        int temp=p.val;
-        p.val=q.val;
-        q.val=temp;
+
+    private void swap(ListNode p, ListNode q) {
+        int temp = p.val;
+        p.val = q.val;
+        q.val = temp;
     }
 
     /**
      * 判断一个数是否为质数
+     *
      * @param num
      * @return
      */
-    public static boolean isPrime(int num){
-        if(num ==1) return false;
-        for(int i=2;i<=Math.sqrt(num);i++){
-            if(num%i==0){
+    public static boolean isPrime(int num) {
+        if (num == 1) return false;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
                 return false;
             }
         }
@@ -210,7 +671,7 @@ class Factory {
     }
 
 
-    public void colorok(){
+    public void colorok() {
         Map<Integer, List<Integer>> colors = new HashMap<>();
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -258,29 +719,29 @@ class Factory {
     /**
      * 用户喜好
      */
-    public void favot(){
+    public void favot() {
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             int n = sc.nextInt();
-            int[] user = new int[n+1];
-            for(int i=1;i<n+1;i++){
-                user[i]=sc.nextInt();
+            int[] user = new int[n + 1];
+            for (int i = 1; i < n + 1; i++) {
+                user[i] = sc.nextInt();
             }
             int q = sc.nextInt();
             int[] result = new int[q];
-            for(int i=0;i<q;i++){
+            for (int i = 0; i < q; i++) {
                 int l = sc.nextInt();
                 int r = sc.nextInt();
                 int k = sc.nextInt();
                 int count = 0;
-                for(int j =l;j<=r;j++){
-                    if(user[j]==k){
+                for (int j = l; j <= r; j++) {
+                    if (user[j] == k) {
                         ++count;
                     }
                 }
-                result[i]=count;
+                result[i] = count;
             }
-            for(int i=0;i<q;i++){
+            for (int i = 0; i < q; i++) {
                 System.out.println(result[i]);
             }
         }
@@ -295,43 +756,44 @@ class Factory {
     /**
      * 相反数
      */
-    public void oppositeNumber(){
+    public void oppositeNumber() {
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             String input = sc.nextLine();
             int oppo = 0;
-            for(int i=input.length()-1;i>=0;i--){
+            for (int i = input.length() - 1; i >= 0; i--) {
                 oppo = oppo * 10 + input.charAt(i) - '0';
             }
-            System.out.println(oppo+Integer.valueOf(input));
+            System.out.println(oppo + Integer.valueOf(input));
         }
     }
 
     /**
      * 魔法币
      */
-    public void magicMoney(){
+    public void magicMoney() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         Stack<Integer> stack = new Stack<>();
-        while(n>0){
-            if(n%2==0){
+        while (n > 0) {
+            if (n % 2 == 0) {
                 stack.push(2);
-                n = (n-2)/2;
-            }else{
+                n = (n - 2) / 2;
+            } else {
                 stack.push(1);
-                n = (n-1)/2;
+                n = (n - 1) / 2;
             }
         }
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             System.out.print(stack.pop());
         }
         System.out.println();
     }
+
     /**
      * 重排数列
      */
-    public void reorderArr(){
+    public void reorderArr() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
         while (--t >= 0) {
@@ -356,126 +818,128 @@ class Factory {
                 System.out.println("No");
         }
     }
+
     /**
      * 小易喜欢的序列
-     *
+     * <p>
      * 复杂度过大
+     *
      * @param args
      */
-    public void arr(String[] args){
+    public void arr(String[] args) {
         Scanner sc = new Scanner(System.in);
-        if(sc.hasNext()){
+        if (sc.hasNext()) {
             int n = sc.nextInt();
             int k = sc.nextInt();
-            long count = 0,finish =0;
+            long count = 0, finish = 0;
             int[] data = new int[n];
-            for(int i=0;i<n;i++){
+            for (int i = 0; i < n; i++) {
                 data[i] = 1;
             }
-            for(int i=1;finish == 0;i++){
+            for (int i = 1; finish == 0; i++) {
                 int index = 0;
-                int flag = 0 ;
-                data[index]=i;
+                int flag = 0;
+                data[index] = i;
 
                 //进位
 
-                while(data[index]>k){
-                    i=0;
+                while (data[index] > k) {
+                    i = 0;
                     flag = 1;
-                    data[index]=1;
-                    if(index+1>=data.length){
+                    data[index] = 1;
+                    if (index + 1 >= data.length) {
                         finish = 1;
                         break;
                     }
                     data[++index]++;
                 }
                 int j = 0;
-                if(flag==0){
+                if (flag == 0) {
                     //判定
-                    for(;j<data.length-1;j++){
+                    for (; j < data.length - 1; j++) {
                         int a = data[j];
-                        int b = data[j+1];
-                        if(a>b && a%b == 0){
+                        int b = data[j + 1];
+                        if (a > b && a % b == 0) {
                             break;
                         }
                     }
-                    if(j==data.length-1){
+                    if (j == data.length - 1) {
                         count++;
                     }
                 }
             }
-            System.out.println(count%1000000007);
+            System.out.println(count % 1000000007);
         }
     }
 
     /**
      * 堆砖块
-     *
+     * <p>
      * 如果能堆砌出两座高度相同的塔，输出最高能拼凑的高度，如果不能则输出-1.
-     *
+     * <p>
      * dp[i][j]表示前i个砖块中分两堆，较矮一堆的高度
-     *
      */
-    public void bricks(String[] args){
+    public void bricks(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[] bricks = new int[n];
-        int sum =0;
-        for(int i=0;i<n;i++){
-            bricks[i]=sc.nextInt();
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            bricks[i] = sc.nextInt();
             sum += bricks[i];
         }
-        int[] dp = new int[sum+1];
-        for(int i=0;i<=sum;i++){
-            dp[i]=Integer.MIN_VALUE;
+        int[] dp = new int[sum + 1];
+        for (int i = 0; i <= sum; i++) {
+            dp[i] = Integer.MIN_VALUE;
         }
-        dp[0] =0 ;
-        for(int i=1;i<=n;i++){
-            int b = bricks[i-1];
-            int[] temp = new int[sum+1];
-            for(int j=0;j<=sum;j++){
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            int b = bricks[i - 1];
+            int[] temp = new int[sum + 1];
+            for (int j = 0; j <= sum; j++) {
                 //不放
                 temp[j] = dp[j];
                 //放矮塔，放后矮塔依然矮
-                if(j+b<=sum){
-                    temp[j] = Math.max(temp[j],dp[j+b]+b);
+                if (j + b <= sum) {
+                    temp[j] = Math.max(temp[j], dp[j + b] + b);
                 }
                 //放矮塔，放后矮塔高
-                if(b>=j){
-                    temp[j] = Math.max(temp[j],dp[b-j]+b-j);
-                }else{
+                if (b >= j) {
+                    temp[j] = Math.max(temp[j], dp[b - j] + b - j);
+                } else {
                     //放高塔，高塔更高
-                    temp[j] = Math.max(temp[j],dp[j-b]);
+                    temp[j] = Math.max(temp[j], dp[j - b]);
                 }
             }
             dp = temp;
         }
-        System.out.println(dp[0]>0?dp[0]:-1);
+        System.out.println(dp[0] > 0 ? dp[0] : -1);
     }
+
     /**
      * 分饼干
-     *
+     * <p>
      * 饼干数k=9XXXX98X
      * 分给n个小朋友
-     *
+     * <p>
      * dp[i][j]表示前i个字符串中模n余j的个数
      * 则 dp[i][(10*j+c)%n] += dp[i-1][j]
-     *
+     * <p>
      * 以上发现第i行的值只会访问到第i-1行的值，所以实际只需要两个数组即可，可以优化空间成类似堆砖块
      */
-    public void cookie(String[] args){
+    public void cookie(String[] args) {
         Scanner sc = new Scanner(System.in);
         String k = sc.nextLine();
         int n = sc.nextInt();
 
-        long[][] dp = new long[k.length()+1][n];
+        long[][] dp = new long[k.length() + 1][n];
         dp[0][0] = 1;
-        for(int i=1;i<=k.length();i++){
-            char c = k.charAt(i-1);
-            for(int j=0;j<n;j++){
-                for(int z=0;z<10;z++){
-                    if(c == 'X' || c ==('0'+z)){
-                        dp[i][(10*j+z)%n] += dp[i-1][j];
+        for (int i = 1; i <= k.length(); i++) {
+            char c = k.charAt(i - 1);
+            for (int j = 0; j < n; j++) {
+                for (int z = 0; z < 10; z++) {
+                    if (c == 'X' || c == ('0' + z)) {
+                        dp[i][(10 * j + z) % n] += dp[i - 1][j];
                     }
                 }
             }
@@ -484,20 +948,20 @@ class Factory {
     }
 
 
-
     /**
      * 数串
+     * <p>
+     * 设有n个正整数，将他们连接成一排，组成一个最大的多位整数。
+     * 如:n=3时，3个整数13,312,343,连成的最大整数为34331213。
+     * 如:n=4时,4个整数7,13,4,246连接成的最大整数为7424613。
      *
-     *  设有n个正整数，将他们连接成一排，组成一个最大的多位整数。
-        如:n=3时，3个整数13,312,343,连成的最大整数为34331213。
-        如:n=4时,4个整数7,13,4,246连接成的最大整数为7424613。
      * @param
      */
-    public void shuchuang(){
+    public void shuchuang() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         List<String> input = new ArrayList<>();
-        for(int i=0;i<n;i++){
+        for (int i = 0; i < n; i++) {
             input.add(sc.next());
         }
         StringBuffer result = new StringBuffer();
@@ -525,7 +989,7 @@ class Factory {
                     }
                 }
         );
-        for(int i=input.size()-1;i>=0;i--){
+        for (int i = input.size() - 1; i >= 0; i--) {
             result.append(input.get(i));
         }
 
@@ -534,7 +998,7 @@ class Factory {
     }
 
 
-    public static void main3(String[] args){
+    public static void main3(String[] args) {
         Scanner in = new Scanner(System.in);
         int pieces = Integer.parseInt(in.nextLine().trim());
         Integer[] parts = new Integer[pieces];
@@ -544,8 +1008,8 @@ class Factory {
         System.out.println(cut(parts));
     }
 
-    static int cut(Integer[] parts){
-        if(parts.length<1) return 0;
+    static int cut(Integer[] parts) {
+        if (parts.length < 1) return 0;
 
         Arrays.sort(parts);
         int arr1 = 0;
@@ -553,44 +1017,44 @@ class Factory {
         ArrayList<Integer> deque1 = new ArrayList<>();
         ArrayList<Integer> deque2 = new ArrayList<>();
         int result = 0;
-        for(int i=parts.length-1;i>=0;i--){
-            if(parts[i]<1) return 0;
-            if(arr1<arr2){
+        for (int i = parts.length - 1; i >= 0; i--) {
+            if (parts[i] < 1) return 0;
+            if (arr1 < arr2) {
                 arr1 += parts[i];
                 deque1.add(parts[i]);
-            }else {
+            } else {
                 arr2 += parts[i];
                 deque2.add(parts[i]);
             }
         }
-        if(deque1.size()>1){
+        if (deque1.size() > 1) {
             result += cut(toArray(deque1));
         }
-        if(deque2.size()>1){
+        if (deque2.size() > 1) {
             result += cut(toArray(deque2));
         }
-        result += arr1 +arr2;
+        result += arr1 + arr2;
         return result;
     }
 
-    static Integer[] toArray(List<Integer> list){
+    static Integer[] toArray(List<Integer> list) {
         int size = list.size();
         Integer[] result = new Integer[size];
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             result[i] = list.get(i);
         }
         return result;
     }
 
     //
-    private static double get(List<Integer[]> rlist,double max){
+    private static double get(List<Integer[]> rlist, double max) {
         int rsize = rlist.size();
         double temp = 0;
-        for(int i=0;i<rsize-2;i++){
-            for(int j=i+1;j<rsize-1;j++){
-                for(int k=j+1;k<rsize;k++){
-                    temp = area(length(rlist.get(i),rlist.get(j)),length(rlist.get(i),rlist.get(k)),length(rlist.get(j),rlist.get(k)));
-                    if(temp>max) max = temp;
+        for (int i = 0; i < rsize - 2; i++) {
+            for (int j = i + 1; j < rsize - 1; j++) {
+                for (int k = j + 1; k < rsize; k++) {
+                    temp = area(length(rlist.get(i), rlist.get(j)), length(rlist.get(i), rlist.get(k)), length(rlist.get(j), rlist.get(k)));
+                    if (temp > max) max = temp;
                 }
             }
         }
@@ -598,17 +1062,18 @@ class Factory {
     }
 
     //求边长
-    private static double length(Integer[] a,Integer[] b){
+    private static double length(Integer[] a, Integer[] b) {
         int sum = 0;
-        for(int i=0;i<a.length;i++){
-            sum += Math.pow(a[i]-b[i],2);
+        for (int i = 0; i < a.length; i++) {
+            sum += Math.pow(a[i] - b[i], 2);
         }
         return Math.sqrt(sum);
     }
+
     //求面积
-    private static double area(double a,double b,double c){
-        double p = (a+b+c)/2;
-        return Math.sqrt(p*(p-a)*(p-b)*(p-c));
+    private static double area(double a, double b, double c) {
+        double p = (a + b + c) / 2;
+        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
 }
 
@@ -617,19 +1082,19 @@ class Solution {
 
     /**
      * 平安果数量
-     *
+     * <p>
      * 待完成
      */
-    public int appleNum(int row,int col,int[][] input){
+    public int appleNum(int row, int col, int[][] input) {
         --row;
         --col;
-        int sum =input[row][col];
-        while (row>0 && col >0){
-            if(input[row][col-1]>input[row-1][col]){
-                sum += input[row][col-1];
+        int sum = input[row][col];
+        while (row > 0 && col > 0) {
+            if (input[row][col - 1] > input[row - 1][col]) {
+                sum += input[row][col - 1];
                 col--;
-            }else{
-                sum += input[row-1][col];
+            } else {
+                sum += input[row - 1][col];
                 row--;
             }
         }
@@ -643,22 +1108,24 @@ class Solution {
     递归
      */
     // 先序遍历
-    public void preOrder(BinaryNode node){
-        if(node == null) return;
+    public void preOrder(BinaryNode node) {
+        if (node == null) return;
         System.out.println(node.element);
         preOrder(node.left);
         preOrder(node.right);
     }
+
     // 中序遍历
-    public void inOrder(BinaryNode node){
-        if(node == null) return;
+    public void inOrder(BinaryNode node) {
+        if (node == null) return;
         inOrder(node.left);
         System.out.println(node.element);
         inOrder(node.right);
     }
+
     // 后序遍历
-    public void postOrder(BinaryNode node){
-        if(node == null) return;
+    public void postOrder(BinaryNode node) {
+        if (node == null) return;
         postOrder(node.left);
         postOrder(node.right);
         System.out.println(node.element);
@@ -668,37 +1135,39 @@ class Solution {
     非递归
      */
     // 先序遍历
-    public void preOrder2(BinaryNode node){
+    public void preOrder2(BinaryNode node) {
         Stack<BinaryNode> stack = new Stack<>();
-        while (node!=null || !stack.isEmpty()){
-            while (node!=null){
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
                 System.out.println(node.element);
                 stack.push(node);
                 node = node.left;
             }
-            if(!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 node = stack.pop();
                 node = node.right;
             }
         }
     }
+
     // 中序遍历
-    public void inOrder2(BinaryNode node){
+    public void inOrder2(BinaryNode node) {
         Stack<BinaryNode> stack = new Stack<>();
-        while (node!=null || !stack.isEmpty()){
-            while (node!=null){
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
                 stack.push(node);
                 node = node.left;
             }
-            if(!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 node = stack.pop();
                 System.out.println(node.element);
                 node = node.right;
             }
         }
     }
+
     // 后序遍历
-    public void postOrder2(BinaryNode p){
+    public void postOrder2(BinaryNode p) {
         Stack<BinaryNode> stack = new Stack<BinaryNode>();//TODO
         BinaryNode node = p, prev = p;
         while (node != null || stack.size() > 0) {
@@ -722,18 +1191,16 @@ class Solution {
     }
 
 
-
     /**
      * 爬楼梯
-     *
      */
-    public int louti(int k){
-        if(k<0) return 0;
-        int[] temp = new int[k+1];
-        temp[1]=1;
-        temp[2]=2;
-        for(int i=3;i<k+1;i++){
-            temp[i]=temp[i-1]+temp[i-2];
+    public int louti(int k) {
+        if (k < 0) return 0;
+        int[] temp = new int[k + 1];
+        temp[1] = 1;
+        temp[2] = 2;
+        for (int i = 3; i < k + 1; i++) {
+            temp[i] = temp[i - 1] + temp[i - 2];
         }
         return temp[k];
     }
@@ -741,17 +1208,18 @@ class Solution {
 
     /**
      * 最大子序列和
+     *
      * @param sequence
      * @return
      */
-    public int maxSubSum(int[] sequence){
-        int maxSum = 0,curSum = 0;
-        for(int i=0;i<sequence.length;i++){
+    public int maxSubSum(int[] sequence) {
+        int maxSum = 0, curSum = 0;
+        for (int i = 0; i < sequence.length; i++) {
             curSum += sequence[i];
-            if(curSum>maxSum){
-                maxSum=curSum;
-            }else if (curSum<0){
-                curSum=0;
+            if (curSum > maxSum) {
+                maxSum = curSum;
+            } else if (curSum < 0) {
+                curSum = 0;
             }
         }
         return maxSum;
@@ -759,55 +1227,59 @@ class Solution {
 
     /**
      * 求环的入口节点
+     *
      * @param node
      * @return
      */
-    public ListNode getCycleBegin(ListNode node){
-        if(hasCycle(node)==false) return null;
+    public ListNode getCycleBegin(ListNode node) {
+        if (hasCycle(node) == false) return null;
         int cycleLength = getCycleLength(node);
         ListNode first = node, second = node;
-        for(int i=0;i<cycleLength;i++){
+        for (int i = 0; i < cycleLength; i++) {
             first = first.next;
         }
-        while(first!=second){
-            first=first.next;
-            second=second.next;
+        while (first != second) {
+            first = first.next;
+            second = second.next;
         }
         return first;
     }
 
     /**
      * 计算有环链表环的长度
+     *
      * @param node
      * @return
      */
-    public int getCycleLength(ListNode node){
-        if(hasCycle(node)==false) return 0;
-        ListNode fast = node,slow = node;
-        int len = 0 ,flag = 0 , loop = 0;
-        while (slow != null && slow.next!=null){
+    public int getCycleLength(ListNode node) {
+        if (hasCycle(node) == false) return 0;
+        ListNode fast = node, slow = node;
+        int len = 0, flag = 0, loop = 0;
+        while (slow != null && slow.next != null) {
             fast = fast.next;
             slow = slow.next.next;
             len += flag;
-            if(fast == slow){
+            if (fast == slow) {
                 flag = 1;
                 ++loop;
             }
-            if(loop==2) break;
+            if (loop == 2) break;
         }
         return len;
     }
+
     /**
      * 判段链表是否有环
+     *
      * @param node
      * @return
      */
-    public boolean hasCycle(ListNode node){
-        ListNode fast = node,slow = node;
-        while (slow != null && slow.next!=null){
-            fast = fast.next;
-            slow = slow.next.next;
-            if(fast == slow){
+    public boolean hasCycle(ListNode node) {
+        ListNode fast = node, slow = node;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) {
                 return true;
             }
         }
@@ -816,46 +1288,48 @@ class Solution {
 
     /**
      * 字符串匹配-？单字符，*字符串
-     * @param str 被字符串
+     *
+     * @param str      被字符串
      * @param strStrat
-     * @param pattern 匹配模式
+     * @param pattern  匹配模式
      * @param patStart
      * @return
      */
-    public static int match(String str,int strStrat,String pattern,int patStart){
-        while(patStart < pattern.length()){
+    public static int match(String str, int strStrat, String pattern, int patStart) {
+        while (patStart < pattern.length()) {
             char p = pattern.charAt(patStart);
-            if(p=='?' || p == str.charAt(strStrat)){
+            if (p == '?' || p == str.charAt(strStrat)) {
                 ++strStrat;
                 ++patStart;
-            }else if(p=='*'){
+            } else if (p == '*') {
                 ++patStart;
 
-                while(pattern.charAt(patStart)!=str.charAt(strStrat)){
+                while (pattern.charAt(patStart) != str.charAt(strStrat)) {
                     ++strStrat;
-                    if(strStrat>=str.length()) return 0;
+                    if (strStrat >= str.length()) return 0;
                 }
-            }else{
+            } else {
                 ++strStrat;
-                if(strStrat>=str.length()) return 0;
+                if (strStrat >= str.length()) return 0;
             }
         }
         return 1;
     }
 
-    public int MoreThanHalfNum_Solution(Integer [] array) {
+    public int MoreThanHalfNum_Solution(Integer[] array) {
         Sort.quickSort(array);
-        int cf = array[(array.length-1)/2];
-        int count=0;
-        for(int i=0;i<array.length;i++){
-            if(array[i]==cf)
-                count ++;
+        int cf = array[(array.length - 1) / 2];
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == cf)
+                count++;
         }
-        return count>array.length/2?cf:0;
+        return count > array.length / 2 ? cf : 0;
     }
 
     /**
      * 阶乘函数
+     *
      * @param n
      * @return
      */
@@ -888,8 +1362,8 @@ class Solution {
     }
 
     public int getRoutes_Dp(int n) {
-        int[][] net = new int[n+1][n+1];
-        for (int i = 0; i < n+1; i++) {
+        int[][] net = new int[n + 1][n + 1];
+        for (int i = 0; i < n + 1; i++) {
             net[n][i] = 1;
             net[i][n] = 1;
         }
@@ -975,20 +1449,20 @@ class Solution {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         int n = sc.nextInt();
-        long[][] dp = new long[str.length()+1][n];
+        long[][] dp = new long[str.length() + 1][n];
 //        for(int i=0;i<=str.length();i++){
 //            dp[i]=new long[n];
 //        }
-        dp[0][0]=1;
-        for(int i=1;i<=str.length();i++){
-            char c = str.charAt(i-1);
-            for(int j=0;j<n;j++){
-                if(c=='X'){
-                    for(int k=0;k<10;k++){
-                        dp[i][(j*10+k)%n] += dp[i-1][j];
+        dp[0][0] = 1;
+        for (int i = 1; i <= str.length(); i++) {
+            char c = str.charAt(i - 1);
+            for (int j = 0; j < n; j++) {
+                if (c == 'X') {
+                    for (int k = 0; k < 10; k++) {
+                        dp[i][(j * 10 + k) % n] += dp[i - 1][j];
                     }
-                }else{
-                    dp[i][(j*10+Integer.valueOf(c))%n] += dp[i-1][j];
+                } else {
+                    dp[i][(j * 10 + Integer.valueOf(c)) % n] += dp[i - 1][j];
                 }
             }
         }
@@ -1388,7 +1862,6 @@ BST的后序序列的合法序列是，对于一个序列S，最后一个元素�
         }
         return verify(a, left, cur - 1) && verify(a, cur, right - 1);
     }
-
 
 
 }

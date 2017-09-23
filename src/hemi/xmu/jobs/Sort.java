@@ -11,12 +11,13 @@ public class Sort {
     @Test
     public void main() {
         Integer arr[] = {1, 0, 2, 4, 9, -5, 44, 13, 5, 7, 7, 0};
+        Integer arr2[] = {1, 0, 2, 4, 9, -5};
         long begin = System.currentTimeMillis();
 
-        bubSort(arr);
+        bubSort(arr2);
 
         System.out.println("排序后：");
-        for (int a : arr)
+        for (int a : arr2)
             System.out.print(a + " ");
         System.out.println();
 

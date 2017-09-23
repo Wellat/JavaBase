@@ -2,11 +2,13 @@ package hemi.xmu.jobs;
 
 
 import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OfferTest {
     public static void main(String[] args) throws Exception {
+
         Offer of = new Offer();
         int[] inputs = {1, 2, 4, 7, 11, 15};
         String str = "I am a student.";
