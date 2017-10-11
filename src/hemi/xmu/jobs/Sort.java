@@ -10,20 +10,21 @@ public class Sort {
 
     @Test
     public void main() {
-        Integer arr[] = {1, 0, 2, 4, 9, -5, 44, 13, 5, 7, 7, 0};
+        int arr[] = {0, 0, 2, 4, 9, -5, 44, 13, 5, 7, 7, 1};
         Integer arr2[] = {1, 0, 2, 4, 9, -5};
         long begin = System.currentTimeMillis();
 
-        bubSort(arr2);
+        heapSort(arr);
 
         System.out.println("排序后：");
-        for (int a : arr2)
+        for (int a : arr)
             System.out.print(a + " ");
         System.out.println();
 
         long end = System.currentTimeMillis();
         System.out.println("用时："+(end-begin)+" ms");
     }
+
 
     /*
     归并排序
@@ -66,50 +67,30 @@ public class Sort {
     堆排序
      */
     public void heapSort(int[] arr) {
-        int len = arr.length;
-        int[] a = new int[len + 1];
-        a[0] = 0;
-        for (int i = 0; i < len; i++) {
-            a[i + 1] = arr[i];
+        for (int i = 0; i < arr.length; i++) {
+            buildMaxHeap(arr,arr.length-1-i);
+            swap(arr,0,arr.length-1-i);
         }
-        int[] ans = sort(a, len + 1);
-
-        //copy the answer
-        for (int i = 0; i < len; i++) {
-            arr[i] = ans[i + 1];
-        }
-    }
-    private int[] sort(int[] arr, int len) {
-        int index ;
-        int[] ans = arr;
-        for (int i = len; i > 0; i--) {
-            index = (i - 1) / 2;
-            ans = buildHeap(ans, index, i);
-            if ((i - 1) > 0 && ans[1] > ans[i - 1]) {
-                swap(ans, 1, i - 1);
-            }
-        }
-        return ans;
     }
     //建大顶堆
-    private int[] buildHeap(int[] arr, int parent, int len) {
-        int left, right;
-        while (parent > 0) {
-            left = 2 * parent;
-            right = left + 1;
-            if (right < len) {
-                if (arr[parent] < arr[right]) {
-                    swap(arr, parent, right);
+    private void buildMaxHeap(int[] data, int lastIndex) {
+        for (int i = (lastIndex - 1) / 2; i >= 0; i--) {
+            int parent = i;//父节点
+            while (2 * parent + 1 <= lastIndex) {
+                int biggerIndex = 2 * parent + 1;//记录两子节点值较大的节点的下标
+                if (biggerIndex < lastIndex) {
+                    if (data[biggerIndex] < data[biggerIndex + 1]) {
+                        biggerIndex++;
+                    }
+                }
+                if (data[parent] < data[biggerIndex]) {
+                    swap(data, parent, biggerIndex);
+                    parent = biggerIndex;
+                } else {
+                    break;
                 }
             }
-            if (left < len) {
-                if (arr[parent] < arr[left]) {
-                    swap(arr, parent, left);
-                }
-            }
-            parent--;
         }
-        return arr;
     }
 
     /*
@@ -171,7 +152,7 @@ public class Sort {
     private static <T extends Comparable<? super T>> void quickSort(T[] a, int low, int high) {
         int i, j;
         T choosen;
-        if (low > high)
+        if (low >= high)
             return;
         i = low;
         j = high;
@@ -208,6 +189,7 @@ public class Sort {
     }
 
     private static void swap(int arr[], int a, int b) {
+        if(a == b) return;
         int temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;

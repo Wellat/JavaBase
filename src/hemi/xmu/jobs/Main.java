@@ -5,46 +5,300 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-
-        int[] a = {5,3,4,5};
-        Factory.BackTrack.subsets(a);
+        Solution solution = new Solution();
+//        solution.multiplyByBigNum("99999999","99999999");
+        int t[] = {2,3,10,5,10};
+        System.out.println(Integer.MAX_VALUE);
+//        solution.t();
+//        int[] a ={0,1};
+//        int[] a2 ={1,2};
+//        int[][] t = new int[2][2];
+//        t[0] = a;
+//        t[1] = a2;
+//        int[] res = solution.canFinish(3,t);
 
     }
-
-
-    static class InnerClass{}
 }
 
-class Point extends Main.InnerClass{
-    int x;
-    int y;
 
-    Point() {
-        x = 0;
-        y = 0;
-    }
-
-    Point(int a, int b) {
-        x = a;
-        y = b;
+class TestData{
+    public static TreeNode getTreeNode(){
+        TreeNode t1 = new TreeNode(3);
+        TreeNode t2 = new TreeNode(12);
+        TreeNode t3 = new TreeNode(4);
+        TreeNode t4 = new TreeNode(7);
+        TreeNode t5 = new TreeNode(0);
+        t1.left = t2;
+        t1.right = t3;
+        t2.left = t4;
+        t2.right = t5;
+        return t1;
     }
 }
 
 /**
- * 牛客网等上的编程题
+ * 考试题解
  */
-class Factory {
+class Solution {
+
+    /**
+     * 大数乘法
+     */
+    public void multiplyByBigNum(String a,String b){
+        int[] ans = new int[100];
+        int index = ans.length-1;
+        for (int i = b.length()-1; i >= 0; i--) {
+            int tb = b.charAt(i)-'0';
+            int k = index--;
+            for (int j = a.length()-1; j >= 0; j--) {
+                int ta = a.charAt(j)-'0';
+                int tempSum = ta * tb + ans[k];
+                ans[k] = tempSum % 10;
+                ans[k-1] += tempSum / 10;
+                k--;
+            }
+        }
+        int i=0;
+        while (ans[i]==0){
+            i++;
+        }
+        for (; i < ans.length; i++) {
+            System.out.print(ans[i]);
+        }
+        System.out.println();
+    }
+    /**
+     * LRU算法
+     * 删除最近最少使用的
+     */
+    public void testlru(){
+        LRU<Integer,String> lru = new LRU<>(3);
+        lru.set(0,"zero");
+        lru.set(1,"one");
+        lru.set(2,"tow");
+        lru.set(3,"three");
+        lru.get(1);
+        lru.set(5,"five");
+        System.out.println();
+    }
+
+    class LRU<K, V> extends LinkedHashMap<K, V> {
+        private final int MAX_CACHE_SIZE;
+
+        public LRU(int cacheSize) {
+            super((int) Math.ceil(cacheSize / 0.75) + 1, 0.75f, true);
+            MAX_CACHE_SIZE = cacheSize;
+        }
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry eldest) {
+            return size() > MAX_CACHE_SIZE;
+        }
+
+        public V set(K key, V value) {
+            return put(key, value);
+        }
+    }
+    //自己实现数据结构
+    class LRU2<K,V>{
+        private final int MAX_CACHE_SIZE;
+        private HashMap<K,Entry<K,V>> map;
+        private Entry head;
+        private Entry tail;
+
+        public LRU2(int cacheSize){
+            map = new HashMap<K,Entry<K,V>>();
+            MAX_CACHE_SIZE = cacheSize;
+        }
+
+        public void set(K key,V value){
+            Entry entry = map.get(key);
+            if(null == entry){
+                if(map.size()>MAX_CACHE_SIZE){
+                    map.remove(tail.key);
+                    tail=tail.prev;
+                    tail.next=null;
+                }
+                entry = new Entry();
+                entry.key= key;
+            }
+            entry.value = value;
+            moveToFirst(entry);
+            map.put(key,entry);
+        }
+
+        public V get(K key){
+            Entry<K,V> entry = getEntry(key);
+            if(entry == null) return null;
+            moveToFirst(entry);
+            return entry.value;
+        }
+
+        private void moveToFirst(Entry entry){
+            //TODO
+        }
+
+        private Entry<K,V> getEntry(K key){
+            return map.get(key);
+        }
+
+        class Entry<K,V>{
+            K key;
+            V value;
+            Entry prev;
+            Entry next;
+        }
+    }
+    /**
+     * 数组组合，和为k的个数
+     * 回溯法，不存储结果
+     */
+    int count = 0;
+    public void pdd02(int[] data,int k){
+        bt(data,0,k);
+        System.out.println(count);
+    }
+    public void bt(int[] data,int start,int sum){
+        if(sum==0){
+            ++count;
+            return;
+        }
+        if(sum < 0) return;
+        for (int i = start; i < data.length; i++) {
+            bt(data,i+1,sum-data[i]);
+        }
+    }
+
+    /**
+     * 由rand6()生成rand7()
+     */
+    public int rand7() {
+        int i = rand6() + 3*(rand6()-1);
+        return i % 7 + 1;
+    }
+    private int rand6(){
+        return 0;//TODO
+    }
+
+    /**
+     * 拓扑排序
+     * leetCode 207 & 210
+     */
+    /*
+    1 建图
+    2 将入度为0的顶点入队
+    3 出队,访问出队的顶点能访问到的顶点
+    4 将出队顶点能访问到的顶点的入度减1
+    5 重复2-4,直到队列为空
+    6 当队列为空时,如果count的值小于定点数,证明还存在入度大于0的顶点,也就是图中存在环
+     */
+    public int[] canFinish(int numCourses, int[][] prerequisites) {
+        int[] indeed = new int[numCourses];//记录各个顶点的入度
+        int[][] graph = new int[numCourses][numCourses]; //利用邻接矩阵建图
+        int[] result = new int[numCourses];//保存节点路径
+        int count = 0;//记录访问的顶点个数
+        for (int i = 0; i < prerequisites.length; i++) { //建立有向图
+            int[] num = prerequisites[i];
+            if (graph[num[0]][num[1]] == 1) return new int[0]; //如果存在直接矛盾两门课程则返回false
+            graph[num[1]][num[0]] = 1;
+            indeed[num[0]]++;  //入度+1
+        }
+        Queue<Integer> queue = new LinkedList<>(); //建立辅助队列
+        for (int i = 0; i < indeed.length; i++) {
+            if (indeed[i] == 0) {  //入度为0的入队
+                queue.offer(i);
+                result[count++] = i;
+            }
+        }
+        while (!queue.isEmpty()) {
+            int num = queue.poll();//头结点
+            for (int i = 0; i < graph.length; i++) {
+                if (graph[num][i] != 0) {
+                    indeed[i]--;
+                    if (indeed[i] == 0) { //当入度变为0时，入队，count++
+                        queue.offer(i);
+                        result[count++] = i;
+                    }
+                }
+            }
+        }
+        if(count == numCourses){//count数=顶点数返回true，否则返回false
+            return result;
+        } else {
+            return new int[0];
+        }
+    }
 
 
+    /**
+     * 前k个数
+     * @param a
+     * @param k
+     * @return
+     */
+    List<Integer> findTopKth(int a[],int k){
+        List<Integer> list = new ArrayList<>();
+        partition(list,a,k-1,0,a.length-1);
+        return list;
+    }
+    public void partition(List<Integer> list,int[] a,int k,int left,int right){
+        int c = quicksort(a,left,right);
+        if(c>k){
+            partition(list,a,k,left,c-1);
+        }else if (c<k){
+            partition(list,a,k,c+1,right);
+        }else{
+            System.out.println("封装结果");
+        }
+    }
+    int quicksort(int a[],int low,int high){
+        int i=low,j=high;
+        int t = a[i];
+        while (i<j){
+            while (i<j && a[j]>t){
+                j--;
+            }
+            a[i++]=a[j];
+            while (i<j && a[i]<t){
+                i++;
+            }
+            a[j--]=a[i];
+        }
+        a[i]=t;
+        return i;
+    }
+
+    /**
+     * 二分查找
+     * @param a 已排序数组
+     * @param key
+     * @return
+     */
+    boolean binarySearch(int[] a,int key){
+        int low = 0;
+        int high = a.length-1;
+        int mid = 0;
+        while (low<high){
+            mid = (low+high)/2;
+            if(a[mid]>key){
+                high = mid -1;
+            }else if(a[mid]<key){
+                low = mid+1;
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 回溯法集合
+     * https://leetcode.com/problems/subsets/discuss/
+     */
     static class BackTrack{
-        /**
-         * 回溯法集合
-         * https://leetcode.com/problems/subsets/discuss/
-         * @param nums
-         * @return
-         */
         //所有子集
         public static List<List<Integer>> subsets(int[] nums) {
             List<List<Integer>> list = new ArrayList<>();
@@ -63,7 +317,7 @@ class Factory {
         }
 
         /**
-         * 所有排列
+         * 全排列
          * @param nums
          * @return
          */
@@ -137,7 +391,6 @@ class Factory {
             Arrays.sort(nums);
             backtrack2(list, new ArrayList<>(), nums, target, 0);
             return list;
-
         }
         private void backtrack2(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
             if(remain < 0) return;
@@ -255,11 +508,7 @@ class Factory {
      */
     public boolean isPalindrome(String s,int left,int right) {
         while(left<right){
-            if( s.charAt(left) != s.charAt(right) ){
-                return false;
-            }
-            left++;
-            right--;
+            if( s.charAt(left++) != s.charAt(right--) ) return false;
         }
         return true;
     }
@@ -466,11 +715,11 @@ class Factory {
     }
 
     /**
-      * 状态转移方程：
-      * f(i) 表示s[0,i]是否可以分词
-      * f(i) = f(j) && f(j+1,i); 0 <= j < i;
-      *
-      */
+     * 状态转移方程：
+     * f(i) 表示s[0,i]是否可以分词
+     * f(i) = f(j) && f(j+1,i); 0 <= j < i;
+     *
+     */
     public boolean wordBreak2(String s, Set<String> dict) {
         int len = s.length();
         boolean[] arrays = new boolean[len + 1];
@@ -1075,9 +1324,6 @@ class Factory {
         double p = (a + b + c) / 2;
         return Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
-}
-
-class Solution {
 
 
     /**
@@ -1099,95 +1345,6 @@ class Solution {
             }
         }
         return 0;
-    }
-
-    /**
-     * 二叉树的遍历
-     */
-    /*
-    递归
-     */
-    // 先序遍历
-    public void preOrder(BinaryNode node) {
-        if (node == null) return;
-        System.out.println(node.element);
-        preOrder(node.left);
-        preOrder(node.right);
-    }
-
-    // 中序遍历
-    public void inOrder(BinaryNode node) {
-        if (node == null) return;
-        inOrder(node.left);
-        System.out.println(node.element);
-        inOrder(node.right);
-    }
-
-    // 后序遍历
-    public void postOrder(BinaryNode node) {
-        if (node == null) return;
-        postOrder(node.left);
-        postOrder(node.right);
-        System.out.println(node.element);
-    }
-
-    /*
-    非递归
-     */
-    // 先序遍历
-    public void preOrder2(BinaryNode node) {
-        Stack<BinaryNode> stack = new Stack<>();
-        while (node != null || !stack.isEmpty()) {
-            while (node != null) {
-                System.out.println(node.element);
-                stack.push(node);
-                node = node.left;
-            }
-            if (!stack.isEmpty()) {
-                node = stack.pop();
-                node = node.right;
-            }
-        }
-    }
-
-    // 中序遍历
-    public void inOrder2(BinaryNode node) {
-        Stack<BinaryNode> stack = new Stack<>();
-        while (node != null || !stack.isEmpty()) {
-            while (node != null) {
-                stack.push(node);
-                node = node.left;
-            }
-            if (!stack.isEmpty()) {
-                node = stack.pop();
-                System.out.println(node.element);
-                node = node.right;
-            }
-        }
-    }
-
-    // 后序遍历
-    public void postOrder2(BinaryNode p) {
-        Stack<BinaryNode> stack = new Stack<BinaryNode>();//TODO
-        BinaryNode node = p, prev = p;
-        while (node != null || stack.size() > 0) {
-            while (node != null) {
-                stack.push(node);
-                node = node.left;
-            }
-            if (stack.size() > 0) {
-                BinaryNode temp = stack.peek().right;
-                if (temp == null || temp == prev) {
-                    node = stack.pop();
-                    System.out.println(node.element);
-                    prev = node;
-                    node = null;
-                } else {
-                    node = temp;
-                }
-            }
-
-        }
     }
 
 
@@ -1375,34 +1532,7 @@ class Solution {
         return net[0][0];
     }
 
-    /**
-     * 输入两棵二叉树A，B，判断B是不是A的子结构。
-     *
-     * @param root1
-     * @param root2
-     * @return
-     */
-    public boolean HasSubtree(TreeNode root1, TreeNode root2) {
-        if (root1 == null || root2 == null) return false;
-        boolean result = false;
-        if (root1.val == root2.val) {
-            result = hasSubtree(root1, root2);
-        }
-        if (!result) {
-            result = hasSubtree(root1.left, root2);
-        }
-        if (!result) {
-            result = hasSubtree(root1.right, root2);
-        }
-        return result;
-    }
 
-    private boolean hasSubtree(TreeNode parent, TreeNode child) {
-        if (parent == null && child != null) return false;
-        if (child == null) return true;
-        if (parent.val != child.val) return false;
-        return hasSubtree(parent.left, child.left) && hasSubtree(parent.right, child.right);
-    }
 
     /**
      * 打卡记录
@@ -1672,55 +1802,6 @@ class Solution {
         return list;
     }
 
-    /**
-     * 重建二叉树
-     *
-     * @param pre
-     * @param in
-     * @return
-     */
-    /*
-    输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
-    假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
-    例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
-     */
-    public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
-        return reConstructBinaryTree(pre, 0, pre.length - 1, in, 0, in.length - 1);
-    }
-
-    private TreeNode reConstructBinaryTree(int[] pre, int startPre, int endPre, int[] in, int startIn, int endIn) {
-        if (startPre > endPre || startIn > endIn)
-            return null;
-        TreeNode root = new TreeNode(pre[startPre]);
-        for (int i = startIn; i <= endIn; i++) {
-            if (in[i] == pre[startPre]) {
-                root.left = reConstructBinaryTree(pre, startPre + 1, startPre + i - startIn, in, startIn, i - 1);
-                root.right = reConstructBinaryTree(pre, i - startIn + startPre + 1, endPre, in, i + 1, endIn);
-            }
-        }
-        return root;
-    }
-
-    /**
-     * 二叉树的镜像
-     *
-     * @param root
-     */
-    public void Mirror(TreeNode root) {
-        if (root == null)
-            return;
-
-        TreeNode temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-
-        if (root.left != null) {
-            Mirror(root.left);
-        }
-        if (root.right != null) {
-            Mirror(root.right);
-        }
-    }
 
     /**
      * 二维数组中的查找————各行各列分别递增排列

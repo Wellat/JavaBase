@@ -1,11 +1,14 @@
 package hemi.xmu.jobs;
 
-
 import java.util.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ * 剑指offer题目
+ *
+ */
 public class OfferTest {
     public static void main(String[] args) throws Exception {
 
@@ -1132,7 +1135,7 @@ class Offer {
         private Singleton2() {
         }
 
-        private Singleton2 singleton = null;
+        private volatile Singleton2 singleton = null;
 
         public Singleton2 getInstance() {
             if (singleton == null) {
