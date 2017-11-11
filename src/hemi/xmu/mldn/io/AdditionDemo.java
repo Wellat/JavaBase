@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * ��ɴӼ��������������ݣ����мӷ�����
+ *
  * 
  * @author Vanguard
  *
@@ -25,8 +25,7 @@ public class AdditionDemo {
 	}
 }
 /*
- * ����������
- * ����ɱ�Scanner�����
+ *
  */
 class InputData {
 	private BufferedReader buf = null;//BufferedReader���ڴӻ������ж�ȡ���ݣ����е������ֽ����ݶ������ڻ������У�

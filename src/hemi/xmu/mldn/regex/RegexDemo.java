@@ -1,5 +1,6 @@
-package hemi.xmu.mldn.undefine;
+package hemi.xmu.mldn.regex;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 //	X,必须出现1次----X?,出现0次或一次----X*,0,1,多次----X+,出现一次或多次----X{n,m},必须出现n~m次
@@ -9,13 +10,51 @@ import java.util.regex.Pattern;
 public class RegexDemo {
 	public static void main(String[] args){
 		Regex myregex = new Regex();
+		myregex.strMatch();
 //		myregex.UsePattern();
-		myregex.UseString();
+//		myregex.UseString();
 
 	}
 }
 
 class Regex{
+    public void strMatch() {
+        String phone = "13539770000";
+        //检查phone是否是合格的手机号(标准:1开头，第二位为3,5,8，后9位为任意数字)
+        System.out.println(phone + ":" + phone.matches("1[358][0-9]{9,9}")); //true
+
+        String str = "abcd12345efghijklmn";
+        //检查str中间是否包含12345
+        System.out.println(str + ":" + str.matches("\\w+12345\\w+")); //true
+        System.out.println(str + ":" + str.matches("\\w+123456\\w+")); //false
+
+        String s = "0sd12adsf35sdfds56sdfsh50ad1";
+        String aa[] = s.split("\\d+");
+        String bb[] = s.split("\\D+");
+
+        Pattern p = Pattern.compile("\\D+");
+        Matcher m = p.matcher(s);
+        ArrayList<String> strs = new ArrayList<String>();
+        while (m.find()){
+            strs.add(m.group().trim());
+        }
+        System.out.println();
+    }
+
+	public void getStrings() {
+		String str = "rrwerqq84461376qqasfdasdfrrwerqq84461377qqasfdasdaa654645aafrrwerqq84461378qqasfdaa654646aaasdfrrwerqq84461379qqasfdasdfrrwerqq84461376qqasfdasdf";
+		Pattern p = Pattern.compile("qq(.*?)qq");
+		Matcher m = p.matcher(str);
+		ArrayList<String> strs = new ArrayList<String>();
+		while (m.find()) {
+			strs.add(m.group(1));
+		}
+		for (String s : strs){
+			System.out.println(s);
+		}
+	}
+
+
 	/**
 	 * 使用Pattern类和Matcher类
 	 */

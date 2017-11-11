@@ -63,6 +63,7 @@ public class BinaryTree {
      * 广度优先遍历二叉树，层序遍历 bfs
      */
     public void bfs(TreeNode root){
+        if(root == null) return;
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         TreeNode cur = null;
         queue.offer(root);

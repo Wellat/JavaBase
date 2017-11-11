@@ -8,18 +8,26 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Solution solution = new Solution();
-//        solution.multiplyByBigNum("99999999","99999999");
-        int t[] = {2,3,10,5,10};
-        System.out.println(Integer.MAX_VALUE);
-//        solution.t();
-//        int[] a ={0,1};
-//        int[] a2 ={1,2};
-//        int[][] t = new int[2][2];
-//        t[0] = a;
-//        t[1] = a2;
-//        int[] res = solution.canFinish(3,t);
-
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            int n = sc.nextInt();
+            int[] data = new int[n];
+            for (int i = 0; i < n; i++) {
+                data[i] = sc.nextInt();
+            }
+            int m = sc.nextInt();
+            int[][] dp = new int[n+1][m+1];
+            for (int i = 1; i <= n; i++) {
+                for (int k = 0; k <= m/data[i-1]; k++) {
+                    for (int j = m; j > k*m; j--) {
+                        if (j >= k * data[i - 1]) {
+                            dp[i][j] = dp[i - 1][j - k * data[i - 1]] + 1;
+                        }
+                    }
+                }
+            }
+            System.out.println(dp[n][m]);
+        }
     }
 }
 
@@ -44,6 +52,84 @@ class TestData{
  */
 class Solution {
 
+
+    /**
+     * 最长公共子序列
+     */
+    public static int getMaxCommonChar(String s1, String s2) {
+        int len1 = s1.length();
+        int len2 = s2.length();
+        int res[][] = new int[len1 + 1][len2 + 1];
+        for (int i = 0; i <= len1; i++) {
+            for (int j = 0; j <= len2; j++) {
+                if (i == 0 || j == 0) {
+                    res[i][j] = 0;
+                } else if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    res[i][j] = res[i - 1][j - 1] + 1;
+                } else {
+                    res[i][j] = Math.max(res[i][j - 1], res[i - 1][j]);
+                }
+            }
+        }
+        return res[len1][len2];
+    }
+    /**
+     * 最长公共子串
+     */
+    public static int getMaxCommonSequence(String s1, String s2) {
+        int len1 = s1.length();
+        int len2 = s2.length();
+        int res[][] = new int[len1 + 1][len2 + 1];
+        int result = 0;
+        for (int i = 0; i <= len1; i++) {
+            for (int j = 0; j <= len2; j++) {
+                if (i == 0 || j == 0) {
+                    res[i][j] = 0;
+                } else if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    res[i][j] = res[i - 1][j - 1] + 1;
+                    result = Math.max(result,res[i][j]);
+                } else {
+                    res[i][j] = 0;
+                }
+            }
+        }
+        return res[len1][len2];
+    }
+
+    /**
+     * 栈的压人弹出序列 所有
+     */
+    public static void allStack(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            String str = sc.nextLine();
+            String[] in = str.split("");
+            Stack<String> result =new Stack<String>();
+            trace(0,new Stack<String>(),"",in,result);
+            while (!result.isEmpty()){
+                System.out.println(result.pop());
+            }
+        }
+        sc.close();
+    }
+    public static void trace(int n, Stack<String> stk, String res, String[] in,Stack<String> result) {
+        if (n == in.length && stk.isEmpty()) {
+            result.push(res);
+        } else {
+            Stack<String> s1 = (Stack<String>) stk.clone();
+            Stack<String> s2 = (Stack<String>) stk.clone();
+            if (n < in.length) {
+                s1.push(in[n]);
+                trace(n + 1, s1, res + "", in,result);
+            }
+            if (!s2.isEmpty()) {
+                String temp = res + s2.peek();
+                s2.pop();
+                trace(n, s2, temp, in,result);
+            }
+        }
+    }
+
     /**
      * 大数乘法
      */
@@ -62,7 +148,7 @@ class Solution {
             }
         }
         int i=0;
-        while (ans[i]==0){
+        while (i<ans.length && ans[i]==0){
             i++;
         }
         for (; i < ans.length; i++) {
@@ -293,6 +379,8 @@ class Solution {
         }
         return false;
     }
+
+
 
     /**
      * 回溯法集合

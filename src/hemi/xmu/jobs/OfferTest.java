@@ -11,19 +11,20 @@ import java.util.regex.Pattern;
  */
 public class OfferTest {
     public static void main(String[] args) throws Exception {
-
+        int[] a = {1,2,3,1,2,4,5,5,4,6};
         Offer of = new Offer();
-        int[] inputs = {1, 2, 4, 7, 11, 15};
-        String str = "I am a student.";
-        of.permutation("abc");
-        System.out.println();
-        int[] gb = {7,5,6,4,1};
-        of.inversePairs(gb);
-        for(int g:gb){
-            System.out.print(g+" ");
-        }
-        System.out.println();
-        System.out.println(of.times);
+        of.findNumsAppearOnce(a);
+//        int[] inputs = {1, 2, 4, 7, 11, 15};
+//        String str = "I am a student.";
+//        of.permutation("abc");
+//        System.out.println();
+//        int[] gb = {7,5,6,4,1};
+//        of.inversePairs(gb);
+//        for(int g:gb){
+//            System.out.print(g+" ");
+//        }
+//        System.out.println();
+//        System.out.println(of.times);
     }
 
 
@@ -230,10 +231,10 @@ class Offer {
             } else if (sum < s) {
                 head++;
             } else {
+                System.out.println(input[head] + " + " + input[tail] + " = " + s);
                 break;
             }
         }
-        System.out.println(input[head] + " + " + input[tail] + " = " + s);
     }
 
     /*
@@ -267,18 +268,41 @@ class Offer {
 
     /**
      * 40 数组中只出现一次的数字
-     * 如{2,2,3,3,5,6,6}，其他数字均只出现两次
-     *
+     * 如{2,2,3,3,5,6,6,1}，其他数字均只出现两次
      * @param input
      * @return
      */
-    public int findNumsAppearOnce(int[] input) {
-        int ans = 0;
+    public void findNumsAppearOnce(int[] input) {
+        int temp = 0;
         for (int i = 0; i < input.length; i++) {
             //两个相同数字相异或，结果为0
-            ans ^= input[i];
+            temp ^= input[i];
         }
-        return ans;
+        String t = Integer.toBinaryString(temp);
+        int index = 0;
+
+        for (; index < t.length(); index++) {
+            if(t.charAt(index)=='1') break;
+        }
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        for (int i = 0; i < input.length; i++) {
+            String th = Integer.toBinaryString(input[i]);
+            if(th.length()>=t.length() && th.charAt(th.length()-t.length() + index)=='1') {
+                list1.add(input[i]);
+            }
+            else {
+                list2.add(input[i]);
+            }
+        }
+        int ans1 = 0,ans2 = 0;
+        for (Integer i :list1) {
+            ans1 ^= i;
+        }
+        for (Integer i :list2) {
+            ans2 ^= i;
+        }
+        System.out.println(ans1+" "+ans2);
     }
 
     /**
@@ -456,12 +480,12 @@ class Offer {
      */
     public Object firstNotRepeatChar(String str) {
         char[] chars = str.toCharArray();
-        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+        LinkedHashMap<Character, Integer> map = new LinkedHashMap<>();
         for (char c : chars) {
-            map.put(c + "", map.get(c + "") == null ? 1 : map.get(c + "") + 1);
+            map.put(c, map.get(c) == null ? 1 : map.get(c) + 1);
         }
-        for (Map.Entry entry : map.entrySet()) {
-            if (entry.getValue().equals(1)) return entry.getKey();
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (entry.getValue()==1) return entry.getKey();
         }
         return null;
     }
@@ -538,7 +562,6 @@ class Offer {
      */
     public int maxSequenceSum(int[] input) {
         int thisSum = 0, maxSum = 0;
-        if (input.length < 1) return 0;
 
         for (int i = 0; i < input.length; i++) {
             thisSum += input[i];
@@ -1149,7 +1172,7 @@ class Offer {
         }
     }
     // 静态内置类实现单例
-    /*
+/*
     class Singleton3{
         private Singleton3(){}
         private static class MyObjectHandler{//static
@@ -1159,7 +1182,7 @@ class Offer {
             return MyObjectHandler.my;
         }
     }
-    */
+*/
 
     /**
      * 03 二维数组中的查找
